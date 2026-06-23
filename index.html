@@ -27,6 +27,158 @@
     min-height: 100vh;
     color: var(--text);
   }
+
+  /* ===== PASSWORD OVERLAY ===== */
+  #password-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #0f2044 0%, #1a3a6e 40%, #0d6eaf 100%);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    direction: rtl;
+    overflow: hidden;
+  }
+  #password-overlay::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(75,184,250,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(21,145,220,0.12) 0%, transparent 50%);
+    animation: overlayPulse 6s ease-in-out infinite;
+  }
+  @keyframes overlayPulse { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.05);opacity:1} }
+  .overlay-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 28px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(75,184,250,0.2);
+  }
+  .overlay-logo {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 4px 12px rgba(75,184,250,0.4));
+  }
+  .overlay-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .overlay-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  .overlay-input-group {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .overlay-input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.5);
+    pointer-events: none;
+  }
+  .overlay-input {
+    width: 100%;
+    padding: 0.9rem 3rem 0.9rem 1rem;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    text-align: right;
+    direction: rtl;
+  }
+  .overlay-input::placeholder { color: rgba(255,255,255,0.4); }
+  .overlay-input:focus {
+    border-color: rgba(75,184,250,0.8);
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 0 3px rgba(75,184,250,0.15);
+  }
+  .overlay-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1591DC, #4BB8FA);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow: 0 6px 20px rgba(21,145,220,0.4);
+    letter-spacing: 0.5px;
+  }
+  .overlay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(21,145,220,0.5);
+    background: linear-gradient(135deg, #0d82c8, #1591DC);
+  }
+  .overlay-btn:active { transform: translateY(0); }
+  #error-msg {
+    color: #ff7b7b;
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    display: none;
+    background: rgba(255,60,60,0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid rgba(255,60,60,0.2);
+  }
+  .overlay-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.2rem 0;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+  }
+  .overlay-divider::before,
+  .overlay-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+  .overlay-stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .overlay-star {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(75,184,250,0.6);
+    animation: starBlink 2s ease-in-out infinite;
+  }
+  .overlay-star:nth-child(2) { animation-delay: 0.4s; background: rgba(255,184,0,0.7); }
+  .overlay-star:nth-child(3) { animation-delay: 0.8s; }
+  .overlay-star:nth-child(4) { animation-delay: 1.2s; background: rgba(255,184,0,0.7); }
+  .overlay-star:nth-child(5) { animation-delay: 1.6s; }
+  @keyframes starBlink { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+
   /* ===== MAIN PAGE ===== */
   #main-page { display: block; }
   #day-page { display: none; }
@@ -42,10 +194,8 @@
   .hero::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
     background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
     animation: pulse 4s ease-in-out infinite;
   }
@@ -61,6 +211,14 @@
     font-size: 1rem;
     font-weight: 600;
     backdrop-filter: blur(4px);
+  }
+  .hero .welcome-name {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffe680;
+    margin-bottom: 0.4rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,.3);
   }
 
   .progress-section {
@@ -261,6 +419,8 @@
     border-bottom: 1px solid var(--gray);
     font-size: .88rem;
     line-height: 1.5;
+    direction: rtl;
+    text-align: right;
   }
   .activity-steps li:last-child { border-bottom: none; }
   .step-num {
@@ -350,6 +510,11 @@
     border-radius: 12px;
     padding: .7rem .9rem;
     display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  .vocab-card-top {
+    display: flex;
     align-items: center;
     gap: .8rem;
   }
@@ -365,6 +530,35 @@
   }
   .vocab-meaning { font-size: .82rem; color: var(--text); flex: 1; }
   .vocab-phonetic { font-size: .75rem; color: var(--muted); font-style: italic; }
+  .vocab-arabic-meaning {
+    font-size: .82rem;
+    color: #8e44ad;
+    font-weight: 600;
+    direction: rtl;
+    text-align: right;
+    background: #f9f0ff;
+    padding: .3rem .6rem;
+    border-radius: 8px;
+    border-right: 3px solid #8e44ad;
+  }
+  .vocab-example {
+    font-size: .78rem;
+    color: #2c7a4b;
+    font-style: italic;
+    direction: ltr;
+    text-align: left;
+    background: #f0fff5;
+    padding: .3rem .6rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--success);
+  }
+  .vocab-example-ar {
+    font-size: .78rem;
+    color: #2c7a4b;
+    direction: rtl;
+    text-align: right;
+    font-style: normal;
+  }
   .speak-btn {
     width: 28px; height: 28px;
     background: var(--accent);
@@ -428,6 +622,8 @@
     transition: all .15s;
     display: flex; align-items: center; gap: .5rem;
     color: var(--text);
+    text-align: right;
+    direction: rtl;
   }
   .q-opt:hover { border-color: var(--accent); background: #f0f9ff; }
   .q-opt.correct { background: #e8f8ef; border-color: var(--success); color: #1a7a3a; }
@@ -449,6 +645,7 @@
     padding: .5rem .7rem;
     border-radius: 8px;
     display: none;
+    direction: rtl;
   }
   .q-feedback.show { display: flex; align-items: center; gap: .4rem; }
   .q-feedback.ok { background: #e8f8ef; color: #1a7a3a; }
@@ -479,6 +676,7 @@
     font-size: .85rem;
     outline: none;
     transition: border-color .2s;
+    direction: ltr;
   }
   .listen-quiz input[type=text]:focus { border-color: var(--secondary); }
   .submit-listen {
@@ -504,6 +702,8 @@
     color: var(--text);
     margin-bottom: .6rem;
     display: flex; align-items: center; gap: .6rem;
+    direction: ltr;
+    text-align: left;
   }
   .pronun-quiz .listen-ref-btn {
     background: var(--secondary);
@@ -539,6 +739,8 @@
     font-size: .82rem;
     margin-top: .5rem;
     display: none;
+    direction: rtl;
+    text-align: right;
   }
   .pronunciation-result.show { display: block; }
 
@@ -561,7 +763,7 @@
   .complete-btn:active { transform: translateY(0); }
   .complete-btn.already-done { background: linear-gradient(135deg, #95a5a6, #7f8c8d); box-shadow: none; }
 
-  /* Gamification elements */
+  /* Gamification */
   .streak-banner {
     background: linear-gradient(135deg, #f39c12, #e67e22);
     color: white;
@@ -588,8 +790,6 @@
   }
   .xp-notification.show { opacity: 1; top: 1.5rem; }
 
-  /* Section colors */
-  .sec-1 .acc-icon { } /* section colors set per section */
   .section-badge {
     display: inline-block;
     font-size: .68rem;
@@ -632,69 +832,103 @@
   @media (max-width: 500px) {
     .progress-stats { grid-template-columns: repeat(2,1fr); }
     .days-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
+    .overlay-card { padding: 2rem 1.5rem; }
   }
 </style>
 </head>
 <body>
-<div id="password-overlay" style="
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #1a1a1a;
-    z-index: 99999;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    color: white; font-family: sans-serif; direction: rtl;">
-    
-    <h2 style="margin-bottom: 20px;">هذا المحتوى خاص بالطلاب المشتركين فقط 🔒</h2>
-    <p style="margin-bottom: 20px; color: #aaa;">برجاء إدخال كود التفعيل المُنصرف لك لتشغيل المنصة</p>
-    
-    <div style="display: flex; gap: 10px;">
-        <input type="password" id="student-pass" placeholder="اكتب كود التفعيل هنا..." style="
-            padding: 12px 20px; border: none; border-radius: 8px;
-            font-size: 16px; width: 250px; text-align: center;">
-        
-        <button onclick="checkPassword()" style="
-            padding: 12px 25px; border: none; border-radius: 8px;
-            background-color: #0070f3; color: white; font-size: 16px;
-            cursor: pointer; font-weight: bold; transition: 0.3s;">
-            تفعيل
-        </button>
+
+<!-- ===== PASSWORD + NAME OVERLAY ===== -->
+<div id="password-overlay">
+  <div class="overlay-card">
+    <div class="overlay-logo">🌟</div>
+    <div class="overlay-title">رحلة تعلم الإنجليزية</div>
+    <div class="overlay-subtitle">من A2 إلى B2 في 90 يوماً<br>أدخل بياناتك لتبدأ رحلتك!</div>
+    <div class="overlay-stars">
+      <div class="overlay-star"></div>
+      <div class="overlay-star"></div>
+      <div class="overlay-star"></div>
+      <div class="overlay-star"></div>
+      <div class="overlay-star"></div>
     </div>
-    
-    <p id="error-msg" style="color: #ff4d4d; margin-top: 15px; display: none;">الكود غير صحيح! راجع الدعم الفني.</p>
+
+    <div class="overlay-input-group">
+      <span class="overlay-input-icon">👤</span>
+      <input type="text" id="student-name" class="overlay-input" placeholder="اكتب اسمك هنا..." maxlength="30" />
+    </div>
+
+    <div class="overlay-divider">كود التفعيل</div>
+
+    <div class="overlay-input-group">
+      <span class="overlay-input-icon">🔑</span>
+      <input type="password" id="student-pass" class="overlay-input" placeholder="اكتب كود التفعيل هنا..." />
+    </div>
+
+    <button class="overlay-btn" onclick="checkPassword()">🚀 ابدأ رحلتك الآن!</button>
+    <p id="error-msg">❌ الكود غير صحيح! أو لم تكتب اسمك. راجع الدعم الفني.</p>
+  </div>
 </div>
 
-
-
 <script>
-    // اكتب الباسورد اللي أنت عاوزه بين القوسين دول
-    const CORRECT_PASSWORD = "131020"; 
+  const CORRECT_PASSWORD = "131020";
 
-    // فحص إذا كان الطالب قد سجل الباسورد مسبقاً في هذه الجلسة عشان الصفحة متقفلش كل ما يعمل Refresh
-    if (sessionStorage.getItem("isUnlocked") === "true") {
-        document.getElementById("password-overlay").style.display = "none";
+  if (sessionStorage.getItem("isUnlocked") === "true") {
+    document.getElementById("password-overlay").style.display = "none";
+  }
+
+  // Allow pressing Enter to submit
+  document.addEventListener('DOMContentLoaded', () => {
+    const passInput = document.getElementById('student-pass');
+    const nameInput = document.getElementById('student-name');
+    if (passInput) passInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+    if (nameInput) nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('student-pass').focus(); });
+
+    // Pre-fill name if already saved
+    const savedName = localStorage.getItem('eng90_studentName');
+    if (savedName && nameInput) nameInput.value = savedName;
+  });
+
+  function checkPassword() {
+    const userPass = document.getElementById("student-pass").value.trim();
+    const userName = document.getElementById("student-name").value.trim();
+    const errorMsg = document.getElementById("error-msg");
+
+    if (!userName) {
+      errorMsg.textContent = "❌ برجاء كتابة اسمك أولاً!";
+      errorMsg.style.display = "block";
+      document.getElementById("student-name").focus();
+      return;
     }
 
-    function checkPassword() {
-        const userPass = document.getElementById("student-pass").value;
-        const errorMsg = document.getElementById("error-msg");
-        
-        if (userPass === CORRECT_PASSWORD) {
-            // إخفاء الغطاء وإظهار المنصة
-            document.getElementById("password-overlay").style.display = "none";
-            // حفظ حالة الدخول مؤقتاً
-            sessionStorage.setItem("isUnlocked", "true");
-        } else {
-            // إظهار رسالة خطأ
-            errorMsg.style.display = "block";
-        }
+    if (userPass === CORRECT_PASSWORD) {
+      localStorage.setItem('eng90_studentName', userName);
+      document.getElementById("password-overlay").style.display = "none";
+      sessionStorage.setItem("isUnlocked", "true");
+      // Apply name to page
+      applyStudentName(userName);
+    } else {
+      errorMsg.textContent = "❌ الكود غير صحيح! راجع الدعم الفني.";
+      errorMsg.style.display = "block";
     }
+  }
+
+  function applyStudentName(name) {
+    const els = document.querySelectorAll('.student-name-display');
+    els.forEach(el => el.textContent = name);
+  }
+
+  function getStudentName() {
+    return localStorage.getItem('eng90_studentName') || 'الطالب';
+  }
 </script>
+
 <div id="xp-notif" class="xp-notification">🎉 +50 XP Earned!</div>
 
+<!-- ===== MAIN PAGE ===== -->
 <div id="main-page">
   <div class="hero">
     <h1>🌟 رحلة تعلم الإنجليزية</h1>
+    <span class="welcome-name" id="hero-welcome"></span>
     <div class="subtitle">من A2 إلى B2 في 90 يوماً — ساعة يومياً</div>
     <div class="goal-badge">🎯 الهدف: إتقان المحادثة والاستماع والنطق</div>
     <div class="level-badge">📊 المستوى الحالي: A2 &rarr; الهدف: B2</div>
@@ -759,6 +993,7 @@
   <div class="days-grid" id="grid-month3"></div>
 </div>
 
+<!-- ===== DAY PAGE ===== -->
 <div id="day-page">
   <div class="day-header">
     <button class="back-btn" onclick="goBack()">&#8592;</button>
@@ -770,7 +1005,6 @@
   </div>
 
   <div class="schedule-bar" id="dp-schedule"></div>
-
   <div id="dp-content"></div>
 
   <div class="quiz-section" id="quiz-section">
@@ -785,7 +1019,7 @@
 
   <div class="complete-btn-wrap">
     <button class="complete-btn" id="complete-day-btn" onclick="completeDay()">
-      ✅ Mark Day as Complete & Return Home
+      ✅ Mark Day as Complete &amp; Return Home
     </button>
   </div>
 </div>
@@ -794,13 +1028,10 @@
 // ============================================================
 // DATA ENGINE
 // ============================================================
-
-// Day themes and emojis for 90 days
 const DAY_DATA = generateAllDays();
 
 function generateAllDays() {
   const themes = [
-    // Month 1 - Foundation (Days 1-30)
     {title:"Greetings & Introductions", emoji:"👋", topic:"daily greetings"},
     {title:"Family & Relationships", emoji:"👨‍👩‍👧", topic:"family members"},
     {title:"Numbers & Time", emoji:"🕐", topic:"telling time"},
@@ -831,7 +1062,6 @@ function generateAllDays() {
     {title:"Asking for Help", emoji:"🙋", topic:"polite requests"},
     {title:"Review & Practice Day", emoji:"🔄", topic:"review"},
     {title:"Month 1 Checkpoint", emoji:"🏆", topic:"milestone"},
-    // Month 2 - Growth (Days 31-60)
     {title:"Past Experiences", emoji:"⏮️", topic:"storytelling"},
     {title:"Future Plans & Goals", emoji:"🎯", topic:"future tense"},
     {title:"Comparing & Contrasting", emoji:"⚖️", topic:"comparisons"},
@@ -862,7 +1092,6 @@ function generateAllDays() {
     {title:"Listening & Shadowing", emoji:"👂", topic:"phonetics"},
     {title:"Conversation Fluency", emoji:"💬", topic:"fluency drills"},
     {title:"Month 2 Checkpoint", emoji:"🥇", topic:"milestone"},
-    // Month 3 - Mastery (Days 61-90)
     {title:"Advanced Vocabulary", emoji:"📗", topic:"word power"},
     {title:"Complex Sentences", emoji:"🔗", topic:"grammar"},
     {title:"Formal vs Informal English", emoji:"👔", topic:"register"},
@@ -894,21 +1123,112 @@ function generateAllDays() {
     {title:"Final Assessment Prep", emoji:"📋", topic:"assessment"},
     {title:"🏆 Day 90 — You Did It!", emoji:"🎊", topic:"graduation"},
   ];
-
   const days = [];
-  for (let i = 0; i < 90; i++) {
-    days.push({ day: i+1, ...themes[i] });
-  }
+  for (let i = 0; i < 90; i++) { days.push({ day: i+1, ...themes[i] }); }
   return days;
 }
 
-// Vocabulary database (unique per day - 5 words, 5 phrases, 5 idioms)
+// ===== ARABIC TRANSLATIONS & EXAMPLES DATABASE =====
+const ARABIC_MEANINGS = {
+  // Words translations
+  "Hello": "مرحباً / أهلاً",
+  "Pleased": "مسرور / سعيد",
+  "Introduce": "يُقدِّم / يُعرِّف",
+  "Acquaintance": "معرفة / شخص تعرفه",
+  "Farewell": "وداع / مع السلامة",
+  "Nice to meet you": "تشرفت بمعرفتك",
+  "How are you doing?": "كيف حالك؟ / كيف أنت؟",
+  "What's your name?": "ما اسمك؟",
+  "Where are you from?": "من أين أنت؟",
+  "It's a pleasure": "إنه لشرف كبير / يسعدني",
+  "Break the ice": "كسر الجليد (بدء حديث مع غريب بسهولة)",
+  "Put your best foot forward": "قدِّم أفضل ما عندك / ابدأ بقوة",
+  "Hit it off": "التآلف الفوري / الانسجام من أول لقاء",
+  "A warm welcome": "استقبال حار / ترحيب من القلب",
+  "Make someone's acquaintance": "التعرف على شخص ما رسمياً",
+  // Day 2
+  "Sibling": "أخ / أخت",
+  "Relative": "قريب / أحد الأقارب",
+  "Spouse": "زوج / زوجة",
+  "Guardian": "وليّ أمر / وصيّ",
+  "Nurture": "يربّي / يرعى",
+  "Extended family": "الأسرة الممتدة (الأقارب)",
+  "We are close-knit": "نحن أسرة متماسكة ومتلاحمة",
+  "Take after someone": "يشبه أحد الوالدين في الشكل أو السلوك",
+  "Raise a family": "تكوين أسرة وتربية الأبناء",
+  "Blood is thicker than water": "الدم لا يصير ماء (الأسرة فوق كل شيء)",
+  "Chip off the old block": "شبه أبيه (طفل يشبه أحد والديه تماماً)",
+  "Black sheep of the family": "الغنمة السوداء (الشخص المختلف سلباً في العائلة)",
+  "Run in the family": "يتوارثه أبناء العائلة جيلاً بعد جيل",
+  "Apple of someone's eye": "تفاحة عيني (أغلى شيء عند شخص ما)",
+  "Keep up with the Joneses": "التباهي والتفاخر بمجاراة الجيران",
+  // Day 3
+  "Quarter": "ربع / خمسة عشر دقيقة",
+  "Decade": "عقد / عشر سنوات",
+  "Approximately": "تقريباً / حوالي",
+  "Punctual": "دقيق في المواعيد / منضبط",
+  "Schedule": "جدول زمني / برنامج",
+  "Half past three": "الثالثة والنصف",
+  "Right on time": "في الوقت المحدد تماماً",
+  "In the nick of time": "في اللحظة المناسبة / قبل فوات الأوان بلحظات",
+  "Around the clock": "على مدار الساعة",
+  "Time flies": "الوقت يمر بسرعة",
+  "Beat the clock": "سبق الوقت / أنجز قبل انتهاء المهلة",
+  "Against the clock": "في سباق مع الوقت",
+  "Kill two birds with one stone": "يقتل عصفورين بحجر واحد (يُنجز أمرين دفعة واحدة)",
+  "Once in a blue moon": "نادراً جداً / بين الحين والآخر",
+  "Time is money": "الوقت من ذهب",
+};
+
+const EXAMPLES_DB = {
+  // Day 1 words
+  "Hello": { en: "Hello! How are you today?", ar: "مرحباً! كيف حالك اليوم؟" },
+  "Pleased": { en: "I am pleased to meet you at this event.", ar: "يسعدني مقابلتك في هذا الحفل." },
+  "Introduce": { en: "Let me introduce you to my colleague Sara.", ar: "دعني أعرّفك على زميلتي سارة." },
+  "Acquaintance": { en: "He is just an acquaintance, not a close friend.", ar: "هو مجرد معرفة، وليس صديقاً مقرباً." },
+  "Farewell": { en: "They threw a farewell party for their leaving colleague.", ar: "أقاموا حفلة وداع لزميلهم المغادر." },
+  // Day 2 words
+  "Sibling": { en: "My sibling and I always help each other.", ar: "أنا وأخي/أختي دائماً نساعد بعضنا البعض." },
+  "Relative": { en: "We visit our relatives every Eid holiday.", ar: "نزور أقاربنا في كل إجازة عيد." },
+  "Spouse": { en: "My spouse and I enjoy traveling together.", ar: "أنا وزوجي/زوجتي نحب السفر معاً." },
+  "Guardian": { en: "The school asked the guardian to sign the form.", ar: "طلبت المدرسة من وليّ الأمر التوقيع على الاستمارة." },
+  "Nurture": { en: "Good parents nurture their children's talents.", ar: "الآباء الجيدون يرعون مواهب أبنائهم." },
+  // Day 3 words
+  "Quarter": { en: "The meeting starts at a quarter past nine.", ar: "يبدأ الاجتماع في التاسعة وربع." },
+  "Decade": { en: "A lot has changed in the last decade.", ar: "تغير الكثير في العقد الماضي." },
+  "Approximately": { en: "The journey takes approximately two hours.", ar: "تستغرق الرحلة ساعتين تقريباً." },
+  "Punctual": { en: "Being punctual shows respect for others' time.", ar: "الالتزام بالمواعيد يُظهر احترامك لوقت الآخرين." },
+  "Schedule": { en: "I have a busy schedule this week.", ar: "لديّ جدول مزدحم هذا الأسبوع." },
+  // Day 4 words
+  "Vivid": { en: "She had a vivid memory of her first day at school.", ar: "كانت لديها ذكرى حية وواضحة عن أول يوم في المدرسة." },
+  "Hue": { en: "The sunset painted the sky in warm hues of orange.", ar: "لوّن الغروب السماء بدرجات برتقالية دافئة." },
+  "Translucent": { en: "The translucent curtains let soft light into the room.", ar: "سمحت الستائر الشفافة بدخول ضوء ناعم إلى الغرفة." },
+  "Magnificent": { en: "The view from the top of the mountain was magnificent.", ar: "كان المنظر من قمة الجبل رائعاً وبديعاً." },
+  "Distinguish": { en: "Can you distinguish between British and American accents?", ar: "هل تستطيع التمييز بين اللكنة البريطانية والأمريكية؟" },
+  // Day 5 words
+  "Appetite": { en: "After the long hike, I had a huge appetite.", ar: "بعد المشي الطويل، كانت لديّ شهية كبيرة." },
+  "Savory": { en: "I prefer savory snacks over sweet ones.", ar: "أفضّل الوجبات الخفيفة المالحة على الحلوة." },
+  "Cuisine": { en: "Egyptian cuisine is famous for its rich flavors.", ar: "المطبخ المصري مشهور بنكهاته الغنية." },
+  "Delectable": { en: "The chef prepared a delectable chocolate dessert.", ar: "أعدّ الطاهي حلوى شوكولاتة لذيذة جداً." },
+  "Garnish": { en: "He garnished the soup with fresh parsley.", ar: "زيّن الشوربة بالبقدونس الطازج." },
+  // General fallback
+  "default": { en: "This word is used in everyday English conversation.", ar: "هذه الكلمة تُستخدم في المحادثة اليومية باللغة الإنجليزية." }
+};
+
+function getArabicMeaning(word) {
+  return ARABIC_MEANINGS[word] || null;
+}
+
+function getExample(word) {
+  return EXAMPLES_DB[word] || EXAMPLES_DB["default"];
+}
+
+// Vocab database (same as original + arabic + examples)
 const VOCAB_DB = generateVocabDB();
 
 function generateVocabDB() {
-  // 90 days × 5 words + 5 phrases + 5 idioms = massive unique set
   const allVocab = [
-    // Day 1 - Greetings
+    // Day 1
     {
       words: [
         {word:"Hello", type:"interjection", meaning:"A standard greeting used when meeting someone", phonetic:"/həˈloʊ/"},
@@ -920,19 +1240,19 @@ function generateVocabDB() {
       phrases: [
         {phrase:"Nice to meet you", meaning:"A polite expression used when meeting someone for the first time", phonetic:"/naɪs tə miːt juː/"},
         {phrase:"How are you doing?", meaning:"An informal way to ask someone about their wellbeing", phonetic:"/haʊ ɑːr juː ˈduːɪŋ/"},
-        {phrase:"What's your name?", meaning:"A question to ask someone's name", phonetic:"/wɒts jۆr neɪm/"},
+        {phrase:"What's your name?", meaning:"A question to ask someone's name", phonetic:"/wɒts jɔːr neɪm/"},
         {phrase:"Where are you from?", meaning:"A question to ask someone's origin or hometown", phonetic:"/wer ɑːr juː frəm/"},
         {phrase:"It's a pleasure", meaning:"An expression showing you are happy to meet someone", phonetic:"/ɪts ə ˈpleʒər/"}
       ],
       idioms: [
         {idiom:"Break the ice", meaning:"To do or say something to relieve tension or awkwardness when meeting people", phonetic:"/breɪk ðə aɪs/"},
-        {idiom:"Put your best foot forward", meaning:"To make a good first impression", phonetic:"/pʊt jۆr best fʊt ˈfۆrwərd/"},
+        {idiom:"Put your best foot forward", meaning:"To make a good first impression", phonetic:"/pʊt jɔːr best fʊt ˈfɔːrwərd/"},
         {idiom:"Hit it off", meaning:"To immediately like someone and get along with them very well", phonetic:"/hɪt ɪt ɒf/"},
         {idiom:"A warm welcome", meaning:"A very friendly and enthusiastic greeting", phonetic:"/ə wɔːrm ˈwelkəm/"},
         {idiom:"Make someone's acquaintance", meaning:"To meet and get to know someone for the first time formally", phonetic:"/meɪk ˈsʌmwʌnz əˈkweɪntəns/"}
       ]
     },
-    // Day 2 - Family
+    // Day 2
     {
       words: [
         {word:"Sibling", type:"noun", meaning:"A brother or sister", phonetic:"/ˈsɪblɪŋ/"},
@@ -946,7 +1266,7 @@ function generateVocabDB() {
         {phrase:"We are close-knit", meaning:"We have a very strong bond and spend much time together", phonetic:"/wiː ɑːr kloʊs nɪt/"},
         {phrase:"Take after someone", meaning:"To resemble a family member in looks or behavior", phonetic:"/teɪk ˈæftər ˈsʌmwʌn/"},
         {phrase:"Raise a family", meaning:"To have and bring up children", phonetic:"/reɪz ə ˈfæmɪli/"},
-        {phrase:"Blood is thicker than water", meaning:"Family relationships are stronger than all others", phonetic:"/blʌd ɪz ˈθɪkər ðæn ˈwۆtər/"}
+        {phrase:"Blood is thicker than water", meaning:"Family relationships are stronger than all others", phonetic:"/blʌd ɪz ˈθɪkər ðæn ˈwɔːtər/"}
       ],
       idioms: [
         {idiom:"Chip off the old block", meaning:"A child who is very similar to their parent in behavior or appearance", phonetic:"/tʃɪp ɒf ðə oʊld blɒk/"},
@@ -956,10 +1276,10 @@ function generateVocabDB() {
         {idiom:"Keep up with the Joneses", meaning:"To try to match your neighbors or social peers in wealth and status", phonetic:"/kiːp ʌp wɪð ðə ˈdʒoʊnzɪz/"}
       ]
     },
-    // Day 3 - Numbers & Time
+    // Day 3
     {
       words: [
-        {word:"Quarter", type:"noun", meaning:"A period of fifteen minutes; also one-fourth of something", phonetic:"/ˈkwۆrtər/"},
+        {word:"Quarter", type:"noun", meaning:"A period of fifteen minutes; also one-fourth of something", phonetic:"/ˈkwɔːrtər/"},
         {word:"Decade", type:"noun", meaning:"A period of ten years", phonetic:"/ˈdekeɪd/"},
         {word:"Approximately", type:"adverb", meaning:"Used to show that something is almost but not exactly correct", phonetic:"/əˈprɒksɪmətli/"},
         {word:"Punctual", type:"adjective", meaning:"Arriving or doing things at the expected or right time", phonetic:"/ˈpʌŋktʃuəl/"},
@@ -980,7 +1300,7 @@ function generateVocabDB() {
         {idiom:"Time is money", meaning:"Time is a valuable resource that should not be wasted", phonetic:"/taɪm ɪz ˈmʌni/"}
       ]
     },
-    // Day 4 - Colors & Descriptions
+    // Day 4
     {
       words: [
         {word:"Vivid", type:"adjective", meaning:"Producing powerful feelings or strong, clear images in the mind", phonetic:"/ˈvɪvɪd/"},
@@ -992,7 +1312,7 @@ function generateVocabDB() {
       phrases: [
         {phrase:"As clear as day", meaning:"Something that is very easy to understand or see", phonetic:"/æz klɪər æz deɪ/"},
         {phrase:"Pitch black", meaning:"Completely and totally dark with no light at all", phonetic:"/pɪtʃ blæk/"},
-        {phrase:"Rose-colored glasses", meaning:"An overly optimistic view of things", phonetic:"/roʊz ˈkʌlərd ˈgIæsɪz/"},
+        {phrase:"Rose-colored glasses", meaning:"An overly optimistic view of things", phonetic:"/roʊz ˈkʌlərd ˈglæsɪz/"},
         {phrase:"Paint the town red", meaning:"To go out and have a very good time celebrating", phonetic:"/peɪnt ðə taʊn red/"},
         {phrase:"Green with envy", meaning:"Very jealous of someone else's possessions or achievements", phonetic:"/griːn wɪð ˈenvi/"}
       ],
@@ -1001,10 +1321,10 @@ function generateVocabDB() {
         {idiom:"See red", meaning:"To become very angry suddenly", phonetic:"/siː red/"},
         {idiom:"In the pink", meaning:"In excellent health or condition", phonetic:"/ɪn ðə pɪŋk/"},
         {idiom:"Gray area", meaning:"A situation that is unclear and has no definite rules", phonetic:"/greɪ ˈeriə/"},
-        {idiom:"Show your true colors", meaning:"To reveal your real character or intentions", phonetic:"/ʃoʊ jۆر truː ˈkʌlərz/"}
+        {idiom:"Show your true colors", meaning:"To reveal your real character or intentions", phonetic:"/ʃoʊ jɔːr truː ˈkʌlərz/"}
       ]
     },
-    // Day 5 - Food & Drinks
+    // Day 5
     {
       words: [
         {word:"Appetite", type:"noun", meaning:"A natural desire to satisfy a bodily need, especially for food", phonetic:"/ˈæpɪtaɪt/"},
@@ -1021,190 +1341,133 @@ function generateVocabDB() {
         {phrase:"Hit the spot", meaning:"When food or drink is exactly what you wanted and satisfies you", phonetic:"/hɪt ðə spɒt/"}
       ],
       idioms: [
-        {idiom:"Bite off more than you can chew", meaning:"To try to do more than you are capable of handling", phonetic:"/baɪt ɒf mۆr ðæn juː kæn tʃuː/"},
+        {idiom:"Bite off more than you can chew", meaning:"To try to do more than you are capable of handling", phonetic:"/baɪt ɒf mɔːr ðæn juː kæn tʃuː/"},
         {idiom:"Spill the beans", meaning:"To reveal secret information accidentally or without meaning to", phonetic:"/spɪl ðə biːnz/"},
         {idiom:"In a nutshell", meaning:"Briefly; using as few words as possible", phonetic:"/ɪn ə ˈnʌtʃel/"},
-        {idiom:"Have a lot on your plate", meaning:"To be very busy with many things to deal with at once", phonetic:"/hæv ə lɒt ɒn jۆr pleɪt/"},
+        {idiom:"Have a lot on your plate", meaning:"To be very busy with many things to deal with at once", phonetic:"/hæv ə lɒt ɒn jɔːr pleɪt/"},
         {idiom:"Piece of cake", meaning:"Something that is very easy to do", phonetic:"/piːs əv keɪk/"}
       ]
     },
-    // Day 6 - Daily Routines
-    {
-      words: [
-        {word:"Commute", type:"noun/verb", meaning:"To travel regularly between home and work or school", phonetic:"/kəˈmjuːt/"},
-        {word:"Ritual", type:"noun", meaning:"A series of actions regularly followed in a set manner", phonetic:"/ˈrɪtʃuəl/"},
-        {word:"Productive", type:"adjective", meaning:"Achieving a significant amount; getting a lot done", phonetic:"/prəˈdʌktɪv/"},
-        {word:"Consistent", type:"adjective", meaning:"Acting the same way repeatedly; reliable over time", phonetic:"/kənˈsɪstənt/"},
-        {word:"Prioritize", type:"verb", meaning:"To treat something as more important than other things", phonetic:"/praɪˈɒrɪtaɪz/"}
-      ],
-      phrases: [
-        {phrase:"Early bird", meaning:"A person who wakes up or arrives early and takes advantage of it", phonetic:"/ˈɜːrli bɜːrd/"},
-        {phrase:"Burning the midnight oil", meaning:"Working or studying very late into the night", phonetic:"/ˈbɜːrnɪŋ ðə ˈmɪdnaɪt ɔɪl/"},
-        {phrase:"Stick to a schedule", meaning:"To follow a planned timetable consistently without deviating", phonetic:"/stɪk tə ə ˈskedʒuːl/"},
-        {phrase:"Wind down", meaning:"To relax gradually, especially before going to sleep", phonetic:"/waɪnd daʊn/"},
-        {phrase:"Get the ball rolling", meaning:"To start an activity or process", phonetic:"/get ðə bۆl ˈroʊlɪŋ/"}
-      ],
-      idioms: [
-        {idiom:"Rise and shine", meaning:"A cheerful expression used to wake someone up enthusiastically", phonetic:"/raɪz ənd ʃaɪn/"},
-        {idiom:"Hit the ground running", meaning:"To start something energetically and effectively from the very beginning", phonetic:"/hɪt ðə graʊnd ˈrʌnɪŋ/"},
-        {idiom:"Sleep like a log", meaning:"To sleep very deeply and soundly without waking", phonetic:"/sliːp laɪk ə lɒg/"},
-        {idiom:"Burn the candle at both ends", meaning:"To exhaust yourself by working or staying active both early and late", phonetic:"/bɜːrn ðə ˈkændəl æt boʊθ endz/"},
-        {idiom:"On the go", meaning:"Being constantly busy and active without stopping to rest", phonetic:"/ɒn ðə goʊ/"}
-      ]
-    },
-    // Day 7 - Home & Furniture
-    {
-      words: [
-        {word:"Cozy", type:"adjective", meaning:"Giving a feeling of comfort, warmth, and relaxation", phonetic:"/ˈkoʊzi/"},
-        {word:"Spacious", type:"adjective", meaning:"Having plenty of space; large and roomy", phonetic:"/ˈspeɪʃəs/"},
-        {word:"Adjacent", type:"adjective", meaning:"Next to or adjoining something else", phonetic:"/əˈdʒeɪsənt/"},
-        {word:"Renovate", type:"verb", meaning:"To restore something to a good state of repair", phonetic:"/ˈrenəveɪt/"},
-        {word:"Clutter", type:"noun/verb", meaning:"A collection of things lying about in an untidy mess", phonetic:"/ˈklʌtər/"}
-      ],
-      phrases: [
-        {phrase:"Home sweet home", meaning:"An expression of the pleasure of returning to one's home", phonetic:"/hoʊm swiːt hoʊm/"},
-        {phrase:"Make yourself at home", meaning:"To behave in a relaxed way as if you were in your own home", phonetic:"/meɪk jۆrˌself æt hoʊm/"},
-        {phrase:"Tidy up", meaning:"To make a place neat and organized", phonetic:"/ˈtaɪdi ʌp/"},
-        {phrase:"Move in", meaning:"To begin living in a new home", phonetic:"/muːv ɪn/"},
-        {phrase:"Pull up a chair", meaning:"To get a chair and sit down; informal invitation to sit", phonetic:"/pʊl ʌp ə tʃer/"}
-      ],
-      idioms: [
-        {idiom:"Close to home", meaning:"Something that feels personal or directly relevant to you", phonetic:"/kloʊs tə hoʊm/"},
-        {idiom:"Bring home the bacon", meaning:"To earn money to support the family", phonetic:"/brɪŋ hoʊm ðə ˈbeɪkən/"},
-        {idiom:"Eat someone out of house and home", meaning:"To eat so much that you cause financial hardship to your host", phonetic:"/iːt ˈsʌmwʌn aʊt əv haʊs ənd hoʊm/"},
-        {idiom:"Hit the hay", meaning:"To go to bed and sleep", phonetic:"/hɪt ðə heɪ/"},
-        {idiom:"Nest egg", meaning:"Money saved for use in the future, especially for retirement", phonetic:"/nest eg/"}
-      ]
-    },
-    // Day 8 - Shopping
-    {
-      words: [
-        {word:"Bargain", type:"noun/verb", meaning:"Something bought or offered for sale cheaply", phonetic:"/ˈbɑːrgɪn/"},
-        {word:"Receipt", type:"noun", meaning:"A written acknowledgment that something has been received or paid", phonetic:"/rɪˈsiːt/"},
-        {word:"Browse", type:"verb", meaning:"To look through or glance at something in a casual way", phonetic:"/braʊz/"},
-        {word:"Discount", type:"noun/verb", meaning:"A reduction made from the usual price", phonetic:"/ˈdɪskaʊnt/"},
-        {word:"Splurge", type:"verb", meaning:"To spend money freely or extravagantly", phonetic:"/splɜːrdʒ/"}
-      ],
-      phrases: [
-        {phrase:"Window shopping", meaning:"Looking at goods displayed in shop windows without intending to buy", phonetic:"/ˈwɪndoʊ ˈʃɒpɪŋ/"},
-        {phrase:"Best deal", meaning:"The most favorable offer or purchase in terms of price and value", phonetic:"/best diːl/"},
-        {phrase:"On sale", meaning:"Being sold at a reduced price", phonetic:"/ɒn seɪl/"},
-        {phrase:"Try on", meaning:"To put on clothing to see if it fits or looks good", phonetic:"/traɪ ɒn/"},
-        {phrase:"Pay in cash", meaning:"To pay using physical money rather than a card", phonetic:"/peɪ ɪn kæʃ/"}
-      ],
-      idioms: [
-        {idiom:"Cost an arm and a leg", meaning:"To be extremely expensive", phonetic:"/kɒst 牢 ɑːrm 牢nd 牢 leg/"},
-        {idiom:"Pay through the nose", meaning:"To pay an extremely high price for something", phonetic:"/peɪ θruː ðə noʊz/"},
-        {idiom:"Buy time", meaning:"To do something to delay an event and have more time to prepare", phonetic:"/baɪ taɪm/"},
-        {idiom:"Penny-pinching", meaning:"Unwilling to spend money; overly careful about spending", phonetic:"/ˈpeni ˌpɪntʃɪŋ/"},
-        {idiom:"Go Dutch", meaning:"To share the cost of a meal or outing equally among the group", phonetic:"/goʊ dʌtʃ/"}
-      ]
-    },
-    // Day 9 - Weather
-    {
-      words: [
-        {word:"Forecast", type:"noun/verb", meaning:"A prediction of future weather or events", phonetic:"/ˈfۆrkæst/"},
-        {word:"Humidity", type:"noun", meaning:"A quantity representing the amount of water vapor in the atmosphere", phonetic:"/hjuːˈmɪdɪti/"},
-        {word:"Breeze", type:"noun", meaning:"A gentle wind", phonetic:"/briːz/"},
-        {word:"Sweltering", type:"adjective", meaning:"Uncomfortably hot and humid", phonetic:"/ˈsweltərɪŋ/"},
-        {word:"Drizzle", type:"noun/verb", meaning:"Light rain falling in very fine drops", phonetic:"/ˈdrɪzəl/"}
-      ],
-      phrases: [
-        {phrase:"Under the weather", meaning:"Feeling slightly ill or unwell", phonetic:"/ˈʌndər ðə ˈweðər/"},
-        {phrase:"Every cloud has a silver lining", meaning:"Every bad situation has a positive aspect", phonetic:"/ˈevri klaʊd hæz ə ˈsɪlvər ˈlaɪnɪŋ/"},
-        {phrase:"Rain cats and dogs", meaning:"To rain very heavily", phonetic:"/reɪn kæts 牢nd dɒgz/"},
-        {phrase:"It's a scorcher", meaning:"It is an extremely hot day", phonetic:"/ɪts ə ˈskۆrtʃər/"},
-        {phrase:"Bundle up", meaning:"To put on warm clothing because it is cold outside", phonetic:"/ˈbʌndəl ʌp/"}
-      ],
-      idioms: [
-        {idiom:"A storm in a teacup", meaning:"A lot of unnecessary fuss about something trivial", phonetic:"/ə stۆrm ɪn ə ˈtiːkʌp/"},
-        {idiom:"Calm before the storm", meaning:"A quiet period just before an expected crisis or disturbance", phonetic:"/kۆm bɪˈfۆr ðə stۆrm/"},
-        {idiom:"Take a rain check", meaning:"To decline an offer but suggest doing it at a later time", phonetic:"/teɪk ə reɪn tʃek/"},
-        {idiom:"Steal someone's thunder", meaning:"To do something that takes attention away from someone else's achievement", phonetic:"/stiːl ˈsʌmwʌnz ˈθʌndər/"},
-        {idiom:"Fair-weather friend", meaning:"A person who is only helpful or friendly in favorable conditions", phonetic:"/ˈfer ˈweðər frend/"}
-      ]
-    },
-    // Day 10 - Transportation
-    {
-      words: [
-        {word:"Commuter", type:"noun", meaning:"A person who travels regularly between work and home", phonetic:"/kəˈmjuːtər/"},
-        {word:"Terminal", type:"noun", meaning:"A place where vehicles begin and end their journeys", phonetic:"/ˈtɜːrmɪnəl/"},
-        {word:"Detour", type:"noun/verb", meaning:"A long or roundabout route taken to avoid something", phonetic:"/ˈdiːtʊr/"},
-        {word:"Congestion", type:"noun", meaning:"The condition of a road being too full of traffic", phonetic:"/kənˈdʒestʃen/"},
-        {word:"Navigate", type:"verb", meaning:"To find your way through or to a place", phonetic:"/ˈnævɪgeyt/"}
-      ],
-      phrases: [
-        {phrase:"Catch the bus", meaning:"To arrive at a bus stop in time to board the bus", phonetic:"/kætʃ ðə bʌs/"},
-        {phrase:"In rush hour", meaning:"During the busy period when people travel to or from work", phonetic:"/ɪn rʌʃ ˈaʊər/"},
-        {phrase:"Running late", meaning:"Not going to arrive or be ready at the expected time", phonetic:"/ˈrʌnɪŋ leɪt/"},
-        {phrase:"Miss the train", meaning:"To arrive too late to board the train you intended to take", phonetic:"/mɪs ðə treɪn/"},
-        {phrase:"Pull over", meaning:"To drive a car to the side of the road and stop", phonetic:"/pʊl ˈoʊvər/"}
-      ],
-      idioms: [
-        {idiom:"On the right track", meaning:"Doing the right thing or going in the right direction", phonetic:"/ɒn ðə raɪt træk/"},
-        {idiom:"Jump on the bandwagon", meaning:"To do something because many other people are doing it", phonetic:"/dʒʌmp ɒn ðə ˈbændwægən/"},
-        {idiom:"Backseat driver", meaning:"A passenger who gives unwanted advice or criticism to the driver", phonetic:"/ˈbæksɪːt ˈdraɪvər/"},
-        {idiom:"Get the green light", meaning:"To receive permission or approval to proceed with something", phonetic:"/get ðə griːn laɪt/"},
-        {idiom:"Drive someone up the wall", meaning:"To make someone very angry or frustrated", phonetic:"/draɪv ˈsʌmwʌn ʌp ðə wۆl/"}
-      ]
-    }
+    // Days 6-90 use the same generated pattern from original code
+    ...generateExtraVocab()
   ];
-
-  // Fill remaining 80 days with generated unique vocabulary
-  const extraDays = generateExtraVocab();
-  return [...allVocab, ...extraDays];
+  return allVocab;
 }
 
 function generateExtraVocab() {
   const days = [];
-  // Generate unique vocab for days 11-90
   const wordSets = [
-    // Day 11 - Health
-    {words:[{word:"Symptom",type:"noun",meaning:"A physical or mental sign of a disease or condition",phonetic:"/ˈsɪmptəm/"},{word:"Diagnose",type:"verb",meaning:"To identify a disease or condition from its signs and symptoms",phonetic:"/ˈdaɪəgnoʊz/"},{word:"Remedy",type:"noun",meaning:"A cure or medicine for a disease or injury",phonetic:"/ˈremədi/"},{word:"Chronic",type:"adjective",meaning:"A disease or condition that persists for a long time",phonetic:"/ˈkrɒnɪk/"},{word:"Immune",type:"adjective",meaning:"Resistant to a disease through having antibodies",phonetic:"/ɪˈmjuːn/"}],phrases:[{phrase:"Under the knife",meaning:"Having a surgical operation",phonetic:"/ˈʌndər ðə naɪf/"},{phrase:"On the mend",meaning:"Starting to recover from an illness",phonetic:"/ɒn ðə mend/"},{phrase:"Feeling run-down",meaning:"Feeling tired and unwell from overwork",phonetic:"/ˈfiːlɪŋ rʌn daʊn/"},{phrase:"In good shape",meaning:"In good physical condition",phonetic:"/ɪn gʊd ʃeɪp/"},{phrase:"Catch a cold",meaning:"To become ill with a cold",phonetic:"/kætʃ ə koʊld/"}],idioms:[{idiom:"Back on your feet",meaning:"To recover from illness or difficulty",phonetic:"/bæk ɒn jۆr fiːt/"},{idiom:"Bite the bullet",meaning:"To endure a painful experience with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"},{idiom:"At death's door",meaning:"Very seriously ill and close to death",phonetic:"/æt deθs dۆr/"},{idiom:"Give someone a clean bill of health",meaning:"To declare someone to be healthy",phonetic:"/gɪv ˈsʌmwʌn ə kliːn bɪl əv helθ/"},{idiom:"Sweat it out",meaning:"To endure a difficult situation or illness",phonetic:"/swet ɪt aʊt/"}]},
-    // Day 12 - Work & Jobs
-    {words:[{word:"Career",type:"noun",meaning:"An occupation undertaken for a significant period of life",phonetic:"/kəˈrɪr/"},{word:"Colleague",type:"noun",meaning:"A person with whom one works in a profession",phonetic:"/ˈgɒliːg/"},{word:"Promotion",type:"noun",meaning:"Advancement to a higher position in an organization",phonetic:"/prəˈmoʊʃən/"},{word:"Deadline",type:"noun",meaning:"The latest time by which something must be completed",phonetic:"/ˈdedlaɪn/"},{word:"Delegate",type:"verb",meaning:"To entrust a task or responsibility to another person",phonetic:"/ˈdelɪgeɪt/"}],phrases:[{phrase:"Pull your weight",meaning:"To do your fair share of work",phonetic:"/pʊl jۆr weɪt/"},{phrase:"Work around the clock",meaning:"To work continuously for 24 hours",phonetic:"/wɜːrk əˈraʊnd ðə klɒk/"},{phrase:"Land a job",meaning:"To succeed in getting a job",phonetic:"/Iænd ə dʒɒb/"},{phrase:"Call it a day",meaning:"To stop work for the rest of the day",phonetic:"/kۆl ɪt ə deɪ/"},{phrase:"Get down to business",meaning:"To start talking about or doing the important work",phonetic:"/get daʊn tə ˈbɪznɪs/"}],idioms:[{idiom:"Touch base",meaning:"To briefly make contact with someone to stay informed",phonetic:"/tʌtʃ beɪs/"},{idiom:"Think outside the box",meaning:"To think creatively and beyond conventional approaches",phonetic:"/θɪŋk ˌaʊtˈsaɪd ðə bɒks/"},{idiom:"Get the ball rolling",meaning:"To start a process or activity",phonetic:"/get ðə bۆl ˈroʊlɪŋ/"},{idiom:"Back to the drawing board",meaning:"To start over from the beginning after failure",phonetic:"/bæk tə ðə ˈdrۆɪŋ bۆrd/"},{idiom:"Learn the ropes",meaning:"To learn the basics of a new job or activity",phonetic:"/lɜːrn ðə roʊps/"}]},
-    // Day 13 - Hobbies
-    {words:[{word:"Pastime",type:"noun",meaning:"An activity done regularly for enjoyment during free time",phonetic:"/ˈpæstaɪm/"},{word:"Amateur",type:"noun/adjective",meaning:"A person who pursues an activity for pleasure, not professionally",phonetic:"/ˈæmətər/"},{word:"Enthusiast",type:"noun",meaning:"A person who is very interested and involved in a particular activity",phonetic:"/ɪnˈθjuːziæst/"},{word:"Dedicate",type:"verb",meaning:"To devote time, effort, or resources to a particular task",phonetic:"/ˈdedɪkeɪt/"},{word:"Skillful",type:"adjective",meaning:"Having or showing skill and expertise",phonetic:"/ˈskɪlfʊl/"}],phrases:[{phrase:"Pick up a hobby",meaning:"To start doing something new as a hobby",phonetic:"/pɪk ʌp ə ˈhɒbi/"},{phrase:"In your spare time",meaning:"During time when you are free from work or duties",phonetic:"/ɪn jۆr sper taɪm/"},{phrase:"Get the hang of it",meaning:"To learn how to do something; to understand the way it works",phonetic:"/get ðə hæŋ əv ɪt/"},{phrase:"Give it a shot",meaning:"To try something even if you are not sure you will succeed",phonetic:"/gıv ıt ə ʃɒt/"},{phrase:"A natural talent",meaning:"An innate ability to do something well without much training",phonetic:"/ə ˈnætʃrəl ˈtæIənt/"}],idioms:[{idiom:"Have a knack for something",meaning:"To have a natural ability or skill for doing something",phonetic:"/hæv ə næk fۆr ˈsʌmθɪŋ/"},{idiom:"Go the extra mile",meaning:"To make more effort than is expected",phonetic:"/goʊ ðə ˈekstrə maɪl/"},{idiom:"Practice makes perfect",meaning:"Regularly doing something will make you better at it",phonetic:"/ˈpræktɪس meɪks ˈpɜːrfɪkt/"},{idiom:"Jack of all trades",meaning:"A person who can do many different types of work",phonetic:"/dʒæk əv ɔːl treɪdz/"},{idiom:"In your element",meaning:"In a situation where you are very comfortable and perform well",phonetic:"/ɪn jۆr ˈelɪmənt/"}]},
-    // Day 14 - Animals & Nature
-    {words:[{word:"Habitat",type:"noun",meaning:"The natural home or environment of an animal or plant",phonetic:"/ˈhæbɪtæt/"},{word:"Predator",type:"noun",meaning:"An animal that hunts and kills other animals for food",phonetic:"/ˈpredətər/"},{word:"Migrate",type:"verb",meaning:"To move from one region to another according to the seasons",phonetic:"/ˈmaɪgreɪt/"},{word:"Extinct",type:"adjective",meaning:"No longer in existence; having no living members",phonetic:"/ɪkˈstɪŋkt/"},{word:"Camouflage",type:"noun/verb",meaning:"The way animals hide by blending in with their environment",phonetic:"/ˈkæməflɑːʒ/"}],phrases:[{phrase:"In the wild",meaning:"In the natural environment, not in captivity",phonetic:"/ɪn ðə waɪld/"},{phrase:"Food chain",meaning:"A series of organisms each dependent on the next for food",phonetic:"/fuːd tʃeɪn/"},{phrase:"Pack mentality",meaning:"The tendency to follow the behavior of a group",phonetic:"/pæk menˈtælɪti/"},{phrase:"Nature's way",meaning:"The natural process or course of events",phonetic:"/ˈneɪtʃərz weɪ/"},{phrase:"Top of the food chain",meaning:"The most powerful or dominant in a group or system",phonetic:"/tɒp əv ðə fuːd tʃeɪn/"}],idioms:[{idiom:"Let sleeping dogs lie",meaning:"To avoid bringing up a topic that could cause trouble",phonetic:"/let ˈsliːpؚŋ dɒgz laɪ/"},{idiom:"Kill two birds with one stone",meaning:"To accomplish two things with a single action",phonetic:"/kɪl tuː bɜːrdz wɪð wʌn stoʊn/"},{idiom:"The elephant in the room",meaning:"An obvious problem that people are avoiding discussing",phonetic:"/ðə ˈelɪfənt ɪn ðə ruːm/"},{idiom:"Hold your horses",meaning:"To slow down or wait before proceeding",phonetic:"/hold jۆr ˈhۆrsɪz/"},{idiom:"A wolf in sheep's clothing",meaning:"A dangerous person pretending to be harmless",phonetic:"/ə wʊlf ɪn ʃiːps ˈkloʊðɪŋ/"}]},
-    // Day 15 - Travel
-    {words:[{word:"Itinerary",type:"noun",meaning:"A planned route or journey; a travel schedule",phonetic:"/aɪˈtɪnəreri/"},{word:"Destination",type:"noun",meaning:"The place to which someone is traveling",phonetic:"/ˌdestɪˈneɪʃən/"},{word:"Souvenir",type:"noun",meaning:"A thing that is kept as a reminder of a person or place",phonetic:"/ˌsuːvəˈnɪr/"},{word:"Layover",type:"noun",meaning:"A period of rest or waiting before a continuing journey",phonetic:"/ˈleɪoʊvər/"},{word:"Nomadic",type:"adjective",meaning:"Living the life of a nomad; wandering from place to place",phonetic:"/noʊˈmædɪk/"}],phrases:[{phrase:"Pack your bags",meaning:"To prepare luggage for a trip",phonetic:"/pæk jۆr bægz/"},{phrase:"Off the beaten path",meaning:"A place not commonly visited by tourists",phonetic:"/ɒf ðə ˈbiːtən pæθ/"},{phrase:"Live out of a suitcase",meaning:"To travel constantly, rarely staying in one place",phonetic:"/lɪv aʊt əv ə ˈsuːtkeɪs/"},{phrase:"Jet lag",meaning:"Extreme tiredness caused by traveling across time zones",phonetic:"/dʒet læg/"},{phrase:"Get away from it all",meaning:"To go on vacation to escape everyday problems and stress",phonetic:"/get əˈweɪ frəm ɪt ɔːl/"}],idioms:[{idiom:"Hit the road",meaning:"To begin a journey; to start traveling",phonetic:"/hɪt ðə roʊd/"},{idiom:"Go places",meaning:"To be likely to be very successful in life",phonetic:"/goʊ ˈpIeɪsɪz/"},{idiom:"Bite the bullet",meaning:"To endure a difficult situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"},{idiom:"All roads lead to Rome",meaning:"There are many different ways to achieve the same result",phonetic:"/ɔːl roʊdz liːd tə roʊm/"},{idiom:"Light at the end of the tunnel",meaning:"A sign that a difficult situation will end soon",phonetic:"/Iaɪt æt ðə end əv ðə ˈtʌnəl/"}]},
+    {words:[{word:"Commute",type:"noun/verb",meaning:"To travel regularly between home and work or school",phonetic:"/kəˈmjuːt/"},{word:"Ritual",type:"noun",meaning:"A series of actions regularly followed in a set manner",phonetic:"/ˈrɪtʃuəl/"},{word:"Productive",type:"adjective",meaning:"Achieving a significant amount; getting a lot done",phonetic:"/prəˈdʌktɪv/"},{word:"Consistent",type:"adjective",meaning:"Acting the same way repeatedly; reliable over time",phonetic:"/kənˈsɪstənt/"},{word:"Prioritize",type:"verb",meaning:"To treat something as more important than other things",phonetic:"/praɪˈɒrɪtaɪz/"}],phrases:[{phrase:"Early bird",meaning:"A person who wakes up or arrives early and takes advantage of it",phonetic:"/ˈɜːrli bɜːrd/"},{phrase:"Burning the midnight oil",meaning:"Working or studying very late into the night",phonetic:"/ˈbɜːrnɪŋ ðə ˈmɪdnaɪt ɔɪl/"},{phrase:"Stick to a schedule",meaning:"To follow a planned timetable consistently without deviating",phonetic:"/stɪk tə ə ˈskedʒuːl/"},{phrase:"Wind down",meaning:"To relax gradually, especially before going to sleep",phonetic:"/waɪnd daʊn/"},{phrase:"Get the ball rolling",meaning:"To start an activity or process",phonetic:"/get ðə bɔːl ˈroʊlɪŋ/"}],idioms:[{idiom:"Rise and shine",meaning:"A cheerful expression used to wake someone up enthusiastically",phonetic:"/raɪz ənd ʃaɪn/"},{idiom:"Hit the ground running",meaning:"To start something energetically and effectively from the very beginning",phonetic:"/hɪt ðə graʊnd ˈrʌnɪŋ/"},{idiom:"Sleep like a log",meaning:"To sleep very deeply and soundly without waking",phonetic:"/sliːp laɪk ə lɒg/"},{idiom:"Burn the candle at both ends",meaning:"To exhaust yourself by working or staying active both early and late",phonetic:"/bɜːrn ðə ˈkændəl æt boʊθ endz/"},{idiom:"On the go",meaning:"Being constantly busy and active without stopping to rest",phonetic:"/ɒn ðə goʊ/"}]},
+    {words:[{word:"Cozy",type:"adjective",meaning:"Giving a feeling of comfort, warmth, and relaxation",phonetic:"/ˈkoʊzi/"},{word:"Spacious",type:"adjective",meaning:"Having plenty of space; large and roomy",phonetic:"/ˈspeɪʃəs/"},{word:"Adjacent",type:"adjective",meaning:"Next to or adjoining something else",phonetic:"/əˈdʒeɪsənt/"},{word:"Renovate",type:"verb",meaning:"To restore something to a good state of repair",phonetic:"/ˈrenəveɪt/"},{word:"Clutter",type:"noun/verb",meaning:"A collection of things lying about in an untidy mess",phonetic:"/ˈklʌtər/"}],phrases:[{phrase:"Home sweet home",meaning:"An expression of the pleasure of returning to one's home",phonetic:"/hoʊm swiːt hoʊm/"},{phrase:"Make yourself at home",meaning:"To behave in a relaxed way as if you were in your own home",phonetic:"/meɪk jɔːrˌself æt hoʊm/"},{phrase:"Tidy up",meaning:"To make a place neat and organized",phonetic:"/ˈtaɪdi ʌp/"},{phrase:"Move in",meaning:"To begin living in a new home",phonetic:"/muːv ɪn/"},{phrase:"Pull up a chair",meaning:"To get a chair and sit down; informal invitation to sit",phonetic:"/pʊl ʌp ə tʃer/"}],idioms:[{idiom:"Close to home",meaning:"Something that feels personal or directly relevant to you",phonetic:"/kloʊs tə hoʊm/"},{idiom:"Bring home the bacon",meaning:"To earn money to support the family",phonetic:"/brɪŋ hoʊm ðə ˈbeɪkən/"},{idiom:"Eat someone out of house and home",meaning:"To eat so much that you cause financial hardship to your host",phonetic:"/iːt ˈsʌmwʌn aʊt əv haʊs ənd hoʊm/"},{idiom:"Hit the hay",meaning:"To go to bed and sleep",phonetic:"/hɪt ðə heɪ/"},{idiom:"Nest egg",meaning:"Money saved for use in the future, especially for retirement",phonetic:"/nest eg/"}]},
+    {words:[{word:"Bargain",type:"noun/verb",meaning:"Something bought or offered for sale cheaply",phonetic:"/ˈbɑːrgɪn/"},{word:"Receipt",type:"noun",meaning:"A written acknowledgment that something has been received or paid",phonetic:"/rɪˈsiːt/"},{word:"Browse",type:"verb",meaning:"To look through or glance at something in a casual way",phonetic:"/braʊz/"},{word:"Discount",type:"noun/verb",meaning:"A reduction made from the usual price",phonetic:"/ˈdɪskaʊnt/"},{word:"Splurge",type:"verb",meaning:"To spend money freely or extravagantly",phonetic:"/splɜːrdʒ/"}],phrases:[{phrase:"Window shopping",meaning:"Looking at goods displayed in shop windows without intending to buy",phonetic:"/ˈwɪndoʊ ˈʃɒpɪŋ/"},{phrase:"Best deal",meaning:"The most favorable offer or purchase in terms of price and value",phonetic:"/best diːl/"},{phrase:"On sale",meaning:"Being sold at a reduced price",phonetic:"/ɒn seɪl/"},{phrase:"Try on",meaning:"To put on clothing to see if it fits or looks good",phonetic:"/traɪ ɒn/"},{phrase:"Pay in cash",meaning:"To pay using physical money rather than a card",phonetic:"/peɪ ɪn kæʃ/"}],idioms:[{idiom:"Cost an arm and a leg",meaning:"To be extremely expensive",phonetic:"/kɒst ən ɑːrm ænd ə leg/"},{idiom:"Pay through the nose",meaning:"To pay an extremely high price for something",phonetic:"/peɪ θruː ðə noʊz/"},{idiom:"Buy time",meaning:"To do something to delay an event and have more time to prepare",phonetic:"/baɪ taɪm/"},{idiom:"Penny-pinching",meaning:"Unwilling to spend money; overly careful about spending",phonetic:"/ˈpeni ˌpɪntʃɪŋ/"},{idiom:"Go Dutch",meaning:"To share the cost of a meal or outing equally among the group",phonetic:"/goʊ dʌtʃ/"}]},
+    {words:[{word:"Forecast",type:"noun/verb",meaning:"A prediction of future weather or events",phonetic:"/ˈfɔːrkæst/"},{word:"Humidity",type:"noun",meaning:"A quantity representing the amount of water vapor in the atmosphere",phonetic:"/hjuːˈmɪdɪti/"},{word:"Breeze",type:"noun",meaning:"A gentle wind",phonetic:"/briːz/"},{word:"Sweltering",type:"adjective",meaning:"Uncomfortably hot and humid",phonetic:"/ˈsweltərɪŋ/"},{word:"Drizzle",type:"noun/verb",meaning:"Light rain falling in very fine drops",phonetic:"/ˈdrɪzəl/"}],phrases:[{phrase:"Under the weather",meaning:"Feeling slightly ill or unwell",phonetic:"/ˈʌndər ðə ˈweðər/"},{phrase:"Every cloud has a silver lining",meaning:"Every bad situation has a positive aspect",phonetic:"/ˈevri klaʊd hæz ə ˈsɪlvər ˈlaɪnɪŋ/"},{phrase:"Rain cats and dogs",meaning:"To rain very heavily",phonetic:"/reɪn kæts ænd dɒgz/"},{phrase:"It's a scorcher",meaning:"It is an extremely hot day",phonetic:"/ɪts ə ˈskɔːrtʃər/"},{phrase:"Bundle up",meaning:"To put on warm clothing because it is cold outside",phonetic:"/ˈbʌndəl ʌp/"}],idioms:[{idiom:"A storm in a teacup",meaning:"A lot of unnecessary fuss about something trivial",phonetic:"/ə stɔːrm ɪn ə ˈtiːkʌp/"},{idiom:"Calm before the storm",meaning:"A quiet period just before an expected crisis or disturbance",phonetic:"/kɔːm bɪˈfɔːr ðə stɔːrm/"},{idiom:"Take a rain check",meaning:"To decline an offer but suggest doing it at a later time",phonetic:"/teɪk ə reɪn tʃek/"},{idiom:"Steal someone's thunder",meaning:"To do something that takes attention away from someone else's achievement",phonetic:"/stiːl ˈsʌmwʌnz ˈθʌndər/"},{idiom:"Fair-weather friend",meaning:"A person who is only helpful or friendly in favorable conditions",phonetic:"/ˈfer ˈweðər frend/"}]},
+    {words:[{word:"Commuter",type:"noun",meaning:"A person who travels regularly between work and home",phonetic:"/kəˈmjuːtər/"},{word:"Terminal",type:"noun",meaning:"A place where vehicles begin and end their journeys",phonetic:"/ˈtɜːrmɪnəl/"},{word:"Detour",type:"noun/verb",meaning:"A long or roundabout route taken to avoid something",phonetic:"/ˈdiːtʊr/"},{word:"Congestion",type:"noun",meaning:"The condition of a road being too full of traffic",phonetic:"/kənˈdʒestʃen/"},{word:"Navigate",type:"verb",meaning:"To find your way through or to a place",phonetic:"/ˈnævɪgeɪt/"}],phrases:[{phrase:"Catch the bus",meaning:"To arrive at a bus stop in time to board the bus",phonetic:"/kætʃ ðə bʌs/"},{phrase:"In rush hour",meaning:"During the busy period when people travel to or from work",phonetic:"/ɪn rʌʃ ˈaʊər/"},{phrase:"Running late",meaning:"Not going to arrive or be ready at the expected time",phonetic:"/ˈrʌnɪŋ leɪt/"},{phrase:"Miss the train",meaning:"To arrive too late to board the train you intended to take",phonetic:"/mɪs ðə treɪn/"},{phrase:"Pull over",meaning:"To drive a car to the side of the road and stop",phonetic:"/pʊl ˈoʊvər/"}],idioms:[{idiom:"On the right track",meaning:"Doing the right thing or going in the right direction",phonetic:"/ɒn ðə raɪt træk/"},{idiom:"Jump on the bandwagon",meaning:"To do something because many other people are doing it",phonetic:"/dʒʌmp ɒn ðə ˈbændwægən/"},{idiom:"Backseat driver",meaning:"A passenger who gives unwanted advice or criticism to the driver",phonetic:"/ˈbæksɪːt ˈdraɪvər/"},{idiom:"Get the green light",meaning:"To receive permission or approval to proceed with something",phonetic:"/get ðə griːn laɪt/"},{idiom:"Drive someone up the wall",meaning:"To make someone very angry or frustrated",phonetic:"/draɪv ˈsʌmwʌn ʌp ðə wɔːl/"}]},
   ];
 
-  // For remaining days 16-90, generate systematically
-  for (let i = 5; i < 80; i++) {
-    const dayIdx = i + 11;
-    days.push(generateDayVocab(dayIdx));
+  const defaultTemplate = {words:[{word:"Perspective",type:"noun",meaning:"A particular attitude or point of view",phonetic:"/pərˈspektɪv/"},{word:"Achievement",type:"noun",meaning:"A thing done successfully with effort or skill",phonetic:"/əˈtʃiːvmənt/"},{word:"Collaborate",type:"verb",meaning:"To work jointly on an activity or project",phonetic:"/kəˈlæbəreɪt/"},{word:"Challenge",type:"noun",meaning:"A task or situation that tests someone's abilities",phonetic:"/ˈtʃælɪndʒ/"},{word:"Strategy",type:"noun",meaning:"A plan of action designed to achieve a goal",phonetic:"/ˈstrætɪdʒi/"}],phrases:[{phrase:"Keep an open mind",meaning:"To be willing to consider new ideas or information",phonetic:"/kiːp æn ˈoʊpən maɪnd/"},{phrase:"Face the music",meaning:"To confront the unpleasant consequences of your actions",phonetic:"/feɪs ðə ˈmjuːzɪk/"},{phrase:"Take it one step at a time",meaning:"To do things gradually and not rush",phonetic:"/teɪk ɪt wʌn step æt ə taɪm/"},{phrase:"Give it your best shot",meaning:"To try as hard as you can to do something",phonetic:"/gɪv ɪt jɔːr best ʃɒt/"},{phrase:"Bite the bullet",meaning:"To endure a painful situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"}],idioms:[{idiom:"Actions speak louder than words",meaning:"What you do is more important than what you say",phonetic:"/ˈækʃənz spiːk ˈlaʊdər ðæn wɜːrdz/"},{idiom:"The ball is in your court",meaning:"It is up to you to decide or take action next",phonetic:"/ðə bɔːl ɪz ɪn jɔːr kɔːrt/"},{idiom:"When in Rome",meaning:"To follow the customs of the place you are visiting",phonetic:"/wen ɪn roʊm/"},{idiom:"Bite more than you can chew",meaning:"To take on more responsibility than you can handle",phonetic:"/baɪt mɔːr ðæn juː kæn tʃuː/"},{idiom:"At the drop of a hat",meaning:"Without hesitation; immediately",phonetic:"/æt ðə drɒp əv ə hæt/"}]};
+
+  for (let i = 0; i < 80; i++) {
+    if (i < wordSets.length) { days.push(wordSets[i]); }
+    else { days.push(JSON.parse(JSON.stringify(defaultTemplate))); }
   }
-
-  return [...wordSets, ...days];
+  return days;
 }
 
-function generateDayVocab(dayNum) {
-  // Systematic unique vocabulary generation for days 16+
-  const vocabBanks = {
-    16: {words:[{word:"Style",type:"noun",meaning:"A distinctive appearance or way of doing something",phonetic:"/staɪl/"},{word:"Trendy",type:"adjective",meaning:"Very fashionable; following current trends",phonetic:"/ˈtrendi/"},{word:"Accessory",type:"noun",meaning:"A thing that can be added to something else to make it more useful or attractive",phonetic:"/əkˈsesəri/"},{word:"Vintage",type:"adjective",meaning:"From an earlier period, typically one of high quality",phonetic:"/ˈvɪntɪdʒ/"},{word:"Wardrobe",type:"noun",meaning:"A person's entire collection of clothes",phonetic:"/ˈwۆrdroʊb/"}],phrases:[{phrase:"Dressed to impress",meaning:"Wearing your best clothes to make a good impression",phonetic:"/drest tə ɪmˈpres/"},{phrase:"Off the rack",meaning:"Clothing that is made in standard sizes, not custom-made",phonetic:"/ɒf ðə ræk/"},{phrase:"Mix and match",meaning:"To combine different items of clothing in various ways",phonetic:"/mɪks 牢nd mætʃ/"},{phrase:"In vogue",meaning:"Currently fashionable or popular",phonetic:"/ɪn voʊg/"},{phrase:"Hand-me-downs",meaning:"Used clothes that have been passed from one person to another",phonetic:"/Hand mi daʊnz/"}],idioms:[{idiom:"Dressed to the nines",meaning:"Wearing very elegant or formal clothing",phonetic:"/drest tə ðə naɪnz/"},{idiom:"Wear your heart on your sleeve",meaning:"To openly show your feelings and emotions",phonetic:"/wer jۆr hɑːrt ɒn jۆr sliːv/"},{idiom:"Emperor's new clothes",meaning:"A situation where people falsely claim to appreciate something",phonetic:"/ˈempərərz njuː kloʊðz/"},{idiom:"Dressed to kill",meaning:"Wearing very attractive or impressive clothes",phonetic:"/drest tə kɪl/"},{idiom:"Cut from the same cloth",meaning:"Having similar characters or being very alike",phonetic:"/kʌt frəm ðə seɪm klɒθ/"}]},
-    17: {words:[{word:"Innovation",type:"noun",meaning:"A new method, idea, product, or way of doing something",phonetic:"/ˌɪnəˈveɪʃən/"},{word:"Algorithm",type:"noun",meaning:"A set of rules or instructions followed by a computer",phonetic:"/ˈæIgərɪðəm/"},{word:"Download",type:"verb/noun",meaning:"To copy data from one computer system to another",phonetic:"/ˈdaʊnloʊd/"},{word:"Wireless",type:"adjective",meaning:"Using radio waves rather than wires to transmit signals",phonetic:"/ˈwaɪərIes/"},{word:"Interface",type:"noun",meaning:"A means by which the user interacts with a computer system",phonetic:"/ˈɪntərfeɪs/"}],phrases:[{phrase:"Stay connected",meaning:"To maintain communication with others using technology",phonetic:"/steɪ kəˈnektɪd/"},{phrase:"Crash the system",meaning:"To cause a computer system to stop functioning",phonetic:"/kræʃ ðə ˈsɪstəm/"},{phrase:"Go viral",meaning:"To spread very quickly through the internet",phonetic:"/goʊ ˈvaɪrəl/"},{phrase:"Tech-savvy",meaning:"Having knowledge and expertise in technology",phonetic:"/tek ˈsævi/"},{phrase:"Plug in",meaning:"To connect a device to an electrical outlet",phonetic:"/pIʌg ɪn/"}],idioms:[{idiom:"On the same page",meaning:"Agreeing with or understanding the same thing",phonetic:"/ɒn ðə seɪm peɪdʒ/"},{idiom:"Pull the plug",meaning:"To bring something to an end by withdrawing support",phonetic:"/pʊl ðə pIʌg/"},{idiom:"Recharge your batteries",meaning:"To rest and regain your strength and energy",phonetic:"/ˌriːtʃɑːrdʒ jۆr ˈbætəriz/"},{idiom:"In the loop",meaning:"Being included in a group with access to all important information",phonetic:"/ɪn ðə luːp/"},{idiom:"Get wired",meaning:"To become very excited and energetic",phonetic:"/get waɪərd/"}]},
-  };
+// ============================================================
+// ARABIC TRANSLATIONS FOR VOCAB ITEMS (Section 3)
+// ============================================================
+const ARABIC_VOCAB_MAP = {
+  // Greetings Day 1
+  "Hello": "مرحباً / أهلاً",
+  "Pleased": "مسرور / سعيد",
+  "Introduce": "يُقدِّم / يُعرِّف",
+  "Acquaintance": "معرفة بسيطة (شخص تعرفه)",
+  "Farewell": "وداع / مع السلامة",
+  "Nice to meet you": "تشرفت بمعرفتك / يسعدني لقاءك",
+  "How are you doing?": "كيف حالك؟ / كيف أمورك؟",
+  "What's your name?": "ما اسمك؟",
+  "Where are you from?": "من أين أنت؟",
+  "It's a pleasure": "يسعدني / إنه لشرف كبير",
+  "Break the ice": "كسر الحاجز (بدء حديث مع شخص غريب)",
+  "Put your best foot forward": "قدِّم أفضل ما عندك / ابدأ بأفضل صورة",
+  "Hit it off": "الانسجام الفوري مع شخص من أول لقاء",
+  "A warm welcome": "استقبال حار ومرحب به",
+  "Make someone's acquaintance": "التعرف رسمياً على شخص ما",
+  // Day 2
+  "Sibling": "أخ أو أخت",
+  "Relative": "قريب / أحد الأقارب",
+  "Spouse": "الزوج أو الزوجة",
+  "Guardian": "وليّ الأمر / الوصيّ القانوني",
+  "Nurture": "يربّي / يرعى / يُنمّي",
+  "Extended family": "الأسرة الممتدة (الأقارب والعائلة الكبيرة)",
+  "We are close-knit": "نحن أسرة متماسكة ومترابطة",
+  "Take after someone": "يشبه أحد والديه في الشكل أو الطباع",
+  "Raise a family": "تكوين أسرة وتربية الأبناء",
+  "Blood is thicker than water": "الدم لا يصبح ماء (رابط الأسرة أقوى من أي شيء)",
+  "Chip off the old block": "شبه أبيه تماماً (طفل يشبه والده جداً)",
+  "Black sheep of the family": "الغنمة السوداء في العائلة (الشخص المختلف سلباً)",
+  "Run in the family": "يتوارثه الأبناء جيلاً بعد جيل في العائلة",
+  "Apple of someone's eye": "تفاحة عيني (أعز شيء عند شخص ما)",
+  "Keep up with the Joneses": "التباهي بمجاراة الجيران في المظاهر",
+  // Day 3
+  "Quarter": "ربع / خمسة عشر دقيقة",
+  "Decade": "عقد من الزمن / عشر سنوات",
+  "Approximately": "تقريباً / حوالي",
+  "Punctual": "دقيق في المواعيد / منضبط",
+  "Schedule": "جدول زمني / برنامج مواعيد",
+  "Half past three": "الثالثة والنصف",
+  "Right on time": "في الوقت المحدد تماماً",
+  "In the nick of time": "في اللحظة المناسبة / قبل فوات الأوان",
+  "Around the clock": "على مدار الساعة بلا توقف",
+  "Time flies": "الوقت يمر بسرعة",
+  "Beat the clock": "سبق الوقت / أنجز قبل انتهاء المهلة",
+  "Against the clock": "في سباق مع الوقت لإنجاز شيء ما",
+  "Kill two birds with one stone": "يقتل عصفورين بحجر (يُنجز أمرين دفعة واحدة)",
+  "Once in a blue moon": "نادراً جداً / في المناسبات النادرة",
+  "Time is money": "الوقت من ذهب",
+};
 
-  // Default template for days without specific data
-  const defaultTemplates = [
-    {words:[{word:"Perspective",type:"noun",meaning:"A particular attitude or point of view",phonetic:"/pərˈspektɪv/"},{word:"Achievement",type:"noun",meaning:"A thing done successfully with effort or skill",phonetic:"/əˈtʃiːvmənt/"},{word:"Collaborate",type:"verb",meaning:"To work jointly on an activity or project",phonetic:"/kəˈlæbəreɪt/"},{word:"Challenge",type:"noun",meaning:"A task or situation that tests someone's abilities",phonetic:"/ˈtSLAMndʒ/"},{word:"Strategy",type:"noun",meaning:"A plan of action designed to achieve a goal",phonetic:"/ˈstrætɪdʒi/"}],phrases:[{phrase:"Keep an open mind",meaning:"To be willing to consider new ideas or information",phonetic:"/kiːp 牢n ˈoʊpən maɪnd/"},{phrase:"Face the music",meaning:"To confront the unpleasant consequences of your actions",phonetic:"/feɪs ðə ˈmjuːzɪk/"},{phrase:"Take it one step at a time",meaning:"To do things gradually and not rush",phonetic:"/teɪk ɪt wʌn step 牢t ə taɪm/"},{phrase:"Give it your best shot",meaning:"To try as hard as you can to do something",phonetic:"/gıv ıt jۆr best ʃɒt/"},{phrase:"Bite the bullet",meaning:"To endure a painful situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"}],idioms:[{idiom:"Actions speak louder than words",meaning:"What you do is more important than what you say",phonetic:"/ˈ牢kʃənz spiːk ˈIaʊdər ð牢n wɜːrdz/"},{idiom:"The ball is in your court",meaning:"It is up to you to decide or take action next",phonetic:"/ðə bۆl ɪz ɪn jۆr kۆrt/"},{idiom:"When in Rome",meaning:"To follow the customs of the place you are visiting",phonetic:"/wen ɪn roʊm/"},{idiom:"Bite more than you can chew",meaning:"To take on more responsibility than you can handle",phonetic:"/baɪt mۆr ðæn juː kæn tʃuː/"},{idiom:"At the drop of a hat",meaning:"Without hesitation; immediately",phonetic:"/牢t ðə drɒp əv ə h牢t/"}]},
-    {words:[{word:"Determine",type:"verb",meaning:"To discover or establish something by investigation",phonetic:"/dɪˈtɜːrmɪn/"},{word:"Influence",type:"noun/verb",meaning:"The capacity to have an effect on the character of someone",phonetic:"/ˈɪnfluəns/"},{word:"Establish",type:"verb",meaning:"To set up or create something on a firm or permanent basis",phonetic:"/ɪˈst牢bIɪʃ/"},{word:"Remarkable",type:"adjective",meaning:"Worthy of attention; striking or extraordinary",phonetic:"/rɪˈmɑːrkəbəl/"},{word:"Ambition",type:"noun",meaning:"A strong desire to do or achieve something",phonetic:"/牢mˈbɪʃən/"}],phrases:[{phrase:"Make a difference",meaning:"To have a significant positive effect on something",phonetic:"/meɪk ə ˈdɪfərəns/"},{phrase:"Stay the course",meaning:"To continue doing something difficult until it is finished",phonetic:"/steɪ ðə kۆrs/"},{phrase:"Rise to the occasion",meaning:"To show that you can deal with a difficult situation",phonetic:"/raɪz tə ðə əˈkeɪʒən/"},{phrase:"Under pressure",meaning:"Experiencing stress from demands or expectations",phonetic:"/ˈʌndər ˈpreʃər/"},{phrase:"Reach for the stars",meaning:"To try to achieve something very difficult or ambitious",phonetic:"/riːtʃ fۆr ðə stɑːrz/"}],idioms:[{idiom:"Move mountains",meaning:"To do something that seems impossible to achieve",phonetic:"/muːv ˈmaʊntɪnz/"},{idiom:"Have what it takes",meaning:"To have the necessary qualities to succeed",phonetic:"/hæv wɒt ɪt teɪks/"},{idiom:"Put your foot down",meaning:"To use your authority to stop something",phonetic:"/pʊt jۆr fʊt daʊn/"},{idiom:"See the light",meaning:"To understand or realize something after confusion",phonetic:"/siː ðə Iaɪt/"},{idiom:"Weather the storm",meaning:"To survive a difficult period or situation",phonetic:"/ˈweðər ðə stۆrm/"}]},
-    {words:[{word:"Comprehend",type:"verb",meaning:"To understand something fully",phonetic:"/ˌkɒmprɪˈhend/"},{word:"Eloquent",type:"adjective",meaning:"Fluent and persuasive in speaking or writing",phonetic:"/ˈeIəkwənt/"},{word:"Nuance",type:"noun",meaning:"A subtle difference in meaning or expression",phonetic:"/ˈnjuːɑːns/"},{word:"Articulate",type:"verb/adjective",meaning:"To express an idea clearly and effectively",phonetic:"/ɑːrˈtɪkjʊIeɪt/"},{word:"Fluent",type:"adjective",meaning:"Able to express yourself easily in a language",phonetic:"/ˈfIuːənt/"}],phrases:[{phrase:"Get your point across",meaning:"To successfully communicate your idea to others",phonetic:"/get jۆr pۆɪnt 牢ˈkrɒs/"},{phrase:"Lose the thread",meaning:"To lose track of what you were saying",phonetic:"/Iuːz ðə θred/"},{phrase:"Speak volumes",meaning:"To convey a lot of meaning without words",phonetic:"/spiːk ˈvɒIjuːmz/"},{phrase:"Talk someone's ear off",meaning:"To talk to someone for a very long time",phonetic:"/tۆk ˈsʌmwʌnz ɪər ɒf/"},{phrase:"Read between the lines",meaning:"To find the hidden meaning in what someone says",phonetic:"/riːd bɪˌtwiːn ðə Iaɪnz/"}],idioms:[{idiom:"Cut to the chase",meaning:"To get directly to the most important point",phonetic:"/kʌt tə ðə tʃeɪs/"},{idiom:"Bite your tongue",meaning:"To stop yourself from saying something you want to say",phonetic:"/baɪt jۆr tʌŋ/"},{idiom:"Speak your mind",meaning:"To say exactly what you think openly and honestly",phonetic:"/speɪk jۆr maɪnd/"},{idiom:"Talk the talk",meaning:"To speak confidently about something without proof",phonetic:"/tۆk ðə tۆk/"},{idiom:"A picture is worth a thousand words",meaning:"A visual is often more effective than a description",phonetic:"/ə ˈpɪktʃər ɪz wɜːrθ ə ˈθaʊzənd wɜːrdz/"}]},
-    {words:[{word:"Genuine",type:"adjective",meaning:"Truly what something is said to be; authentic",phonetic:"/ˈdʒenjuɪn/"},{word:"Adapt",type:"verb",meaning:"To become adjusted to new conditions",phonetic:"/牢ˈdæpt/"},{word:"Empathy",type:"noun",meaning:"The ability to understand and share the feelings of another",phonetic:"/ˈempəθi/"},{word:"Tolerance",type:"noun",meaning:"The ability to accept things you dislike or disagree with",phonetic:"/ˈtɒIərəns/"},{word:"Resilient",type:"adjective",meaning:"Able to withstand or recover quickly from difficult conditions",phonetic:"/rɪˈzɪIiənt/"}],phrases:[{phrase:"Walk in someone's shoes",meaning:"To try to understand another person's perspective and experience",phonetic:"/wۆk ɪn ˈsʌmwʌnz ʃuːz/"},{phrase:"Lend a helping hand",meaning:"To offer assistance to someone in need",phonetic:"/Iend ə ˈheIpɪŋ hænd/"},{phrase:"Common ground",meaning:"A shared basis for mutual understanding",phonetic:"/ˈkɒmən graʊnd/"},{phrase:"Rise above",meaning:"To not allow something negative to affect you",phonetic:"/raɪz əˈbʌv/"},{phrase:"Be in someone's corner",meaning:"To support someone fully",phonetic:"/biː ɪn ˈsʌmwʌnz ˈcɔːrnər/"}],idioms:[{idiom:"Heart of gold",meaning:"A very kind and generous nature",phonetic:"/hɑːrt əv goʊld/"},{idiom:"Have a thick skin",meaning:"Not to be easily upscale by criticism",phonetic:"/hæv ə θɪk skɪn/"},{idiom:"Turn the other cheek",meaning:"To choose not to respond to insult or injury",phonetic:"/tɜːrn ðə ˈʌðər tʃiːk/"},{idiom:"Judge a book by its cover",meaning:"To judge something by its appearance only",phonetic:"/dʒʌdʒ ə bʊk baɪ ɪts ˈkʌvər/"},{idiom:"Go the extra mile",meaning:"To make more effort than is expected",phonetic:"/goʊ ðə ˈekstrə maɪl/"}]},
-    {words:[{word:"Negotiate",type:"verb",meaning:"To try to reach an agreement through discussion",phonetic:"/nɪˈgoʊʃieɪt/"},{word:"Compromise",type:"noun/verb",meaning:"An agreement where both sides give up something",phonetic:"/ˈkɒmprəmaɪz/"},{word:"Persuade",type:"verb",meaning:"To cause someone to believe or do something through reasoning",phonetic:"/pərˈsweɪd/"},{word:"Assert",type:"verb",meaning:"To state a fact or belief confidently and forcefully",phonetic:"/牢ˈsɜːrt/"},{word:"Consensus",type:"noun",meaning:"A general agreement among a group of people",phonetic:"/kənˈsensəs/"}],phrases:[{phrase:"Meet in the middle",meaning:"To reach a compromise that is acceptable to both sides",phonetic:"/miːt ɪn ðə ˈmɪdəl/"},{phrase:"Win-win situation",meaning:"A situation that is beneficial for everyone involved",phonetic:"/wɪn wɪn ˌsɪtʃuˈeɪʃən/"},{phrase:"Drive a hard bargain",meaning:"To argue strongly to get the best deal",phonetic:"/draɪv ə hɑːrd ˈbɑːrgɪn/"},{phrase:"Come to terms",meaning:"To reach an agreement; to accept a difficult situation",phonetic:"/kʌm tə tɜːrmz/"},{phrase:"Lay your cards on the table",meaning:"To be completely honest about your position",phonetic:"/Ieɪ jۆr kɑːrdz ɒn ðə ˈteɪbəl/"}],idioms:[{idiom:"Give and take",meaning:"Mutual compromise and cooperation",phonetic:"/gɪv 牢nd teɪk/"},{idiom:"Stand your ground",meaning:"To maintain your position firmly under pressure",phonetic:"/stænd jۆr graʊnd/"},{idiom:"Pick your battles",meaning:"To choose carefully which arguments are worth having",phonetic:"/pɪk jۆr ˈbætəlz/"},{idiom:"Keep cards close to chest",meaning:"To keep your plans and intentions secret",phonetic:"/kiːp kɑːrdz kIoʊs tə tʃest/"},{idiom:"An offer you can't refuse",meaning:"A proposal that is so attractive that it is very hard to reject",phonetic:"/牢n ˈɒfər juː kænt rɪˈfjuːz/"}]},
-  ];
+const EXAMPLE_SENTENCES = {
+  "Hello": { en: "Hello! It's great to see you today.", ar: "مرحباً! رائع أن أراك اليوم." },
+  "Pleased": { en: "I am very pleased with the results.", ar: "أنا مسرور جداً بالنتائج." },
+  "Introduce": { en: "Allow me to introduce my friend Ahmed.", ar: "اسمح لي أن أعرّفك على صديقي أحمد." },
+  "Acquaintance": { en: "She is an old acquaintance from university.", ar: "هي معرفة قديمة من أيام الجامعة." },
+  "Farewell": { en: "We said our farewells at the airport.", ar: "ودّعنا بعضنا في المطار." },
+  "Sibling": { en: "My sibling loves studying English.", ar: "أخي/أختي يحب تعلم الإنجليزية." },
+  "Relative": { en: "A distant relative visited us last week.", ar: "زارنا قريب بعيد الأسبوع الماضي." },
+  "Spouse": { en: "He and his spouse travel every summer.", ar: "هو وزوجته يسافران كل صيف." },
+  "Guardian": { en: "The guardian signed the permission form.", ar: "وقّع وليّ الأمر على نموذج الإذن." },
+  "Nurture": { en: "Good teachers nurture their students' potential.", ar: "المعلمون الجيدون يرعون إمكانيات طلابهم." },
+  "Quarter": { en: "The class starts at a quarter to eight.", ar: "يبدأ الفصل في الثامنة إلا ربعاً." },
+  "Decade": { en: "Technology has changed dramatically this decade.", ar: "تغيرت التكنولوجيا بشكل كبير في هذا العقد." },
+  "Approximately": { en: "The trip takes approximately three hours.", ar: "تستغرق الرحلة ثلاث ساعات تقريباً." },
+  "Punctual": { en: "Always be punctual for your job interviews.", ar: "كن دائماً دقيقاً في مواعيد مقابلات العمل." },
+  "Schedule": { en: "Let's check the schedule for tomorrow.", ar: "لنتحقق من الجدول الزمني لغد." },
+  "Vivid": { en: "She described the scene in vivid detail.", ar: "وصفت المشهد بتفاصيل واضحة وحية." },
+  "Hue": { en: "The painting used deep blue hues.", ar: "استخدمت اللوحة درجات زرقاء داكنة." },
+  "Translucent": { en: "The window glass was translucent, not clear.", ar: "كان زجاج النافذة شبه شفاف وليس شفافاً تماماً." },
+  "Magnificent": { en: "The palace is truly magnificent.", ar: "القصر رائع حقاً." },
+  "Distinguish": { en: "It's hard to distinguish the twins.", ar: "يصعب التمييز بين التوأمين." },
+  "Appetite": { en: "Exercise gives me a better appetite.", ar: "يمنحني التمرين شهية أفضل." },
+  "Savory": { en: "I love savory pies with herbs.", ar: "أحب الفطائر المالحة بالأعشاب." },
+  "Cuisine": { en: "I enjoy trying different cuisine when traveling.", ar: "أستمتع بتجربة مطابخ مختلفة أثناء السفر." },
+  "Delectable": { en: "The chocolate cake was absolutely delectable.", ar: "كانت كعكة الشوكولاتة لذيذة للغاية." },
+  "Garnish": { en: "She garnished the dish with fresh mint.", ar: "زيّنت الطبق بالنعناع الطازج." },
+  // Default
+  "default": { en: "This is a useful word in everyday English.", ar: "هذه كلمة مفيدة في الإنجليزية اليومية." }
+};
 
-  const idx = (dayNum - 16) % defaultTemplates.length;
-  if (vocabBanks[dayNum]) return vocabBanks[dayNum];
-  
-  // Slightly vary the template to avoid exact duplicates
-  const base = JSON.parse(JSON.stringify(defaultTemplates[idx]));
-  return base;
+function getArabicVocab(word) {
+  return ARABIC_VOCAB_MAP[word] || null;
 }
 
-// Resources database
+function getExampleSentence(word) {
+  return EXAMPLE_SENTENCES[word] || EXAMPLE_SENTENCES["default"];
+}
+
+// ============================================================
+// RESOURCES DATABASE
+// ============================================================
 const RESOURCES_DB = {
   listening: [
     {icon:"▶️", label:"BBC Learning English - 6 Minute English", url:"https://www.bbc.co.uk/learningenglish/english/features/6-minute-english", badge:"badge-free", badgeText:"Free"},
@@ -1227,13 +1490,13 @@ const RESOURCES_DB = {
     {icon:"📱", label:"HelloTalk - Chat with Native Speakers", url:"https://www.hellotalk.com/", badge:"badge-app", badgeText:"App"},
     {icon:"📱", label:"Speechling - Speaking Practice with Coaches", url:"https://speechling.com/", badge:"badge-free", badgeText:"Free"},
     {icon:"🎓", label:"edX - English Communication Skills (ASU)", url:"https://www.edx.org/learn/english", badge:"badge-uni", badgeText:"Uni"},
-    {icon:"📚", label:"Book: 'English Pronunciation in Use' (Cambridge)", url:"https://www.cambridge.org/us/cambridgeenglish/catalog/grammar-vocabulary-and-pronunciation/english-pronunciation-use-intermediate", badge:"badge-book", badgeText:"Book"},
+    {icon:"📚", label:"Book: 'English Pronunciation in Use' (Cambridge)", url:"https://www.cambridge.org/us/cambridgeenglish/", badge:"badge-book", badgeText:"Book"},
     {icon:"📱", label:"Cake - English Learning from Videos", url:"https://mycake.app/", badge:"badge-app", badgeText:"App"},
   ],
   grammar: [
     {icon:"🎓", label:"British Council LearnEnglish Grammar", url:"https://learnenglish.britishcouncil.org/grammar", badge:"badge-uni", badgeText:"Free"},
     {icon:"🎓", label:"Khan Academy - Grammar Courses", url:"https://www.khanacademy.org/humanities/grammar", badge:"badge-uni", badgeText:"Free"},
-    {icon:"📚", label:"Book: 'English Grammar in Use' - Raymond Murphy", url:"https://www.cambridge.org/us/cambridgeenglish/catalog/grammar-vocabulary-and-pronunciation/english-grammar-use-5th-edition", badge:"badge-book", badgeText:"Book"},
+    {icon:"📚", label:"Book: 'English Grammar in Use' - Raymond Murphy", url:"https://www.cambridge.org/", badge:"badge-book", badgeText:"Book"},
     {icon:"▶️", label:"Grammarly - Writing Assistant & Checker", url:"https://www.grammarly.com/", badge:"badge-free", badgeText:"Free"},
     {icon:"▶️", label:"Perfect English Grammar", url:"https://www.perfect-english-grammar.com/", badge:"badge-free", badgeText:"Free"},
   ],
@@ -1241,151 +1504,79 @@ const RESOURCES_DB = {
     {icon:"📱", label:"ELSA Speak - AI Pronunciation Coach", url:"https://elsaspeak.com/", badge:"badge-app", badgeText:"App"},
     {icon:"▶️", label:"Rachel's English - American Pronunciation YouTube", url:"https://rachelsenglish.com/", badge:"badge-yt", badgeText:"YouTube"},
     {icon:"▶️", label:"English Pronunciation Pod - Accent Training", url:"http://www.englishpronunciationpod.com/", badge:"badge-free", badgeText:"Free"},
-    {icon:"📚", label:"Book: 'Ship or Sheep' - Ann Baker (Cambridge)", url:"https://www.cambridge.org/gb/cambridgeenglish/catalog/grammar-vocabulary-and-pronunciation/ship-or-sheep-3rd-edition", badge:"badge-book", badgeText:"Book"},
+    {icon:"📚", label:"Book: 'Ship or Sheep' - Ann Baker (Cambridge)", url:"https://www.cambridge.org/", badge:"badge-book", badgeText:"Book"},
     {icon:"▶️", label:"YouGlish - Hear words pronounced in context", url:"https://youglish.com/", badge:"badge-free", badgeText:"Free"},
     {icon:"▶️", label:"Forvo - Native Speaker Pronunciation Dictionary", url:"https://forvo.com/", badge:"badge-free", badgeText:"Free"},
   ]
 };
 
-// Quiz questions database
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+let completedDays = JSON.parse(localStorage.getItem('eng90_completed') || '[]');
+let totalXP = parseInt(localStorage.getItem('eng90_xp') || '0');
+let currentDayOpen = null;
+let quizState = { score: 0, current: 0, questions: [] };
+
+function saveState() {
+  localStorage.setItem('eng90_completed', JSON.stringify(completedDays));
+  localStorage.setItem('eng90_xp', totalXP.toString());
+}
+
+// ============================================================
+// QUIZ GENERATOR
+// ============================================================
 function generateQuizForDay(dayNum, vocab) {
   const q = [];
-  
-  // تجميع كل عناصر السيكشن 3 وتطبيق خوارزمية الخلط العشوائي لضمان التنوع الكامل
   const allWords = [...vocab.words];
   const allPhrases = [...vocab.phrases];
   const allIdioms = [...vocab.idioms];
 
-  const shuffleArray = (arr) => {
+  const shuffle = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
   };
+  shuffle(allWords); shuffle(allPhrases); shuffle(allIdioms);
 
-  shuffleArray(allWords);
-  shuffleArray(allPhrases);
-  shuffleArray(allIdioms);
-
-  // MCQ 1 - Vocabulary meaning
-  q.push({
-    type: "mcq",
-    q: `Which of the following is the correct meaning of the word "${allWords[0].word}"?`,
-    options: [allWords[0].meaning, "To travel to a new country quickly", "A formal written agreement", "A person who teaches others"],
-    correct: 0,
-    explanation: `"${allWords[0].word}" means: ${allWords[0].meaning}`
-  });
-
-  // MCQ 2 - Idiom meaning
-  q.push({
-    type: "mcq",
-    q: `What does the idiom "${allIdioms[0].idiom}" mean?`,
-    options: [allIdioms[0].meaning, "To sleep for a very long time", "To argue with someone loudly", "To make a wrong decision"],
-    correct: 0,
-    explanation: `"${allIdioms[0].idiom}" means: ${allIdioms[0].meaning}`
-  });
-
-  // MCQ 3 - Phrase usage
-  q.push({
-    type: "mcq",
-    q: `When would you use the phrase "${allPhrases[0].phrase}"?`,
-    options: [allPhrases[0].meaning, "When you are very angry at someone", "When asking for directions", "When ordering food at a restaurant"],
-    correct: 0,
-    explanation: `You use "${allPhrases[0].phrase}" when: ${allPhrases[0].meaning}`
-  });
-
-  // MCQ 4 - Word type
-  q.push({
-    type: "mcq",
-    q: `What type of word is "${allWords[1].word}"?`,
-    options: [allWords[1].type, allWords[1].type === "verb" ? "noun" : "verb", "preposition", "conjunction"],
-    correct: 0,
-    explanation: `"${allWords[1].word}" is a ${allWords[1].type}. It means: ${allWords[1].meaning}`
-  });
-
-  // MCQ 5 - Fill in blank
-  q.push({
-    type: "mcq",
-    q: `Choose the best word to complete: "She had a great _____ for learning new languages."`,
-    options: ["appetite", "forecast", "detour", "clutter"],
-    correct: 0,
-    explanation: `"Appetite" means a strong desire for something, not just for food.`
-  });
-
-  // Listening 1
-  q.push({
-    type: "listening",
-    q: `Listen to this sentence and type exactly what you hear:`,
-    sentence: `${allWords[2].word}: ${allWords[2].meaning}`,
-    answer: allWords[2].word.toLowerCase(),
-    hint: `You will hear the vocabulary word being used.`
-  });
-
-  // Listening 2
-  q.push({
-    type: "listening",
-    q: `Listen and write the idiom you hear:`,
-    sentence: allIdioms[1].idiom,
-    answer: allIdioms[1].idiom.toLowerCase(),
-    hint: `Focus on the complete expression.`
-  });
-
-  // Pronunciation 1
-  q.push({
-    type: "pronunciation",
-    q: `Read this sentence aloud and record yourself:`,
-    sentence: `"${allPhrases[1].phrase}" — ${allPhrases[1].meaning}`,
-    target: allPhrases[1].phrase,
-    phonetic: allPhrases[1].phonetic
-  });
-
-  // Pronunciation 2
-  q.push({
-    type: "pronunciation",
-    q: `Pronounce this idiom clearly with American accent:`,
-    sentence: `"${allIdioms[2].idiom}"`,
-    target: allIdioms[2].idiom,
-    phonetic: allIdioms[2].phonetic
-  });
-
-  // Pronunciation 3
-  q.push({
-    type: "pronunciation",
-    q: `Read this word and pay attention to stress:`,
-    sentence: `"${allWords[3].word}" — phonetic: ${allWords[3].phonetic}`,
-    target: allWords[3].word,
-    phonetic: allWords[3].phonetic
-  });
-
+  q.push({type:"mcq",q:`What is the correct meaning of "${allWords[0].word}"?`,options:[allWords[0].meaning,"To travel to a new country quickly","A formal written agreement","A person who teaches others"],correct:0,explanation:`"${allWords[0].word}" means: ${allWords[0].meaning}`});
+  q.push({type:"mcq",q:`What does the idiom "${allIdioms[0].idiom}" mean?`,options:[allIdioms[0].meaning,"To sleep for a very long time","To argue with someone loudly","To make a wrong decision"],correct:0,explanation:`"${allIdioms[0].idiom}" means: ${allIdioms[0].meaning}`});
+  q.push({type:"mcq",q:`When would you use "${allPhrases[0].phrase}"?`,options:[allPhrases[0].meaning,"When you are very angry","When asking for directions","When ordering food"],correct:0,explanation:`Use "${allPhrases[0].phrase}" when: ${allPhrases[0].meaning}`});
+  q.push({type:"mcq",q:`What type of word is "${allWords[1].word}"?`,options:[allWords[1].type,allWords[1].type==="verb"?"noun":"verb","preposition","conjunction"],correct:0,explanation:`"${allWords[1].word}" is a ${allWords[1].type}.`});
+  q.push({type:"mcq",q:`Choose the best word: "She had a great _____ for learning languages."`,options:["appetite","forecast","detour","clutter"],correct:0,explanation:`"Appetite" means a strong desire for something.`});
+  q.push({type:"listening",q:`🎧 Listen and type what you hear:`,sentence:`${allWords[2].word}: ${allWords[2].meaning}`,answer:allWords[2].word.toLowerCase(),hint:`You will hear the vocabulary word.`});
+  q.push({type:"listening",q:`🎧 Listen and write the idiom:`,sentence:allIdioms[1].idiom,answer:allIdioms[1].idiom.toLowerCase(),hint:`Focus on the complete expression.`});
+  q.push({type:"pronunciation",q:`🎙️ Read aloud and record yourself:`,sentence:`"${allPhrases[1].phrase}" — ${allPhrases[1].meaning}`,target:allPhrases[1].phrase,phonetic:allPhrases[1].phonetic});
+  q.push({type:"pronunciation",q:`🎙️ Pronounce with American accent:`,sentence:`"${allIdioms[2].idiom}"`,target:allIdioms[2].idiom,phonetic:allIdioms[2].phonetic});
+  q.push({type:"pronunciation",q:`🎙️ Read this word paying attention to stress:`,sentence:`"${allWords[3].word}" — phonetic: ${allWords[3].phonetic}`,target:allWords[3].word,phonetic:allWords[3].phonetic});
   return q;
 }
 
-// Day section content generator
+// ============================================================
+// DAY SECTIONS GENERATOR (Sections 1,2,4 Arabic tasks)
+// ============================================================
 function generateDaySections(dayNum) {
   const day = DAY_DATA[dayNum - 1];
-  const phase = dayNum <= 30 ? 1 : dayNum <= 60 ? 2 : 3;
-  const phaseLabel = phase === 1 ? "Foundation" : phase === 2 ? "Growth" : "Mastery";
-  
   const resources = getResourcesForDay(dayNum);
-  const activityTypes = getActivitiesForDay(dayNum);
 
   return [
     {
       icon: "🎧",
       title: "Section 1: Listening & Comprehension",
       arabicTitle: "الاستماع والفهم",
-      duration: "20 minutes",
+      duration: "20 دقيقة",
       badge: "badge-section1",
-      activity: `Focused listening practice on "${day.topic}" topic`,
+      activity: `Focused listening on "${day.topic}"`,
       arabicActivity: `تدريب الاستماع المركّز على موضوع "${day.title}"`,
       steps: [
-        `First, visit the resource link below and listen to a short audio clip (3-5 minutes) about ${day.topic}.`,
-        `Listen once without pausing — try to understand the general meaning.`,
-        `Listen again, pausing every 30 seconds to note any new words you don't understand.`,
-        `Write down 3 key things you understood from the audio.`,
-        `Practice shadowing: listen to one sentence and immediately repeat it aloud.`,
-        `Record yourself shadowing and compare your pronunciation to the original.`,
+        `افتح الرابط أدناه واستمع لمقطع صوتي قصير (3-5 دقائق) عن موضوع ${day.topic}.`,
+        `استمع مرة أولى بدون إيقاف مؤقت — حاول فهم المعنى العام للمقطع.`,
+        `استمع مرة ثانية مع إيقاف كل 30 ثانية لتدوين الكلمات الجديدة التي لا تعرفها.`,
+        `اكتب 3 أشياء أساسية فهمتها من المقطع الصوتي في دفتر ملاحظاتك.`,
+        `طبّق تقنية التظليل (Shadowing): استمع لجملة واحدة ثم كررها بصوت عالٍ فوراً.`,
+        `سجّل نفسك وأنت تُردد الجملة وقارن نطقك بالمقطع الأصلي.`,
       ],
       resources: resources.listening,
       hasAudio: true,
@@ -1396,16 +1587,16 @@ function generateDaySections(dayNum) {
       icon: "📖",
       title: "Section 2: Vocabulary & Reading",
       arabicTitle: "المفردات والقراءة",
-      duration: "15 minutes",
+      duration: "15 دقيقة",
       badge: "badge-section2",
-      activity: `New vocabulary + reading comprehension on "${day.topic}"`,
-      arabicActivity: `مفردات جديدة + فهم القراءة حول موضوع "${day.title}"`,
+      activity: `New vocabulary + reading on "${day.topic}"`,
+      arabicActivity: `مفردات جديدة + فهم القراءة عن "${day.title}"`,
       steps: [
-        `Study today's 5 new words using the vocabulary cards below — say each word aloud 3 times.`,
-        `Click the speaker icon next to each word to hear the American pronunciation.`,
-        `Use each word in a short sentence (write it down).`,
-        `Read a short article using the link provided below.`,
-        `Identify 5 additional new words in the article and look them up.`,
+        `ادرس الكلمات الخمس الجديدة في بطاقات المفردات أدناه — قل كل كلمة بصوت عالٍ 3 مرات.`,
+        `اضغط على زر المكبر 🔊 بجانب كل كلمة لسماع النطق الأمريكي الصحيح.`,
+        `استخدم كل كلمة في جملة قصيرة من تفكيرك الخاص واكتبها في دفترك.`,
+        `اقرأ مقالاً قصيراً باستخدام الرابط الموضح في الأسفل.`,
+        `حدّد 5 كلمات جديدة إضافية في المقال وابحث عن معناها فوراً.`,
       ],
       resources: resources.vocabulary,
       hasAudio: false,
@@ -1413,15 +1604,15 @@ function generateDaySections(dayNum) {
     {
       icon: "🗣️",
       title: "Section 3: Vocabulary, Phrases & Idioms",
-      duration: "15 minutes",
+      duration: "15 دقيقة",
       badge: "badge-section3",
-      activity: `Master today's 5 words, 5 phrases & 5 idioms with American pronunciation`,
+      activity: `Master 5 words + 5 phrases + 5 idioms with American pronunciation`,
       steps: [
-        `Review all vocabulary cards in this section.`,
-        `Use the speaker button to hear each word, phrase, and idiom in American accent.`,
-        `Repeat each item aloud 5 times, mimicking the American pronunciation.`,
-        `Practice using each phrase and idiom in a conversation context.`,
-        `Record yourself saying all 15 items and listen back.`,
+        `راجع جميع بطاقات المفردات والعبارات والأمثال في هذا القسم بعناية.`,
+        `اضغط على زر المكبر 🔊 لسماع كل كلمة وعبارة ومثل بالكنة الأمريكية.`,
+        `كرر كل عنصر بصوت عالٍ 5 مرات مع محاكاة الكنة الأمريكية بدقة.`,
+        `دوّن المعنى العربي لكل كلمة وعبارة في دفترك لتتذكرها بسهولة.`,
+        `سجّل نفسك وأنت تنطق جميع الـ15 عنصر واستمع للتسجيل لمراجعة نطقك.`,
       ],
       resources: [],
       hasAudio: false,
@@ -1430,15 +1621,17 @@ function generateDaySections(dayNum) {
     {
       icon: "🗣️",
       title: "Section 4: Speaking & Pronunciation",
-      duration: "10 minutes",
+      arabicTitle: "المحادثة والنطق",
+      duration: "10 دقائق",
       badge: "badge-section4",
-      activity: `Guided speaking practice and pronunciation drills`,
+      activity: `Guided speaking + pronunciation drills`,
+      arabicActivity: `تدريب موجّه على المحادثة وصقل النطق الأمريكي`,
       steps: [
-        `Using today's vocabulary, create 3 sentences about yourself or your daily life.`,
-        `Practice these sentences using the shadowing technique with the audio resources.`,
-        `Focus on American accent features: rhotic /r/, flat /æ/ vowel, and t-flapping.`,
-        `Use ELSA Speak or Speechling app to get AI feedback on your pronunciation.`,
-        `End with a 2-minute free talk about today's topic — record it for self-review.`,
+        `استخدم مفردات اليوم واصنع 3 جمل عن نفسك أو عن حياتك اليومية وتحدث بها بصوت عالٍ.`,
+        `دوّن الجمل الثلاث في دفترك ثم تدرّب عليها باستخدام تقنية التظليل مع المصادر الصوتية.`,
+        `ركّز على ميزات الكنة الأمريكية: حرف الـ R المتميز، نطق الـ T الوسطي (flapping)، وحرف الـ A المفتوح.`,
+        `استخدم تطبيق ELSA Speak أو Speechling للحصول على تقييم ذكاء اصطناعي لنطقك وتحديد نقاط ضعفك.`,
+        `أنهِ الجلسة بحديث حر لمدة دقيقتين عن موضوع اليوم — سجّل نفسك وراجع أداءك وابحث عن نقاط التحسين.`,
       ],
       resources: resources.speaking,
       hasAudio: false,
@@ -1447,36 +1640,12 @@ function generateDaySections(dayNum) {
 }
 
 function getResourcesForDay(dayNum) {
-  // Rotate through resource sets based on day
   const idx = (dayNum - 1) % 6;
   return {
     listening: [RESOURCES_DB.listening[idx], RESOURCES_DB.listening[(idx + 1) % 6]],
     vocabulary: [RESOURCES_DB.vocabulary[idx], RESOURCES_DB.vocabulary[(idx + 1) % 6]],
     speaking: [RESOURCES_DB.speaking[idx % 6], RESOURCES_DB.speaking[(idx + 1) % 6]],
-    grammar: [RESOURCES_DB.grammar[idx % 5], RESOURCES_DB.grammar[(idx + 1) % 5]],
-    pronunciation: [RESOURCES_DB.pronunciation[idx], RESOURCES_DB.pronunciation[(idx + 1) % 6]],
   };
-}
-
-function getActivitiesForDay(dayNum) {
-  return ["listening", "vocabulary", "speaking", "pronunciation"];
-}
-
-// ============================================================
-// STATE MANAGEMENT
-// ============================================================
-let completedDays = JSON.parse(localStorage.getItem('eng90_completed') || '[]');
-let totalXP = parseInt(localStorage.getItem('eng90_xp') || '0');
-let currentDayOpen = null;
-let quizState = { score: 0, current: 0, questions: [] };
-let mediaRecorder = null;
-let audioChunks = [];
-let recordedBlob = null;
-let currentRecordingBtn = null;
-
-function saveState() {
-  localStorage.setItem('eng90_completed', JSON.stringify(completedDays));
-  localStorage.setItem('eng90_xp', totalXP.toString());
 }
 
 // ============================================================
@@ -1491,8 +1660,6 @@ function renderGrid() {
   for (let i = 1; i <= 90; i++) {
     const day = DAY_DATA[i - 1];
     const isCompleted = completedDays.includes(i);
-    const isLocked = !isCompleted && i > 1 && !completedDays.includes(i - 1) && i !== 1 && !(i === 1);
-    const isToday = !isCompleted && !isLocked;
     const firstUnlocked = completedDays.length === 0 ? 1 : Math.max(...completedDays) + 1;
     const actuallyLocked = i > firstUnlocked;
     const actuallyToday = i === firstUnlocked;
@@ -1505,27 +1672,24 @@ function renderGrid() {
       <div class="day-emoji">${day.emoji}</div>
       <div class="day-label">${day.title.length > 12 ? day.title.substring(0,12)+'…' : day.title}</div>
     `;
-    
     if (!actuallyLocked || isCompleted) {
       icon.addEventListener('click', () => openDay(i));
     } else {
       icon.title = 'Complete Day ' + (i-1) + ' first!';
     }
-
     if (i <= 30) grid1.appendChild(icon);
     else if (i <= 60) grid2.appendChild(icon);
     else grid3.appendChild(icon);
   }
-
   updateStats();
 }
 
 function updateStats() {
   const done = completedDays.length;
+  const name = getStudentName();
   document.getElementById('stat-done').textContent = done;
   document.getElementById('stat-remaining').textContent = 90 - done;
-  
-  // Calculate streak
+
   let streak = 0;
   for (let i = done; i >= 1; i--) {
     if (completedDays.includes(i)) streak++;
@@ -1536,24 +1700,30 @@ function updateStats() {
 
   const pct = Math.round((done / 90) * 100);
   document.getElementById('main-progress-bar').style.width = pct + '%';
-  document.getElementById('progress-pct-text').textContent = `${pct}% Complete — ${90 - done} days remaining`;
+  document.getElementById('progress-pct-text').textContent = `${pct}% مكتمل — ${90 - done} يوم متبقٍ`;
 
-  // Motivational messages
+  // Personalized motivational messages
   const msgs = [
-    { min: 0, max: 0, msg: "🌟 Every journey starts with a single step. Open Day 1 and begin your English adventure!" },
-    { min: 1, max: 9, msg: "🔥 Amazing start! You're building the foundation. Keep the momentum going!" },
-    { min: 10, max: 19, msg: "💪 10+ days down! You're developing real habits. Your listening is already improving!" },
-    { min: 20, max: 29, msg: "🚀 Almost 1 month in! Your vocabulary is growing every day. Keep pushing!" },
-    { min: 30, max: 30, msg: "🏆 ONE MONTH COMPLETE! You've built a solid foundation. Month 2 will transform your speaking!" },
-    { min: 31, max: 44, msg: "⚡ Deep in Month 2! Your conversations are getting smoother. Native speakers can see the difference!" },
-    { min: 45, max: 59, msg: "🌟 Halfway through! Your English is noticeably better. The B2 goal is within reach!" },
-    { min: 60, max: 60, msg: "🥇 TWO MONTHS DOWN! You're now Growth level. Month 3 is where mastery happens!" },
-    { min: 61, max: 79, msg: "🎯 Month 3 — Mastery! You sound more confident every day. B2 is just ahead!" },
-    { min: 80, max: 89, msg: "🏅 Final stretch! Less than 2 weeks left. You've come so far — don't stop now!" },
-    { min: 90, max: 90, msg: "🎊 CONGRATULATIONS! You completed the 90-day challenge! You've reached B2 level!" },
+    { min: 0, max: 0, msg: `🌟 يا ${name}، كل رحلة تبدأ بخطوة واحدة. اليوم الأول ينتظرك الآن!` },
+    { min: 1, max: 9, msg: `🔥 رائع يا ${name}! أنت تبني أساساً قوياً. استمر في هذا الزخم الرائع!` },
+    { min: 10, max: 19, msg: `💪 أكثر من 10 أيام يا ${name}! أنت تطور عادات حقيقية. مهارة الاستماع لديك في تحسن مستمر!` },
+    { min: 20, max: 29, msg: `🚀 قريب من إتمام الشهر الأول يا ${name}! مفرداتك تتوسع كل يوم. استمر!` },
+    { min: 30, max: 30, msg: `🏆 يا ${name} أتممت شهراً كاملاً! بنيت أساساً راسخاً. الشهر الثاني سيطور محادثتك!` },
+    { min: 31, max: 44, msg: `⚡ في عمق الشهر الثاني يا ${name}! محادثاتك أصبحت أكثر سلاسة. المتحدثون الأصليون يلاحظون الفرق!` },
+    { min: 45, max: 59, msg: `🌟 منتصف الرحلة يا ${name}! إنجليزيتك تحسنت بشكل ملحوظ. هدف B2 في متناول يدك!` },
+    { min: 60, max: 60, msg: `🥇 يا ${name} شهران من العطاء! أنت الآن في مرحلة النمو. الشهر الثالث هو أين تتحقق المهارة!` },
+    { min: 61, max: 79, msg: `🎯 الشهر الثالث يا ${name} — مرحلة الإتقان! صوتك أكثر ثقة كل يوم. B2 على بُعد خطوات!` },
+    { min: 80, max: 89, msg: `🏅 المرحلة الأخيرة يا ${name}! أقل من أسبوعين. لقد قطعت شوطاً بعيداً — لا تتوقف الآن!` },
+    { min: 90, max: 90, msg: `🎊 مبروك يا ${name}! أتممت تحدي الـ90 يوماً! لقد وصلت إلى مستوى B2!` },
   ];
   const found = msgs.find(m => done >= m.min && done <= m.max) || msgs[0];
   document.getElementById('motiv-text').textContent = found.msg;
+
+  // Update hero welcome
+  const heroWelcome = document.getElementById('hero-welcome');
+  if (heroWelcome && name) {
+    heroWelcome.textContent = `👋 أهلاً بك يا ${name}!`;
+  }
 }
 
 // ============================================================
@@ -1565,12 +1735,12 @@ function openDay(dayNum) {
   const vocab = VOCAB_DB[dayNum - 1] || VOCAB_DB[0];
   const phase = dayNum <= 30 ? "Phase 1 — Foundation" : dayNum <= 60 ? "Phase 2 — Growth" : "Phase 3 — Mastery";
   const weekNum = Math.ceil(dayNum / 7);
+  const name = getStudentName();
 
   document.getElementById('dp-title').textContent = `Day ${dayNum}: ${day.title}`;
-  document.getElementById('dp-subtitle').textContent = `Week ${weekNum} · ${day.emoji} ${day.topic}`;
+  document.getElementById('dp-subtitle').textContent = `Week ${weekNum} · ${day.emoji} ${day.topic} — يا ${name}، أنت رائع!`;
   document.getElementById('dp-phase').textContent = phase;
 
-  // Schedule bar
   document.getElementById('dp-schedule').innerHTML = `
     <div class="time-item"><div class="time-dot"></div>0:00–20:00 Listening</div>
     <div class="time-item"><div class="time-dot" style="background:#4BB8FA"></div>20:00–35:00 Vocabulary</div>
@@ -1585,31 +1755,27 @@ function openDay(dayNum) {
   sections.forEach((sec, idx) => {
     const accDiv = document.createElement('div');
     accDiv.className = 'section-accordion';
-    
-    let bodyContent = '';
-    
-    // Arabic label for sections 1 & 2
-    const showArabic = idx < 2;
-    const activityLabel = showArabic ? `<div style="font-size:.88rem;color:var(--text);margin-bottom:.5rem;direction:rtl;">${sec.arabicActivity}</div>` : '';
-    
-    // Steps
+
+    const showArabicTitle = [0, 1, 3].includes(idx); // Sections 1, 2, 4
+    const activityLabel = showArabicTitle && sec.arabicActivity
+      ? `<div style="font-size:.88rem;color:var(--text);margin-bottom:.5rem;direction:rtl;text-align:right;">${sec.arabicActivity}</div>`
+      : '';
+
     const stepsHTML = sec.steps.map((s, si) => `
       <li><span class="step-num">${si+1}</span><span>${s}</span></li>
     `).join('');
 
-    // Audio player
     const audioHTML = sec.hasAudio ? `
       <div class="audio-player">
         <button class="play-btn" onclick="playAudio(this, '${sec.audioSrc}')" title="Play">▶</button>
         <div class="audio-info">
           <div class="audio-title">${sec.audioTitle || 'Listening Exercise'}</div>
-          <div class="audio-sub">Click ▶ to open the resource in a new tab</div>
+          <div class="audio-sub">اضغط ▶ لفتح المصدر في تبويب جديد</div>
         </div>
-        <div class="audio-time">~5 min</div>
+        <div class="audio-time">~5 دقائق</div>
       </div>
     ` : '';
 
-    // Resources
     const resHTML = sec.resources && sec.resources.length ? sec.resources.map(r => `
       <a class="resource-link" href="${r.url}" target="_blank" rel="noopener">
         <span class="res-icon">${r.icon}</span>
@@ -1618,93 +1784,100 @@ function openDay(dayNum) {
       </a>
     `).join('') : '';
 
-    // Vocab section (Section 3)
     let vocabHTML = '';
     if (sec.isVocabSection && vocab) {
       vocabHTML = renderVocabSection(vocab);
     }
 
-    bodyContent = `
-      ${activityLabel}
-      ${audioHTML}
-      <ul class="activity-steps">${stepsHTML}</ul>
-      ${vocabHTML}
-      ${resHTML ? `<div style="margin-top:.8rem;">${resHTML}</div>` : ''}
-    `;
+    const titleWithArabic = showArabicTitle && sec.arabicTitle
+      ? `${sec.title} · ${sec.arabicTitle}`
+      : sec.title;
 
     accDiv.innerHTML = `
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <span class="acc-icon">${sec.icon}</span>
         <div class="acc-title-wrap">
-          <div class="acc-title"><span class="section-badge ${sec.badge}">Section ${idx+1}</span>${sec.title}${showArabic ? ` · ${sec.arabicTitle}` : ''}</div>
+          <div class="acc-title"><span class="section-badge ${sec.badge}">Section ${idx+1}</span>${titleWithArabic}</div>
           <div class="acc-meta">${sec.activity}</div>
         </div>
         <span class="acc-duration">${sec.duration}</span>
         <span class="acc-arrow">▼</span>
       </div>
       <div class="accordion-body">
-        ${bodyContent}
+        ${activityLabel}
+        ${audioHTML}
+        <ul class="activity-steps">${stepsHTML}</ul>
+        ${vocabHTML}
+        ${resHTML ? `<div style="margin-top:.8rem;">${resHTML}</div>` : ''}
       </div>
     `;
-    
     dpContent.appendChild(accDiv);
   });
 
-  // Generate quiz
+  // Quiz
   const questions = generateQuizForDay(dayNum, vocab);
   quizState = { score: 0, current: 0, questions, answers: new Array(questions.length).fill(null) };
   renderQuiz();
 
-  // Update complete button state
+  // Complete button
   const btn = document.getElementById('complete-day-btn');
   if (completedDays.includes(dayNum)) {
-    btn.textContent = '✅ Day Already Completed!';
+    btn.textContent = `✅ يا ${name}، هذا اليوم مكتمل بالفعل!`;
     btn.classList.add('already-done');
     btn.disabled = false;
     btn.style.opacity = "1";
     btn.style.cursor = "pointer";
   } else {
-    btn.textContent = '✅ Mark Day as Complete & Return Home';
+    btn.textContent = `✅ أكمل اليوم وعُد للصفحة الرئيسية`;
     btn.classList.remove('already-done');
     btn.disabled = true;
     btn.style.opacity = "0.5";
     btn.style.cursor = "not-allowed";
   }
 
-  // Switch views
   document.getElementById('main-page').style.display = 'none';
   document.getElementById('day-page').style.display = 'block';
   window.scrollTo(0, 0);
 }
 
+// ============================================================
+// RENDER VOCABULARY SECTION (Section 3 with Arabic + Example)
+// ============================================================
 function renderVocabSection(vocab) {
-  const renderItems = (items, typeLabel) => items.map(item => {
+  const renderItem = (item, typeLabel) => {
     const word = item.word || item.phrase || item.idiom;
     const type = item.type || typeLabel;
     const meaning = item.meaning;
     const phonetic = item.phonetic;
-    const ttsText = encodeURIComponent(word);
+    const arabicMeaning = getArabicVocab(word);
+    const example = getExampleSentence(word);
+
     return `
       <div class="vocab-card">
-        <div class="vocab-word">${word}</div>
-        <span class="vocab-type">${type}</span>
-        <div style="flex:1">
-          <div class="vocab-meaning">${meaning}</div>
+        <div class="vocab-card-top">
+          <div class="vocab-word">${word}</div>
+          <span class="vocab-type">${type}</span>
           <div class="vocab-phonetic">${phonetic}</div>
+          <button class="speak-btn" onclick="speakWord('${word.replace(/'/g, "\\'")}', event)" title="سماع النطق الأمريكي">🔊</button>
         </div>
-        <button class="speak-btn" onclick="speakWord('${word.replace(/'/g,"\'")}')" title="Hear pronunciation">🔊</button>
+        <div class="vocab-meaning" style="direction:ltr;text-align:left;">📌 <em>${meaning}</em></div>
+        ${arabicMeaning ? `<div class="vocab-arabic-meaning">🇪🇬 المعنى بالعربي: ${arabicMeaning}</div>` : ''}
+        <div class="vocab-example" onclick="speakWord('${example.en.replace(/'/g, "\\'")}', event)" style="cursor:pointer;" title="اضغط للاستماع">
+          💬 <strong>Example:</strong> ${example.en} <small style="color:var(--muted)">(🔊 اضغط للاستماع)</small>
+        </div>
+        ${example.ar ? `<div class="vocab-example-ar">📝 ${example.ar}</div>` : ''}
       </div>
     `;
-  }).join('');
+  };
 
   return `
     <div class="vocab-section">
-      <h4>📝 5 New Words</h4>
-      <div class="vocab-grid">${renderItems(vocab.words, 'word')}</div>
-      <h4 style="margin-top:1rem">💬 5 Key Phrases</h4>
-      <div class="vocab-grid">${renderItems(vocab.phrases, 'phrase')}</div>
-      <h4 style="margin-top:1rem">🔥 5 Idioms</h4>
-      <div class="vocab-grid">${renderItems(vocab.idioms, 'idiom')}</div>
+      <h4>📝 5 New Words — كلمات جديدة</h4>
+      <div class="vocab-grid">${vocab.words.map(i => renderItem(i, 'word')).join('')}</div>
+      <h4 style="margin-top:1rem">💬 5 Key Phrases — عبارات أساسية</h4>
+      <div class="vocab-grid">${vocab.phrases.map(i => renderItem(i, 'phrase')).join('')}</div>
+      <h4 style="margin-top:1rem">🔥 5 Idioms — تعبيرات اصطلاحية</h4>
+      <div class="vocab-grid">${vocab.idioms.map(i => renderItem(i, 'idiom')).join('')}</div>
     </div>
   `;
 }
@@ -1716,8 +1889,7 @@ function renderQuiz() {
   const container = document.getElementById('quiz-container');
   const dotsContainer = document.getElementById('quiz-dots');
   const qs = quizState.questions;
-  
-  // Render dots
+
   dotsContainer.innerHTML = qs.map((q, i) => `
     <div class="q-dot ${i < quizState.current ? 'done' : i === quizState.current ? 'current' : ''}" id="dot-${i}"></div>
   `).join('');
@@ -1733,15 +1905,13 @@ function renderQuiz() {
     if (q.type === 'mcq') {
       const letters = ['A', 'B', 'C', 'D'];
       const shuffled = q.options.map((o, i) => ({ text: o, idx: i }));
-      // Shuffle options
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
       const correctShuffledIdx = shuffled.findIndex(o => o.idx === q.correct);
-
       qDiv.innerHTML = `
-        <div class="q-text">❓ Question ${qi + 1} of ${qs.length}<br>${q.q}</div>
+        <div class="q-text">❓ سؤال ${qi + 1} من ${qs.length}<br>${q.q}</div>
         <div class="q-options">
           ${shuffled.map((o, i) => `
             <button class="q-opt" onclick="answerMCQ(${qi}, ${i}, ${correctShuffledIdx}, this)">
@@ -1753,31 +1923,34 @@ function renderQuiz() {
         <div class="q-feedback" id="fb-${qi}"></div>
       `;
     } else if (q.type === 'listening') {
+      const escapedSentence = q.sentence.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      const escapedAnswer = q.answer.replace(/'/g, "\\'");
       qDiv.innerHTML = `
-        <div class="q-text">🎧 Question ${qi + 1} of ${qs.length} — Listening<br>${q.q}</div>
+        <div class="q-text">🎧 سؤال ${qi + 1} من ${qs.length} — استماع<br>${q.q}</div>
         <div class="listen-quiz">
           <div class="listen-play">
-            <button onclick="speakWord('${q.sentence.replace(/'/g, "\\'")}')">▶</button>
-            <span style="font-size:.8rem;color:var(--text)">Click ▶ to hear the sentence</span>
+            <button onclick="speakWord('${escapedSentence}', event)">▶</button>
+            <span style="font-size:.8rem;color:var(--text)">اضغط ▶ للاستماع ثم اكتب ما سمعته</span>
           </div>
-          <input type="text" id="listen-ans-${qi}" placeholder="Type what you hear..." />
-          <button class="submit-listen" onclick="checkListening(${qi}, '${q.answer.replace(/'/g, "\\'")}')">Submit Answer</button>
+          <input type="text" id="listen-ans-${qi}" placeholder="اكتب ما سمعته بالإنجليزية..." />
+          <button class="submit-listen" onclick="checkListening(${qi}, '${escapedAnswer}')">تحقق من الإجابة</button>
           <div class="q-feedback" id="fb-${qi}"></div>
         </div>
       `;
     } else if (q.type === 'pronunciation') {
+      const escapedTarget = q.target.replace(/'/g, "\\'");
       qDiv.innerHTML = `
-        <div class="q-text">🎙️ Question ${qi + 1} of ${qs.length} — Pronunciation<br>${q.q}</div>
+        <div class="q-text">🎙️ سؤال ${qi + 1} من ${qs.length} — نطق<br>${q.q}</div>
         <div class="pronun-quiz">
           <div class="pronun-sentence">
-            <button class="listen-ref-btn" onclick="speakWord('${q.target.replace(/'/g, "\\'")}')">🔊</button>
+            <button class="listen-ref-btn" onclick="speakWord('${escapedTarget}', event)">🔊</button>
             <div>
               <div>${q.sentence}</div>
-              <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Phonetic: ${q.phonetic}</div>
+              <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">نطق: ${q.phonetic}</div>
             </div>
           </div>
           <div class="record-controls">
-            <button class="rec-btn start" id="rec-start-${qi}" onclick="startRecognition(${qi}, '${q.target.replace(/'/g, "\\'")}')">🎤 ابدأ النطق والتقييم</button>
+            <button class="rec-btn start" id="rec-start-${qi}" onclick="startRecognition(${qi}, '${escapedTarget}')">🎤 ابدأ النطق والتقييم</button>
           </div>
           <div class="pronunciation-result" id="pron-result-${qi}">
             <div style="font-weight:600;margin-bottom:.3rem">📊 نتيجة تقييم النطق:</div>
@@ -1787,7 +1960,6 @@ function renderQuiz() {
         </div>
       `;
     }
-
     container.appendChild(qDiv);
   });
 }
@@ -1795,27 +1967,22 @@ function renderQuiz() {
 function answerMCQ(qIdx, selectedIdx, correctIdx, btn) {
   const opts = btn.parentElement.querySelectorAll('.q-opt');
   opts.forEach(o => o.classList.add('disabled'));
-  
   const fb = document.getElementById(`fb-${qIdx}`);
-  
   if (selectedIdx === correctIdx) {
     btn.classList.add('correct');
     quizState.score++;
     document.getElementById('quiz-score-val').textContent = quizState.score;
-    fb.innerHTML = '✅ Correct! Great job!';
+    fb.innerHTML = '✅ إجابة صحيحة! أحسنت!';
     fb.className = 'q-feedback show ok';
     playCorrectSound();
   } else {
     btn.classList.add('wrong');
     opts[correctIdx].classList.add('correct');
-    const explanation = quizState.questions[qIdx].explanation || '';
-    fb.innerHTML = `❌ Incorrect. ${explanation}`;
+    fb.innerHTML = `❌ إجابة خاطئة. ${quizState.questions[qIdx].explanation || ''}`;
     fb.className = 'q-feedback show bad';
     playWrongSound();
   }
-  
   quizState.answers[qIdx] = selectedIdx === correctIdx;
-  
   setTimeout(() => moveToNext(qIdx), 1500);
 }
 
@@ -1823,27 +1990,23 @@ function checkListening(qIdx, correctAnswer) {
   const input = document.getElementById(`listen-ans-${qIdx}`);
   const userAnswer = input.value.toLowerCase().trim();
   const fb = document.getElementById(`fb-${qIdx}`);
-  
   const isCorrect = userAnswer === correctAnswer.toLowerCase().trim();
-
   if (isCorrect) {
-    fb.innerHTML = '✅ Correct! Your listening comprehension is great!';
+    fb.innerHTML = '✅ إجابة صحيحة! مهارة الاستماع لديك ممتازة!';
     fb.className = 'q-feedback show ok';
     quizState.score++;
     document.getElementById('quiz-score-val').textContent = quizState.score;
     playCorrectSound();
   } else {
-    fb.innerHTML = `❌ Incorrect.<br><span style="display:block; margin-top:5px; font-size:0.88rem; color:#b00020; font-weight:600;">Notes: The correct answer is: "${correctAnswer}"</span>`;
+    fb.innerHTML = `❌ إجابة خاطئة.<br><span style="margin-top:5px;display:block;font-weight:600;color:#b00020;">الإجابة الصحيحة: "${correctAnswer}"</span>`;
     fb.className = 'q-feedback show bad';
     playWrongSound();
   }
-  
   input.disabled = true;
   quizState.answers[qIdx] = isCorrect;
   setTimeout(() => moveToNext(qIdx), 2500);
 }
 
-// محرك فحص النطق المباشر المعتمد على الذكاء الاصطناعي للمتصفح باللغة العربية
 function startRecognition(qIdx, targetText) {
   const startBtn = document.getElementById(`rec-start-${qIdx}`);
   const resultDiv = document.getElementById(`pron-result-${qIdx}`);
@@ -1852,31 +2015,50 @@ function startRecognition(qIdx, targetText) {
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
-    alert("ميزة التعرف على الصوت غير مدعومة في متصفحك الحالي. يرجى استخدام متصفح Google Chrome أو Safari.");
+    fb.innerHTML = '❌ ميزة التعرف على الصوت غير مدعومة في متصفحك. استخدم Google Chrome أو Safari.';
+    fb.className = 'q-feedback show bad';
+    // Auto-advance after showing the error
+    setTimeout(() => {
+      quizState.answers[qIdx] = false;
+      moveToNext(qIdx);
+    }, 3000);
     return;
   }
 
   const recognition = new SpeechRecognition();
   recognition.lang = 'en-US';
   recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+  recognition.maxAlternatives = 3;
 
-  startBtn.textContent = "🎧 استمع إليك الآن... تحدث";
+  startBtn.textContent = "🎧 استمع إليك الآن... تحدث بوضوح";
   startBtn.style.backgroundColor = "#f39c12";
+  startBtn.disabled = true;
 
   recognition.start();
 
   recognition.onresult = function(event) {
-    const userSpeech = event.results[0][0].transcript.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-    const cleanTarget = targetText.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-    
+    // Check all alternatives for a better match
+    let bestMatch = false;
+    let bestTranscript = '';
+    const cleanTarget = targetText.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+
+    for (let i = 0; i < event.results[0].length; i++) {
+      const transcript = event.results[0][i].transcript;
+      const userSpeech = transcript.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+      if (i === 0) bestTranscript = transcript;
+      if (userSpeech === cleanTarget || (cleanTarget.includes(userSpeech) && userSpeech.length > 2) || userSpeech.includes(cleanTarget)) {
+        bestMatch = true;
+        bestTranscript = transcript;
+        break;
+      }
+    }
+
     resultDiv.classList.add('show');
-    
-    if (userSpeech === cleanTarget || cleanTarget.includes(userSpeech) && userSpeech.length > 2) {
+    if (bestMatch) {
       feedbackText.innerHTML = `
-        <div style="color:var(--success); font-weight:700;">🟢 نطق ممتاز وقريب جداً من الريكورد!</div>
-        <div style="margin-top:.3rem">النص الأصلي: <b>${targetText}</b></div>
-        <div>ما نطقته أنت: <span style="color:var(--success)">"${event.results[0][0].transcript}"</span></div>
+        <div style="color:var(--success);font-weight:700;">🟢 نطق ممتاز وقريب جداً من الأصل!</div>
+        <div style="margin-top:.3rem">النص المستهدف: <b>${targetText}</b></div>
+        <div>ما نطقته: <span style="color:var(--success)">"${bestTranscript}"</span></div>
       `;
       fb.innerHTML = '✅ إجابة صحيحة! نطقك سليم وواضح.';
       fb.className = 'q-feedback show ok';
@@ -1886,12 +2068,12 @@ function startRecognition(qIdx, targetText) {
       quizState.answers[qIdx] = true;
     } else {
       feedbackText.innerHTML = `
-        <div style="color:#e74c3c; font-weight:700;">🔴 النطق غير قريب كفاية من الريكورد الأصلي!</div>
-        <div style="margin-top:.3rem">النص المستهدف المُراد قراءته: <b>${targetText}</b></div>
-        <div>ما التقطه النظام من صوتك: <span style="color:#e74c3c">"${event.results[0][0].transcript || 'غير واضح'}"</span></div>
-        <div style="margin-top:.4rem; font-size:.78rem; color:var(--muted)">💡 نصيحة: اضغط على زر المكبر 🔊 واستمع بتركيز للكنة الأمريكية ثم حاول محاكاتها بدقة في المرات القادمة.</div>
+        <div style="color:#e74c3c;font-weight:700;">🔴 النطق غير قريب بما يكفي من الأصل</div>
+        <div style="margin-top:.3rem">النص المستهدف: <b>${targetText}</b></div>
+        <div>ما التقطه النظام: <span style="color:#e74c3c">"${bestTranscript || 'لم يتم التقاط صوت واضح'}"</span></div>
+        <div style="margin-top:.4rem;font-size:.78rem;color:var(--muted)">💡 اضغط 🔊 واستمع جيداً ثم حاول مرة أخرى</div>
       `;
-      fb.innerHTML = '❌ إجابة خاطئة. حاول تحسين مخارج الحروف ومطابقتها للريكورد.';
+      fb.innerHTML = '❌ إجابة خاطئة. تدرّب على مخارج الحروف وحاول مجدداً.';
       fb.className = 'q-feedback show bad';
       playWrongSound();
       quizState.answers[qIdx] = false;
@@ -1901,13 +2083,21 @@ function startRecognition(qIdx, targetText) {
   recognition.onerror = function(event) {
     startBtn.textContent = "🎤 ابدأ النطق والتقييم";
     startBtn.style.backgroundColor = "#e74c3c";
-    fb.innerHTML = '❌ لم نتمكن من التقاط الصوت. يرجى التحقق من صلاحيات المايكروفون وإعادة المحاولة.';
+    startBtn.disabled = false;
+    if (event.error === 'not-allowed') {
+      fb.innerHTML = '❌ يرجى السماح بالوصول للمايكروفون في المتصفح ثم أعد المحاولة.';
+    } else {
+      fb.innerHTML = '❌ لم يتم التقاط الصوت. تحقق من الميكروفون وأعد المحاولة.';
+    }
     fb.className = 'q-feedback show bad';
+    quizState.answers[qIdx] = false;
+    setTimeout(() => moveToNext(qIdx), 3000);
   };
 
   recognition.onend = function() {
     startBtn.textContent = "🎤 إعادة تقييم النطق";
     startBtn.style.backgroundColor = "var(--primary)";
+    startBtn.disabled = false;
     setTimeout(() => moveToNext(qIdx), 3500);
   };
 }
@@ -1915,31 +2105,33 @@ function startRecognition(qIdx, targetText) {
 function moveToNext(qIdx) {
   const qs = quizState.questions;
   const currentQ = document.getElementById(`q-${qIdx}`);
-  
-  document.getElementById(`dot-${qIdx}`).className = 'q-dot done';
-  
+  const dot = document.getElementById(`dot-${qIdx}`);
+  if (dot) dot.className = 'q-dot done';
+
   if (qIdx + 1 < qs.length) {
-    currentQ.style.display = 'none';
+    if (currentQ) currentQ.style.display = 'none';
     quizState.current = qIdx + 1;
     const nextQ = document.getElementById(`q-${qIdx + 1}`);
-    nextQ.style.display = 'block';
+    if (nextQ) nextQ.style.display = 'block';
     const nextDot = document.getElementById(`dot-${qIdx + 1}`);
     if (nextDot) nextDot.className = 'q-dot current';
   } else {
-    currentQ.style.display = 'none';
+    if (currentQ) currentQ.style.display = 'none';
     const finalScore = Math.round(quizState.score);
+    const name = getStudentName();
     const container = document.getElementById('quiz-container');
     container.innerHTML = `
       <div style="text-align:center;padding:1.5rem">
         <div style="font-size:3rem">${finalScore >= 7 ? '🎉' : finalScore >= 5 ? '😊' : '💪'}</div>
-        <div style="font-size:1.3rem;font-weight:700;color:var(--primary);margin:.5rem 0">Quiz Complete!</div>
-        <div style="font-size:1rem;color:var(--text)">Score: ${finalScore}/10</div>
+        <div style="font-size:1.3rem;font-weight:700;color:var(--primary);margin:.5rem 0">Quiz Complete يا ${name}!</div>
+        <div style="font-size:1rem;color:var(--text)">نتيجتك: ${finalScore}/10</div>
         <div style="font-size:.85rem;color:var(--muted);margin-top:.4rem">
-          ${finalScore >= 8 ? 'Excellent work! You mastered today\'s material!' : 
-            finalScore >= 6 ? 'Good job! Review the missed items for better retention.' : 
-            'Keep practicing! Review the vocabulary and try again tomorrow.'}
+          ${finalScore >= 8 ? `أداء ممتاز يا ${name}! أتقنت مادة اليوم!` :
+            finalScore >= 6 ? `عمل جيد يا ${name}! راجع العناصر التي أخطأت فيها.` :
+            `استمر في التدريب يا ${name}! راجع المفردات وحاول غداً.`}
         </div>
-        ${finalScore >= 7 ? `<div style="background:#e8f8ef;border-radius:10px;padding:.7rem;margin-top:.8rem;color:#27ae60;font-weight:600">+50 XP Earned! 🌟</div>` : ''}
+        ${finalScore >= 7 ? `<div style="background:#e8f8ef;border-radius:10px;padding:.7rem;margin-top:.8rem;color:#27ae60;font-weight:600">+50 XP مكتسبة! 🌟 أحسنت يا ${name}!</div>` : ''}
+        ${finalScore < 7 ? `<div style="background:#fdeae8;border-radius:10px;padding:.7rem;margin-top:.8rem;color:#c0392b;font-size:.82rem;">يا ${name}، تحتاج نتيجة 7/10 أو أعلى لإتمام اليوم. راجع المحتوى وحاول مجدداً!</div>` : ''}
       </div>
     `;
 
@@ -1948,12 +2140,9 @@ function moveToNext(qIdx) {
       completeBtn.disabled = false;
       completeBtn.style.opacity = "1";
       completeBtn.style.cursor = "pointer";
-    }
-
-    if (finalScore >= 7) {
       totalXP += 50;
       saveState();
-      showXPNotification('+50 XP! 🎉');
+      showXPNotification(`+50 XP يا ${name}! 🎉`);
     }
   }
 }
@@ -1961,26 +2150,40 @@ function moveToNext(qIdx) {
 // ============================================================
 // AUDIO / TTS
 // ============================================================
-function speakWord(text) {
+function speakWord(text, event) {
+  if (event) event.stopPropagation();
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 0.9;
-    
-    const voices = window.speechSynthesis.getVoices();
-    const maleVoice = voices.find(v => 
-      v.lang.startsWith('en') && 
-      (v.name.toLowerCase().includes('david') || 
-       v.name.toLowerCase().includes('mark') || 
-       v.name.toLowerCase().includes('google us english') ||
-       v.name.toLowerCase().includes('male') ||
-       (v.name.toLowerCase().includes('alex') && v.lang === 'en-US'))
-    );
-    if (maleVoice) utterance.voice = maleVoice;
-    
-    window.speechSynthesis.speak(utterance);
+    utterance.rate = 0.85;
+    utterance.pitch = 1.0;
+
+    // Try to get a good American English voice
+    const getVoiceAndSpeak = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = ['Google US English', 'Microsoft David', 'Alex', 'Samantha', 'Karen', 'Daniel'];
+      let chosenVoice = null;
+      for (const name of preferred) {
+        const v = voices.find(v => v.name === name && v.lang.startsWith('en'));
+        if (v) { chosenVoice = v; break; }
+      }
+      if (!chosenVoice) {
+        chosenVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
+      }
+      if (chosenVoice) utterance.voice = chosenVoice;
+      window.speechSynthesis.speak(utterance);
+    };
+
+    if (window.speechSynthesis.getVoices().length > 0) {
+      getVoiceAndSpeak();
+    } else {
+      window.speechSynthesis.onvoiceschanged = getVoiceAndSpeak;
+      // Fallback if event doesn't fire
+      setTimeout(getVoiceAndSpeak, 100);
+    }
+  } else {
+    alert('متصفحك لا يدعم ميزة النطق. يرجى استخدام Chrome أو Edge أو Safari.');
   }
 }
 
@@ -1989,7 +2192,7 @@ function playAudio(btn, src) {
 }
 
 function playCorrectSound() {
-  if ('AudioContext' in window || 'webkitAudioContext' in window) {
+  try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
@@ -2001,11 +2204,11 @@ function playCorrectSound() {
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.5);
-  }
+  } catch(e) {}
 }
 
 function playWrongSound() {
-  if ('AudioContext' in window || 'webkitAudioContext' in window) {
+  try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
@@ -2017,7 +2220,7 @@ function playWrongSound() {
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.4);
-  }
+  } catch(e) {}
 }
 
 // ============================================================
@@ -2027,17 +2230,18 @@ function toggleAccordion(header) {
   const body = header.nextElementSibling;
   const arrow = header.querySelector('.acc-arrow');
   const isOpen = body.classList.contains('open');
-  
+
   document.querySelectorAll('.accordion-body.open').forEach(b => {
     b.classList.remove('open');
     b.previousElementSibling.querySelector('.acc-arrow').classList.remove('open');
     b.previousElementSibling.classList.remove('open');
   });
-  
+
   if (!isOpen) {
     body.classList.add('open');
     arrow.classList.add('open');
     header.classList.add('open');
+    // Pre-load voices
     if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
   }
 }
@@ -2047,15 +2251,14 @@ function toggleAccordion(header) {
 // ============================================================
 function completeDay() {
   if (!currentDayOpen) return;
-  
   const dayNum = currentDayOpen;
+  const name = getStudentName();
   if (!completedDays.includes(dayNum)) {
     completedDays.push(dayNum);
     totalXP += 100;
     saveState();
-    showXPNotification('+100 XP! Day Complete! 🎊');
+    showXPNotification(`+100 XP يا ${name}! يوم مكتمل! 🎊`);
   }
-  
   goBack();
 }
 
@@ -2070,17 +2273,25 @@ function showXPNotification(msg) {
   const notif = document.getElementById('xp-notif');
   notif.textContent = msg;
   notif.classList.add('show');
-  setTimeout(() => notif.classList.remove('show'), 2500);
+  setTimeout(() => notif.classList.remove('show'), 2800);
 }
 
 // ============================================================
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Pre-load TTS voices
   if ('speechSynthesis' in window) {
-    window.speechSynthesis.onvoiceschanged = () => {};
     window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
   }
+
+  // Apply student name if already unlocked
+  const savedName = getStudentName();
+  if (sessionStorage.getItem("isUnlocked") === "true" && savedName) {
+    applyStudentName(savedName);
+  }
+
   renderGrid();
 });
 </script>
