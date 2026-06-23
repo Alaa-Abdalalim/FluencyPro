@@ -636,10 +636,62 @@
 </style>
 </head>
 <body>
+<div id="password-overlay" style="
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #1a1a1a;
+    z-index: 99999;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    color: white; font-family: sans-serif; direction: rtl;">
+    
+    <h2 style="margin-bottom: 20px;">هذا المحتوى خاص بالطلاب المشتركين فقط 🔒</h2>
+    <p style="margin-bottom: 20px; color: #aaa;">برجاء إدخال كود التفعيل المُنصرف لك لتشغيل المنصة</p>
+    
+    <div style="display: flex; gap: 10px;">
+        <input type="password" id="student-pass" placeholder="اكتب كود التفعيل هنا..." style="
+            padding: 12px 20px; border: none; border-radius: 8px;
+            font-size: 16px; width: 250px; text-align: center;">
+        
+        <button onclick="checkPassword()" style="
+            padding: 12px 25px; border: none; border-radius: 8px;
+            background-color: #0070f3; color: white; font-size: 16px;
+            cursor: pointer; font-weight: bold; transition: 0.3s;">
+            تفعيل
+        </button>
+    </div>
+    
+    <p id="error-msg" style="color: #ff4d4d; margin-top: 15px; display: none;">الكود غير صحيح! راجع الدعم الفني.</p>
+</div>
 
+
+
+<script>
+    // اكتب الباسورد اللي أنت عاوزه بين القوسين دول
+    const CORRECT_PASSWORD = "131020"; 
+
+    // فحص إذا كان الطالب قد سجل الباسورد مسبقاً في هذه الجلسة عشان الصفحة متقفلش كل ما يعمل Refresh
+    if (sessionStorage.getItem("isUnlocked") === "true") {
+        document.getElementById("password-overlay").style.display = "none";
+    }
+
+    function checkPassword() {
+        const userPass = document.getElementById("student-pass").value;
+        const errorMsg = document.getElementById("error-msg");
+        
+        if (userPass === CORRECT_PASSWORD) {
+            // إخفاء الغطاء وإظهار المنصة
+            document.getElementById("password-overlay").style.display = "none";
+            // حفظ حالة الدخول مؤقتاً
+            sessionStorage.setItem("isUnlocked", "true");
+        } else {
+            // إظهار رسالة خطأ
+            errorMsg.style.display = "block";
+        }
+    }
+</script>
 <div id="xp-notif" class="xp-notification">🎉 +50 XP Earned!</div>
 
-<!-- ==================== MAIN PAGE ==================== -->
 <div id="main-page">
   <div class="hero">
     <h1>🌟 رحلة تعلم الإنجليزية</h1>
@@ -648,7 +700,6 @@
     <div class="level-badge">📊 المستوى الحالي: A2 &rarr; الهدف: B2</div>
   </div>
 
-  <!-- Progress Section -->
   <div class="progress-section">
     <h2>📈 مؤشر التقدم في الرحلة</h2>
     <div class="progress-stats">
@@ -680,7 +731,6 @@
     <span id="motiv-text">كل رحلة تبدأ بخطوة واحدة. اليوم الأول ينتظرك!</span>
   </div>
 
-  <!-- Month 1 -->
   <div class="month-divider">
     <span class="month-icon">🌱</span>
     <div>
@@ -690,7 +740,6 @@
   </div>
   <div class="days-grid" id="grid-month1"></div>
 
-  <!-- Month 2 -->
   <div class="month-divider">
     <span class="month-icon">🌿</span>
     <div>
@@ -700,7 +749,6 @@
   </div>
   <div class="days-grid" id="grid-month2"></div>
 
-  <!-- Month 3 -->
   <div class="month-divider">
     <span class="month-icon">🌳</span>
     <div>
@@ -711,7 +759,6 @@
   <div class="days-grid" id="grid-month3"></div>
 </div>
 
-<!-- ==================== DAY PAGE ==================== -->
 <div id="day-page">
   <div class="day-header">
     <button class="back-btn" onclick="goBack()">&#8592;</button>
@@ -724,10 +771,8 @@
 
   <div class="schedule-bar" id="dp-schedule"></div>
 
-  <!-- Sections will be injected here -->
   <div id="dp-content"></div>
 
-  <!-- Quiz Section -->
   <div class="quiz-section" id="quiz-section">
     <div class="quiz-header">
       <span style="font-size:1.2rem">🎮</span>
@@ -738,7 +783,6 @@
     <div id="quiz-container" style="margin-top:.8rem"></div>
   </div>
 
-  <!-- Complete Button -->
   <div class="complete-btn-wrap">
     <button class="complete-btn" id="complete-day-btn" onclick="completeDay()">
       ✅ Mark Day as Complete & Return Home
@@ -876,13 +920,13 @@ function generateVocabDB() {
       phrases: [
         {phrase:"Nice to meet you", meaning:"A polite expression used when meeting someone for the first time", phonetic:"/naɪs tə miːt juː/"},
         {phrase:"How are you doing?", meaning:"An informal way to ask someone about their wellbeing", phonetic:"/haʊ ɑːr juː ˈduːɪŋ/"},
-        {phrase:"What's your name?", meaning:"A question to ask someone's name", phonetic:"/wɒts jɔːr neɪm/"},
+        {phrase:"What's your name?", meaning:"A question to ask someone's name", phonetic:"/wɒts jۆr neɪm/"},
         {phrase:"Where are you from?", meaning:"A question to ask someone's origin or hometown", phonetic:"/wer ɑːr juː frəm/"},
         {phrase:"It's a pleasure", meaning:"An expression showing you are happy to meet someone", phonetic:"/ɪts ə ˈpleʒər/"}
       ],
       idioms: [
         {idiom:"Break the ice", meaning:"To do or say something to relieve tension or awkwardness when meeting people", phonetic:"/breɪk ðə aɪs/"},
-        {idiom:"Put your best foot forward", meaning:"To make a good first impression", phonetic:"/pʊt jɔːr best fʊt ˈfɔːrwərd/"},
+        {idiom:"Put your best foot forward", meaning:"To make a good first impression", phonetic:"/pʊt jۆr best fʊt ˈfۆrwərd/"},
         {idiom:"Hit it off", meaning:"To immediately like someone and get along with them very well", phonetic:"/hɪt ɪt ɒf/"},
         {idiom:"A warm welcome", meaning:"A very friendly and enthusiastic greeting", phonetic:"/ə wɔːrm ˈwelkəm/"},
         {idiom:"Make someone's acquaintance", meaning:"To meet and get to know someone for the first time formally", phonetic:"/meɪk ˈsʌmwʌnz əˈkweɪntəns/"}
@@ -894,7 +938,7 @@ function generateVocabDB() {
         {word:"Sibling", type:"noun", meaning:"A brother or sister", phonetic:"/ˈsɪblɪŋ/"},
         {word:"Relative", type:"noun", meaning:"A person connected to you by blood or marriage", phonetic:"/ˈrelətɪv/"},
         {word:"Spouse", type:"noun", meaning:"A husband or wife", phonetic:"/spaʊs/"},
-        {word:"Guardian", type:"noun", meaning:"A person who is legally responsible for a child", phonetic:"/ˈɡɑːrdiən/"},
+        {word:"Guardian", type:"noun", meaning:"A person who is legally responsible for a child", phonetic:"/ˈgɑːrdiən/"},
         {word:"Nurture", type:"verb", meaning:"To care for and encourage the growth of someone", phonetic:"/ˈnɜːrtʃər/"}
       ],
       phrases: [
@@ -902,7 +946,7 @@ function generateVocabDB() {
         {phrase:"We are close-knit", meaning:"We have a very strong bond and spend much time together", phonetic:"/wiː ɑːr kloʊs nɪt/"},
         {phrase:"Take after someone", meaning:"To resemble a family member in looks or behavior", phonetic:"/teɪk ˈæftər ˈsʌmwʌn/"},
         {phrase:"Raise a family", meaning:"To have and bring up children", phonetic:"/reɪz ə ˈfæmɪli/"},
-        {phrase:"Blood is thicker than water", meaning:"Family relationships are stronger than all others", phonetic:"/blʌd ɪz ˈθɪkər ðæn ˈwɔːtər/"}
+        {phrase:"Blood is thicker than water", meaning:"Family relationships are stronger than all others", phonetic:"/blʌd ɪz ˈθɪkər ðæn ˈwۆtər/"}
       ],
       idioms: [
         {idiom:"Chip off the old block", meaning:"A child who is very similar to their parent in behavior or appearance", phonetic:"/tʃɪp ɒf ðə oʊld blɒk/"},
@@ -915,7 +959,7 @@ function generateVocabDB() {
     // Day 3 - Numbers & Time
     {
       words: [
-        {word:"Quarter", type:"noun", meaning:"A period of fifteen minutes; also one-fourth of something", phonetic:"/ˈkwɔːrtər/"},
+        {word:"Quarter", type:"noun", meaning:"A period of fifteen minutes; also one-fourth of something", phonetic:"/ˈkwۆrtər/"},
         {word:"Decade", type:"noun", meaning:"A period of ten years", phonetic:"/ˈdekeɪd/"},
         {word:"Approximately", type:"adverb", meaning:"Used to show that something is almost but not exactly correct", phonetic:"/əˈprɒksɪmətli/"},
         {word:"Punctual", type:"adjective", meaning:"Arriving or doing things at the expected or right time", phonetic:"/ˈpʌŋktʃuəl/"},
@@ -930,7 +974,7 @@ function generateVocabDB() {
       ],
       idioms: [
         {idiom:"Beat the clock", meaning:"To finish something before the time runs out", phonetic:"/biːt ðə klɒk/"},
-        {idiom:"Against the clock", meaning:"Trying to finish something before a deadline", phonetic:"/əˌɡenst ðə klɒk/"},
+        {idiom:"Against the clock", meaning:"Trying to finish something before a deadline", phonetic:"/əˌgenst ðə klɒk/"},
         {idiom:"Kill two birds with one stone", meaning:"To accomplish two things with a single action", phonetic:"/kɪl tuː bɜːrdz wɪð wʌn stoʊn/"},
         {idiom:"Once in a blue moon", meaning:"Something that happens very rarely", phonetic:"/wʌns ɪn ə bluː muːn/"},
         {idiom:"Time is money", meaning:"Time is a valuable resource that should not be wasted", phonetic:"/taɪm ɪz ˈmʌni/"}
@@ -942,22 +986,22 @@ function generateVocabDB() {
         {word:"Vivid", type:"adjective", meaning:"Producing powerful feelings or strong, clear images in the mind", phonetic:"/ˈvɪvɪd/"},
         {word:"Hue", type:"noun", meaning:"A color or shade", phonetic:"/hjuː/"},
         {word:"Translucent", type:"adjective", meaning:"Allowing light to pass through but not completely transparent", phonetic:"/trænsˈluːsənt/"},
-        {word:"Magnificent", type:"adjective", meaning:"Impressively beautiful, elaborate, or extravagant", phonetic:"/mæɡˈnɪfɪsənt/"},
-        {word:"Distinguish", type:"verb", meaning:"To recognize or treat someone or something as different", phonetic:"/dɪˈstɪŋɡwɪʃ/"}
+        {word:"Magnificent", type:"adjective", meaning:"Impressively beautiful, elaborate, or extravagant", phonetic:"/mægˈnɪfɪsənt/"},
+        {word:"Distinguish", type:"verb", meaning:"To recognize or treat someone or something as different", phonetic:"/dɪˈstɪŋgwɪʃ/"}
       ],
       phrases: [
         {phrase:"As clear as day", meaning:"Something that is very easy to understand or see", phonetic:"/æz klɪər æz deɪ/"},
         {phrase:"Pitch black", meaning:"Completely and totally dark with no light at all", phonetic:"/pɪtʃ blæk/"},
-        {phrase:"Rose-colored glasses", meaning:"An overly optimistic view of things", phonetic:"/roʊz ˈkʌlərd ˈɡlæsɪz/"},
+        {phrase:"Rose-colored glasses", meaning:"An overly optimistic view of things", phonetic:"/roʊz ˈkʌlərd ˈgIæsɪz/"},
         {phrase:"Paint the town red", meaning:"To go out and have a very good time celebrating", phonetic:"/peɪnt ðə taʊn red/"},
-        {phrase:"Green with envy", meaning:"Very jealous of someone else's possessions or achievements", phonetic:"/ɡriːn wɪð ˈenvi/"}
+        {phrase:"Green with envy", meaning:"Very jealous of someone else's possessions or achievements", phonetic:"/griːn wɪð ˈenvi/"}
       ],
       idioms: [
         {idiom:"Out of the blue", meaning:"Something that happens completely unexpectedly without warning", phonetic:"/aʊt əv ðə bluː/"},
         {idiom:"See red", meaning:"To become very angry suddenly", phonetic:"/siː red/"},
         {idiom:"In the pink", meaning:"In excellent health or condition", phonetic:"/ɪn ðə pɪŋk/"},
-        {idiom:"Gray area", meaning:"A situation that is unclear and has no definite rules", phonetic:"/ɡreɪ ˈeriə/"},
-        {idiom:"Show your true colors", meaning:"To reveal your real character or intentions", phonetic:"/ʃoʊ jɔːr truː ˈkʌlərz/"}
+        {idiom:"Gray area", meaning:"A situation that is unclear and has no definite rules", phonetic:"/greɪ ˈeriə/"},
+        {idiom:"Show your true colors", meaning:"To reveal your real character or intentions", phonetic:"/ʃoʊ jۆر truː ˈkʌlərz/"}
       ]
     },
     // Day 5 - Food & Drinks
@@ -967,20 +1011,20 @@ function generateVocabDB() {
         {word:"Savory", type:"adjective", meaning:"Having a strong, pleasant flavor that is salty or spicy rather than sweet", phonetic:"/ˈseɪvəri/"},
         {word:"Cuisine", type:"noun", meaning:"A style or method of cooking, especially that of a particular country", phonetic:"/kwɪˈziːn/"},
         {word:"Delectable", type:"adjective", meaning:"Highly pleasing, especially to the taste; delicious", phonetic:"/dɪˈlektəbəl/"},
-        {word:"Garnish", type:"verb/noun", meaning:"To decorate food with a small amount of another food", phonetic:"/ˈɡɑːrnɪʃ/"}
+        {word:"Garnish", type:"verb/noun", meaning:"To decorate food with a small amount of another food", phonetic:"/ˈgɑːrnɪʃ/"}
       ],
       phrases: [
-        {phrase:"Dig in!", meaning:"An informal way to tell someone to start eating enthusiastically", phonetic:"/dɪɡ ɪn/"},
+        {phrase:"Dig in!", meaning:"An informal way to tell someone to start eating enthusiastically", phonetic:"/dɪg ɪn/"},
         {phrase:"On an empty stomach", meaning:"Without having eaten any food", phonetic:"/ɒn æn ˈempti ˈstʌmək/"},
         {phrase:"A bite to eat", meaning:"A small meal or snack", phonetic:"/ə baɪt tə iːt/"},
         {phrase:"You are what you eat", meaning:"The food you eat affects your health and appearance", phonetic:"/juː ɑːr wɒt juː iːt/"},
         {phrase:"Hit the spot", meaning:"When food or drink is exactly what you wanted and satisfies you", phonetic:"/hɪt ðə spɒt/"}
       ],
       idioms: [
-        {idiom:"Bite off more than you can chew", meaning:"To try to do more than you are capable of handling", phonetic:"/baɪt ɒf mɔːr ðæn juː kæn tʃuː/"},
+        {idiom:"Bite off more than you can chew", meaning:"To try to do more than you are capable of handling", phonetic:"/baɪt ɒf mۆr ðæn juː kæn tʃuː/"},
         {idiom:"Spill the beans", meaning:"To reveal secret information accidentally or without meaning to", phonetic:"/spɪl ðə biːnz/"},
         {idiom:"In a nutshell", meaning:"Briefly; using as few words as possible", phonetic:"/ɪn ə ˈnʌtʃel/"},
-        {idiom:"Have a lot on your plate", meaning:"To be very busy with many things to deal with at once", phonetic:"/hæv ə lɒt ɒn jɔːr pleɪt/"},
+        {idiom:"Have a lot on your plate", meaning:"To be very busy with many things to deal with at once", phonetic:"/hæv ə lɒt ɒn jۆr pleɪt/"},
         {idiom:"Piece of cake", meaning:"Something that is very easy to do", phonetic:"/piːs əv keɪk/"}
       ]
     },
@@ -998,14 +1042,14 @@ function generateVocabDB() {
         {phrase:"Burning the midnight oil", meaning:"Working or studying very late into the night", phonetic:"/ˈbɜːrnɪŋ ðə ˈmɪdnaɪt ɔɪl/"},
         {phrase:"Stick to a schedule", meaning:"To follow a planned timetable consistently without deviating", phonetic:"/stɪk tə ə ˈskedʒuːl/"},
         {phrase:"Wind down", meaning:"To relax gradually, especially before going to sleep", phonetic:"/waɪnd daʊn/"},
-        {phrase:"Get the ball rolling", meaning:"To start an activity or process", phonetic:"/ɡet ðə bɔːl ˈroʊlɪŋ/"}
+        {phrase:"Get the ball rolling", meaning:"To start an activity or process", phonetic:"/get ðə bۆl ˈroʊlɪŋ/"}
       ],
       idioms: [
         {idiom:"Rise and shine", meaning:"A cheerful expression used to wake someone up enthusiastically", phonetic:"/raɪz ənd ʃaɪn/"},
-        {idiom:"Hit the ground running", meaning:"To start something energetically and effectively from the very beginning", phonetic:"/hɪt ðə ɡraʊnd ˈrʌnɪŋ/"},
-        {idiom:"Sleep like a log", meaning:"To sleep very deeply and soundly without waking", phonetic:"/sliːp laɪk ə lɒɡ/"},
+        {idiom:"Hit the ground running", meaning:"To start something energetically and effectively from the very beginning", phonetic:"/hɪt ðə graʊnd ˈrʌnɪŋ/"},
+        {idiom:"Sleep like a log", meaning:"To sleep very deeply and soundly without waking", phonetic:"/sliːp laɪk ə lɒg/"},
         {idiom:"Burn the candle at both ends", meaning:"To exhaust yourself by working or staying active both early and late", phonetic:"/bɜːrn ðə ˈkændəl æt boʊθ endz/"},
-        {idiom:"On the go", meaning:"Being constantly busy and active without stopping to rest", phonetic:"/ɒn ðə ɡoʊ/"}
+        {idiom:"On the go", meaning:"Being constantly busy and active without stopping to rest", phonetic:"/ɒn ðə goʊ/"}
       ]
     },
     // Day 7 - Home & Furniture
@@ -1019,7 +1063,7 @@ function generateVocabDB() {
       ],
       phrases: [
         {phrase:"Home sweet home", meaning:"An expression of the pleasure of returning to one's home", phonetic:"/hoʊm swiːt hoʊm/"},
-        {phrase:"Make yourself at home", meaning:"To behave in a relaxed way as if you were in your own home", phonetic:"/meɪk jɔːrˌself æt hoʊm/"},
+        {phrase:"Make yourself at home", meaning:"To behave in a relaxed way as if you were in your own home", phonetic:"/meɪk jۆrˌself æt hoʊm/"},
         {phrase:"Tidy up", meaning:"To make a place neat and organized", phonetic:"/ˈtaɪdi ʌp/"},
         {phrase:"Move in", meaning:"To begin living in a new home", phonetic:"/muːv ɪn/"},
         {phrase:"Pull up a chair", meaning:"To get a chair and sit down; informal invitation to sit", phonetic:"/pʊl ʌp ə tʃer/"}
@@ -1029,13 +1073,13 @@ function generateVocabDB() {
         {idiom:"Bring home the bacon", meaning:"To earn money to support the family", phonetic:"/brɪŋ hoʊm ðə ˈbeɪkən/"},
         {idiom:"Eat someone out of house and home", meaning:"To eat so much that you cause financial hardship to your host", phonetic:"/iːt ˈsʌmwʌn aʊt əv haʊs ənd hoʊm/"},
         {idiom:"Hit the hay", meaning:"To go to bed and sleep", phonetic:"/hɪt ðə heɪ/"},
-        {idiom:"Nest egg", meaning:"Money saved for use in the future, especially for retirement", phonetic:"/nest eɡ/"}
+        {idiom:"Nest egg", meaning:"Money saved for use in the future, especially for retirement", phonetic:"/nest eg/"}
       ]
     },
     // Day 8 - Shopping
     {
       words: [
-        {word:"Bargain", type:"noun/verb", meaning:"Something bought or offered for sale cheaply", phonetic:"/ˈbɑːrɡɪn/"},
+        {word:"Bargain", type:"noun/verb", meaning:"Something bought or offered for sale cheaply", phonetic:"/ˈbɑːrgɪn/"},
         {word:"Receipt", type:"noun", meaning:"A written acknowledgment that something has been received or paid", phonetic:"/rɪˈsiːt/"},
         {word:"Browse", type:"verb", meaning:"To look through or glance at something in a casual way", phonetic:"/braʊz/"},
         {word:"Discount", type:"noun/verb", meaning:"A reduction made from the usual price", phonetic:"/ˈdɪskaʊnt/"},
@@ -1049,17 +1093,17 @@ function generateVocabDB() {
         {phrase:"Pay in cash", meaning:"To pay using physical money rather than a card", phonetic:"/peɪ ɪn kæʃ/"}
       ],
       idioms: [
-        {idiom:"Cost an arm and a leg", meaning:"To be extremely expensive", phonetic:"/kɒst ən ɑːrm ənd ə leɡ/"},
+        {idiom:"Cost an arm and a leg", meaning:"To be extremely expensive", phonetic:"/kɒst 牢 ɑːrm 牢nd 牢 leg/"},
         {idiom:"Pay through the nose", meaning:"To pay an extremely high price for something", phonetic:"/peɪ θruː ðə noʊz/"},
         {idiom:"Buy time", meaning:"To do something to delay an event and have more time to prepare", phonetic:"/baɪ taɪm/"},
         {idiom:"Penny-pinching", meaning:"Unwilling to spend money; overly careful about spending", phonetic:"/ˈpeni ˌpɪntʃɪŋ/"},
-        {idiom:"Go Dutch", meaning:"To share the cost of a meal or outing equally among the group", phonetic:"/ɡoʊ dʌtʃ/"}
+        {idiom:"Go Dutch", meaning:"To share the cost of a meal or outing equally among the group", phonetic:"/goʊ dʌtʃ/"}
       ]
     },
     // Day 9 - Weather
     {
       words: [
-        {word:"Forecast", type:"noun/verb", meaning:"A prediction of future weather or events", phonetic:"/ˈfɔːrkæst/"},
+        {word:"Forecast", type:"noun/verb", meaning:"A prediction of future weather or events", phonetic:"/ˈfۆrkæst/"},
         {word:"Humidity", type:"noun", meaning:"A quantity representing the amount of water vapor in the atmosphere", phonetic:"/hjuːˈmɪdɪti/"},
         {word:"Breeze", type:"noun", meaning:"A gentle wind", phonetic:"/briːz/"},
         {word:"Sweltering", type:"adjective", meaning:"Uncomfortably hot and humid", phonetic:"/ˈsweltərɪŋ/"},
@@ -1068,13 +1112,13 @@ function generateVocabDB() {
       phrases: [
         {phrase:"Under the weather", meaning:"Feeling slightly ill or unwell", phonetic:"/ˈʌndər ðə ˈweðər/"},
         {phrase:"Every cloud has a silver lining", meaning:"Every bad situation has a positive aspect", phonetic:"/ˈevri klaʊd hæz ə ˈsɪlvər ˈlaɪnɪŋ/"},
-        {phrase:"Rain cats and dogs", meaning:"To rain very heavily", phonetic:"/reɪn kæts ənd dɒɡz/"},
-        {phrase:"It's a scorcher", meaning:"It is an extremely hot day", phonetic:"/ɪts ə ˈskɔːrtʃər/"},
+        {phrase:"Rain cats and dogs", meaning:"To rain very heavily", phonetic:"/reɪn kæts 牢nd dɒgz/"},
+        {phrase:"It's a scorcher", meaning:"It is an extremely hot day", phonetic:"/ɪts ə ˈskۆrtʃər/"},
         {phrase:"Bundle up", meaning:"To put on warm clothing because it is cold outside", phonetic:"/ˈbʌndəl ʌp/"}
       ],
       idioms: [
-        {idiom:"A storm in a teacup", meaning:"A lot of unnecessary fuss about something trivial", phonetic:"/ə stɔːrm ɪn ə ˈtiːkʌp/"},
-        {idiom:"Calm before the storm", meaning:"A quiet period just before an expected crisis or disturbance", phonetic:"/kɑːm bɪˈfɔːr ðə stɔːrm/"},
+        {idiom:"A storm in a teacup", meaning:"A lot of unnecessary fuss about something trivial", phonetic:"/ə stۆrm ɪn ə ˈtiːkʌp/"},
+        {idiom:"Calm before the storm", meaning:"A quiet period just before an expected crisis or disturbance", phonetic:"/kۆm bɪˈfۆr ðə stۆrm/"},
         {idiom:"Take a rain check", meaning:"To decline an offer but suggest doing it at a later time", phonetic:"/teɪk ə reɪn tʃek/"},
         {idiom:"Steal someone's thunder", meaning:"To do something that takes attention away from someone else's achievement", phonetic:"/stiːl ˈsʌmwʌnz ˈθʌndər/"},
         {idiom:"Fair-weather friend", meaning:"A person who is only helpful or friendly in favorable conditions", phonetic:"/ˈfer ˈweðər frend/"}
@@ -1086,8 +1130,8 @@ function generateVocabDB() {
         {word:"Commuter", type:"noun", meaning:"A person who travels regularly between work and home", phonetic:"/kəˈmjuːtər/"},
         {word:"Terminal", type:"noun", meaning:"A place where vehicles begin and end their journeys", phonetic:"/ˈtɜːrmɪnəl/"},
         {word:"Detour", type:"noun/verb", meaning:"A long or roundabout route taken to avoid something", phonetic:"/ˈdiːtʊr/"},
-        {word:"Congestion", type:"noun", meaning:"The condition of a road being too full of traffic", phonetic:"/kənˈdʒestʃən/"},
-        {word:"Navigate", type:"verb", meaning:"To find your way through or to a place", phonetic:"/ˈnævɪɡeɪt/"}
+        {word:"Congestion", type:"noun", meaning:"The condition of a road being too full of traffic", phonetic:"/kənˈdʒestʃen/"},
+        {word:"Navigate", type:"verb", meaning:"To find your way through or to a place", phonetic:"/ˈnævɪgeyt/"}
       ],
       phrases: [
         {phrase:"Catch the bus", meaning:"To arrive at a bus stop in time to board the bus", phonetic:"/kætʃ ðə bʌs/"},
@@ -1098,10 +1142,10 @@ function generateVocabDB() {
       ],
       idioms: [
         {idiom:"On the right track", meaning:"Doing the right thing or going in the right direction", phonetic:"/ɒn ðə raɪt træk/"},
-        {idiom:"Jump on the bandwagon", meaning:"To do something because many other people are doing it", phonetic:"/dʒʌmp ɒn ðə ˈbændwæɡən/"},
+        {idiom:"Jump on the bandwagon", meaning:"To do something because many other people are doing it", phonetic:"/dʒʌmp ɒn ðə ˈbændwægən/"},
         {idiom:"Backseat driver", meaning:"A passenger who gives unwanted advice or criticism to the driver", phonetic:"/ˈbæksɪːt ˈdraɪvər/"},
-        {idiom:"Get the green light", meaning:"To receive permission or approval to proceed with something", phonetic:"/ɡet ðə ɡriːn laɪt/"},
-        {idiom:"Drive someone up the wall", meaning:"To make someone very angry or frustrated", phonetic:"/draɪv ˈsʌmwʌn ʌp ðə wɔːl/"}
+        {idiom:"Get the green light", meaning:"To receive permission or approval to proceed with something", phonetic:"/get ðə griːn laɪt/"},
+        {idiom:"Drive someone up the wall", meaning:"To make someone very angry or frustrated", phonetic:"/draɪv ˈsʌmwʌn ʌp ðə wۆl/"}
       ]
     }
   ];
@@ -1116,15 +1160,15 @@ function generateExtraVocab() {
   // Generate unique vocab for days 11-90
   const wordSets = [
     // Day 11 - Health
-    {words:[{word:"Symptom",type:"noun",meaning:"A physical or mental sign of a disease or condition",phonetic:"/ˈsɪmptəm/"},{word:"Diagnose",type:"verb",meaning:"To identify a disease or condition from its signs and symptoms",phonetic:"/ˈdaɪəɡnoʊz/"},{word:"Remedy",type:"noun",meaning:"A cure or medicine for a disease or injury",phonetic:"/ˈremədi/"},{word:"Chronic",type:"adjective",meaning:"A disease or condition that persists for a long time",phonetic:"/ˈkrɒnɪk/"},{word:"Immune",type:"adjective",meaning:"Resistant to a disease through having antibodies",phonetic:"/ɪˈmjuːn/"}],phrases:[{phrase:"Under the knife",meaning:"Having a surgical operation",phonetic:"/ˈʌndər ðə naɪf/"},{phrase:"On the mend",meaning:"Starting to recover from an illness",phonetic:"/ɒn ðə mend/"},{phrase:"Feeling run-down",meaning:"Feeling tired and unwell from overwork",phonetic:"/ˈfiːlɪŋ rʌn daʊn/"},{phrase:"In good shape",meaning:"In good physical condition",phonetic:"/ɪn ɡʊd ʃeɪp/"},{phrase:"Catch a cold",meaning:"To become ill with a cold",phonetic:"/kætʃ ə koʊld/"}],idioms:[{idiom:"Back on your feet",meaning:"To recover from illness or difficulty",phonetic:"/bæk ɒn jɔːr fiːt/"},{idiom:"Bite the bullet",meaning:"To endure a painful experience with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"},{idiom:"At death's door",meaning:"Very seriously ill and close to death",phonetic:"/æt deθs dɔːr/"},{idiom:"Give someone a clean bill of health",meaning:"To declare someone to be healthy",phonetic:"/ɡɪv ˈsʌmwʌn ə kliːn bɪl əv helθ/"},{idiom:"Sweat it out",meaning:"To endure a difficult situation or illness",phonetic:"/swet ɪt aʊt/"}]},
+    {words:[{word:"Symptom",type:"noun",meaning:"A physical or mental sign of a disease or condition",phonetic:"/ˈsɪmptəm/"},{word:"Diagnose",type:"verb",meaning:"To identify a disease or condition from its signs and symptoms",phonetic:"/ˈdaɪəgnoʊz/"},{word:"Remedy",type:"noun",meaning:"A cure or medicine for a disease or injury",phonetic:"/ˈremədi/"},{word:"Chronic",type:"adjective",meaning:"A disease or condition that persists for a long time",phonetic:"/ˈkrɒnɪk/"},{word:"Immune",type:"adjective",meaning:"Resistant to a disease through having antibodies",phonetic:"/ɪˈmjuːn/"}],phrases:[{phrase:"Under the knife",meaning:"Having a surgical operation",phonetic:"/ˈʌndər ðə naɪf/"},{phrase:"On the mend",meaning:"Starting to recover from an illness",phonetic:"/ɒn ðə mend/"},{phrase:"Feeling run-down",meaning:"Feeling tired and unwell from overwork",phonetic:"/ˈfiːlɪŋ rʌn daʊn/"},{phrase:"In good shape",meaning:"In good physical condition",phonetic:"/ɪn gʊd ʃeɪp/"},{phrase:"Catch a cold",meaning:"To become ill with a cold",phonetic:"/kætʃ ə koʊld/"}],idioms:[{idiom:"Back on your feet",meaning:"To recover from illness or difficulty",phonetic:"/bæk ɒn jۆr fiːt/"},{idiom:"Bite the bullet",meaning:"To endure a painful experience with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"},{idiom:"At death's door",meaning:"Very seriously ill and close to death",phonetic:"/æt deθs dۆr/"},{idiom:"Give someone a clean bill of health",meaning:"To declare someone to be healthy",phonetic:"/gɪv ˈsʌmwʌn ə kliːn bɪl əv helθ/"},{idiom:"Sweat it out",meaning:"To endure a difficult situation or illness",phonetic:"/swet ɪt aʊt/"}]},
     // Day 12 - Work & Jobs
-    {words:[{word:"Career",type:"noun",meaning:"An occupation undertaken for a significant period of life",phonetic:"/kəˈrɪr/"},{word:"Colleague",type:"noun",meaning:"A person with whom one works in a profession",phonetic:"/ˈkɒliːɡ/"},{word:"Promotion",type:"noun",meaning:"Advancement to a higher position in an organization",phonetic:"/prəˈmoʊʃən/"},{word:"Deadline",type:"noun",meaning:"The latest time by which something must be completed",phonetic:"/ˈdedlaɪn/"},{word:"Delegate",type:"verb",meaning:"To entrust a task or responsibility to another person",phonetic:"/ˈdelɪɡeɪt/"}],phrases:[{phrase:"Pull your weight",meaning:"To do your fair share of work",phonetic:"/pʊl jɔːr weɪt/"},{phrase:"Work around the clock",meaning:"To work continuously for 24 hours",phonetic:"/wɜːrk əˈraʊnd ðə klɒk/"},{phrase:"Land a job",meaning:"To succeed in getting a job",phonetic:"/lænd ə dʒɒb/"},{phrase:"Call it a day",meaning:"To stop work for the rest of the day",phonetic:"/kɔːl ɪt ə deɪ/"},{phrase:"Get down to business",meaning:"To start talking about or doing the important work",phonetic:"/ɡet daʊn tə ˈbɪznɪs/"}],idioms:[{idiom:"Touch base",meaning:"To briefly make contact with someone to stay informed",phonetic:"/tʌtʃ beɪs/"},{idiom:"Think outside the box",meaning:"To think creatively and beyond conventional approaches",phonetic:"/θɪŋk ˌaʊtˈsaɪd ðə bɒks/"},{idiom:"Get the ball rolling",meaning:"To start a process or activity",phonetic:"/ɡet ðə bɔːl ˈroʊlɪŋ/"},{idiom:"Back to the drawing board",meaning:"To start over from the beginning after failure",phonetic:"/bæk tə ðə ˈdrɔːɪŋ bɔːrd/"},{idiom:"Learn the ropes",meaning:"To learn the basics of a new job or activity",phonetic:"/lɜːrn ðə roʊps/"}]},
+    {words:[{word:"Career",type:"noun",meaning:"An occupation undertaken for a significant period of life",phonetic:"/kəˈrɪr/"},{word:"Colleague",type:"noun",meaning:"A person with whom one works in a profession",phonetic:"/ˈgɒliːg/"},{word:"Promotion",type:"noun",meaning:"Advancement to a higher position in an organization",phonetic:"/prəˈmoʊʃən/"},{word:"Deadline",type:"noun",meaning:"The latest time by which something must be completed",phonetic:"/ˈdedlaɪn/"},{word:"Delegate",type:"verb",meaning:"To entrust a task or responsibility to another person",phonetic:"/ˈdelɪgeɪt/"}],phrases:[{phrase:"Pull your weight",meaning:"To do your fair share of work",phonetic:"/pʊl jۆr weɪt/"},{phrase:"Work around the clock",meaning:"To work continuously for 24 hours",phonetic:"/wɜːrk əˈraʊnd ðə klɒk/"},{phrase:"Land a job",meaning:"To succeed in getting a job",phonetic:"/Iænd ə dʒɒb/"},{phrase:"Call it a day",meaning:"To stop work for the rest of the day",phonetic:"/kۆl ɪt ə deɪ/"},{phrase:"Get down to business",meaning:"To start talking about or doing the important work",phonetic:"/get daʊn tə ˈbɪznɪs/"}],idioms:[{idiom:"Touch base",meaning:"To briefly make contact with someone to stay informed",phonetic:"/tʌtʃ beɪs/"},{idiom:"Think outside the box",meaning:"To think creatively and beyond conventional approaches",phonetic:"/θɪŋk ˌaʊtˈsaɪd ðə bɒks/"},{idiom:"Get the ball rolling",meaning:"To start a process or activity",phonetic:"/get ðə bۆl ˈroʊlɪŋ/"},{idiom:"Back to the drawing board",meaning:"To start over from the beginning after failure",phonetic:"/bæk tə ðə ˈdrۆɪŋ bۆrd/"},{idiom:"Learn the ropes",meaning:"To learn the basics of a new job or activity",phonetic:"/lɜːrn ðə roʊps/"}]},
     // Day 13 - Hobbies
-    {words:[{word:"Pastime",type:"noun",meaning:"An activity done regularly for enjoyment during free time",phonetic:"/ˈpæstaɪm/"},{word:"Amateur",type:"noun/adjective",meaning:"A person who pursues an activity for pleasure, not professionally",phonetic:"/ˈæmətər/"},{word:"Enthusiast",type:"noun",meaning:"A person who is very interested and involved in a particular activity",phonetic:"/ɪnˈθjuːziæst/"},{word:"Dedicate",type:"verb",meaning:"To devote time, effort, or resources to a particular task",phonetic:"/ˈdedɪkeɪt/"},{word:"Skillful",type:"adjective",meaning:"Having or showing skill and expertise",phonetic:"/ˈskɪlfʊl/"}],phrases:[{phrase:"Pick up a hobby",meaning:"To start doing something new as a hobby",phonetic:"/pɪk ʌp ə ˈhɒbi/"},{phrase:"In your spare time",meaning:"During time when you are free from work or duties",phonetic:"/ɪn jɔːr sper taɪm/"},{phrase:"Get the hang of it",meaning:"To learn how to do something; to understand the way it works",phonetic:"/ɡet ðə hæŋ əv ɪt/"},{phrase:"Give it a shot",meaning:"To try something even if you are not sure you will succeed",phonetic:"/ɡɪv ɪt ə ʃɒt/"},{phrase:"A natural talent",meaning:"An innate ability to do something well without much training",phonetic:"/ə ˈnætʃrəl ˈtælənt/"}],idioms:[{idiom:"Have a knack for something",meaning:"To have a natural ability or skill for doing something",phonetic:"/hæv ə næk fɔːr ˈsʌmθɪŋ/"},{idiom:"Go the extra mile",meaning:"To make more effort than is expected",phonetic:"/ɡoʊ ðə ˈekstrə maɪl/"},{idiom:"Practice makes perfect",meaning:"Regularly doing something will make you better at it",phonetic:"/ˈpræktɪs meɪks ˈpɜːrfɪkt/"},{idiom:"Jack of all trades",meaning:"A person who can do many different types of work",phonetic:"/dʒæk əv ɔːl treɪdz/"},{idiom:"In your element",meaning:"In a situation where you are very comfortable and perform well",phonetic:"/ɪn jɔːr ˈelɪmənt/"}]},
+    {words:[{word:"Pastime",type:"noun",meaning:"An activity done regularly for enjoyment during free time",phonetic:"/ˈpæstaɪm/"},{word:"Amateur",type:"noun/adjective",meaning:"A person who pursues an activity for pleasure, not professionally",phonetic:"/ˈæmətər/"},{word:"Enthusiast",type:"noun",meaning:"A person who is very interested and involved in a particular activity",phonetic:"/ɪnˈθjuːziæst/"},{word:"Dedicate",type:"verb",meaning:"To devote time, effort, or resources to a particular task",phonetic:"/ˈdedɪkeɪt/"},{word:"Skillful",type:"adjective",meaning:"Having or showing skill and expertise",phonetic:"/ˈskɪlfʊl/"}],phrases:[{phrase:"Pick up a hobby",meaning:"To start doing something new as a hobby",phonetic:"/pɪk ʌp ə ˈhɒbi/"},{phrase:"In your spare time",meaning:"During time when you are free from work or duties",phonetic:"/ɪn jۆr sper taɪm/"},{phrase:"Get the hang of it",meaning:"To learn how to do something; to understand the way it works",phonetic:"/get ðə hæŋ əv ɪt/"},{phrase:"Give it a shot",meaning:"To try something even if you are not sure you will succeed",phonetic:"/gıv ıt ə ʃɒt/"},{phrase:"A natural talent",meaning:"An innate ability to do something well without much training",phonetic:"/ə ˈnætʃrəl ˈtæIənt/"}],idioms:[{idiom:"Have a knack for something",meaning:"To have a natural ability or skill for doing something",phonetic:"/hæv ə næk fۆr ˈsʌmθɪŋ/"},{idiom:"Go the extra mile",meaning:"To make more effort than is expected",phonetic:"/goʊ ðə ˈekstrə maɪl/"},{idiom:"Practice makes perfect",meaning:"Regularly doing something will make you better at it",phonetic:"/ˈpræktɪس meɪks ˈpɜːrfɪkt/"},{idiom:"Jack of all trades",meaning:"A person who can do many different types of work",phonetic:"/dʒæk əv ɔːl treɪdz/"},{idiom:"In your element",meaning:"In a situation where you are very comfortable and perform well",phonetic:"/ɪn jۆr ˈelɪmənt/"}]},
     // Day 14 - Animals & Nature
-    {words:[{word:"Habitat",type:"noun",meaning:"The natural home or environment of an animal or plant",phonetic:"/ˈhæbɪtæt/"},{word:"Predator",type:"noun",meaning:"An animal that hunts and kills other animals for food",phonetic:"/ˈpredətər/"},{word:"Migrate",type:"verb",meaning:"To move from one region to another according to the seasons",phonetic:"/ˈmaɪɡreɪt/"},{word:"Extinct",type:"adjective",meaning:"No longer in existence; having no living members",phonetic:"/ɪkˈstɪŋkt/"},{word:"Camouflage",type:"noun/verb",meaning:"The way animals hide by blending in with their environment",phonetic:"/ˈkæməflɑːʒ/"}],phrases:[{phrase:"In the wild",meaning:"In the natural environment, not in captivity",phonetic:"/ɪn ðə waɪld/"},{phrase:"Food chain",meaning:"A series of organisms each dependent on the next for food",phonetic:"/fuːd tʃeɪn/"},{phrase:"Pack mentality",meaning:"The tendency to follow the behavior of a group",phonetic:"/pæk menˈtælɪti/"},{phrase:"Nature's way",meaning:"The natural process or course of events",phonetic:"/ˈneɪtʃərz weɪ/"},{phrase:"Top of the food chain",meaning:"The most powerful or dominant in a group or system",phonetic:"/tɒp əv ðə fuːd tʃeɪn/"}],idioms:[{idiom:"Let sleeping dogs lie",meaning:"To avoid bringing up a topic that could cause trouble",phonetic:"/let ˈsliːpɪŋ dɒɡz laɪ/"},{idiom:"Kill two birds with one stone",meaning:"To accomplish two things with a single action",phonetic:"/kɪl tuː bɜːrdz wɪð wʌn stoʊn/"},{idiom:"The elephant in the room",meaning:"An obvious problem that people are avoiding discussing",phonetic:"/ðə ˈelɪfənt ɪn ðə ruːm/"},{idiom:"Hold your horses",meaning:"To slow down or wait before proceeding",phonetic:"/hoʊld jɔːr ˈhɔːrsɪz/"},{idiom:"A wolf in sheep's clothing",meaning:"A dangerous person pretending to be harmless",phonetic:"/ə wʊlf ɪn ʃiːps ˈkloʊðɪŋ/"}]},
+    {words:[{word:"Habitat",type:"noun",meaning:"The natural home or environment of an animal or plant",phonetic:"/ˈhæbɪtæt/"},{word:"Predator",type:"noun",meaning:"An animal that hunts and kills other animals for food",phonetic:"/ˈpredətər/"},{word:"Migrate",type:"verb",meaning:"To move from one region to another according to the seasons",phonetic:"/ˈmaɪgreɪt/"},{word:"Extinct",type:"adjective",meaning:"No longer in existence; having no living members",phonetic:"/ɪkˈstɪŋkt/"},{word:"Camouflage",type:"noun/verb",meaning:"The way animals hide by blending in with their environment",phonetic:"/ˈkæməflɑːʒ/"}],phrases:[{phrase:"In the wild",meaning:"In the natural environment, not in captivity",phonetic:"/ɪn ðə waɪld/"},{phrase:"Food chain",meaning:"A series of organisms each dependent on the next for food",phonetic:"/fuːd tʃeɪn/"},{phrase:"Pack mentality",meaning:"The tendency to follow the behavior of a group",phonetic:"/pæk menˈtælɪti/"},{phrase:"Nature's way",meaning:"The natural process or course of events",phonetic:"/ˈneɪtʃərz weɪ/"},{phrase:"Top of the food chain",meaning:"The most powerful or dominant in a group or system",phonetic:"/tɒp əv ðə fuːd tʃeɪn/"}],idioms:[{idiom:"Let sleeping dogs lie",meaning:"To avoid bringing up a topic that could cause trouble",phonetic:"/let ˈsliːpؚŋ dɒgz laɪ/"},{idiom:"Kill two birds with one stone",meaning:"To accomplish two things with a single action",phonetic:"/kɪl tuː bɜːrdz wɪð wʌn stoʊn/"},{idiom:"The elephant in the room",meaning:"An obvious problem that people are avoiding discussing",phonetic:"/ðə ˈelɪfənt ɪn ðə ruːm/"},{idiom:"Hold your horses",meaning:"To slow down or wait before proceeding",phonetic:"/hold jۆr ˈhۆrsɪz/"},{idiom:"A wolf in sheep's clothing",meaning:"A dangerous person pretending to be harmless",phonetic:"/ə wʊlf ɪn ʃiːps ˈkloʊðɪŋ/"}]},
     // Day 15 - Travel
-    {words:[{word:"Itinerary",type:"noun",meaning:"A planned route or journey; a travel schedule",phonetic:"/aɪˈtɪnəreri/"},{word:"Destination",type:"noun",meaning:"The place to which someone is traveling",phonetic:"/ˌdestɪˈneɪʃən/"},{word:"Souvenir",type:"noun",meaning:"A thing that is kept as a reminder of a person or place",phonetic:"/ˌsuːvəˈnɪr/"},{word:"Layover",type:"noun",meaning:"A period of rest or waiting before a continuing journey",phonetic:"/ˈleɪoʊvər/"},{word:"Nomadic",type:"adjective",meaning:"Living the life of a nomad; wandering from place to place",phonetic:"/noʊˈmædɪk/"}],phrases:[{phrase:"Pack your bags",meaning:"To prepare luggage for a trip",phonetic:"/pæk jɔːr bæɡz/"},{phrase:"Off the beaten path",meaning:"A place not commonly visited by tourists",phonetic:"/ɒf ðə ˈbiːtən pæθ/"},{phrase:"Live out of a suitcase",meaning:"To travel constantly, rarely staying in one place",phonetic:"/lɪv aʊt əv ə ˈsuːtkeɪs/"},{phrase:"Jet lag",meaning:"Extreme tiredness caused by traveling across time zones",phonetic:"/dʒet læɡ/"},{phrase:"Get away from it all",meaning:"To go on vacation to escape everyday problems and stress",phonetic:"/ɡet əˈweɪ frəm ɪt ɔːl/"}],idioms:[{idiom:"Hit the road",meaning:"To begin a journey; to start traveling",phonetic:"/hɪt ðə roʊd/"},{idiom:"Go places",meaning:"To be likely to be very successful in life",phonetic:"/ɡoʊ ˈpleɪsɪz/"},{idiom:"Bite the bullet",meaning:"To endure a difficult situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"},{idiom:"All roads lead to Rome",meaning:"There are many different ways to achieve the same result",phonetic:"/ɔːl roʊdz liːd tə roʊm/"},{idiom:"Light at the end of the tunnel",meaning:"A sign that a difficult situation will end soon",phonetic:"/laɪt æt ðə end əv ðə ˈtʌnəl/"}]},
+    {words:[{word:"Itinerary",type:"noun",meaning:"A planned route or journey; a travel schedule",phonetic:"/aɪˈtɪnəreri/"},{word:"Destination",type:"noun",meaning:"The place to which someone is traveling",phonetic:"/ˌdestɪˈneɪʃən/"},{word:"Souvenir",type:"noun",meaning:"A thing that is kept as a reminder of a person or place",phonetic:"/ˌsuːvəˈnɪr/"},{word:"Layover",type:"noun",meaning:"A period of rest or waiting before a continuing journey",phonetic:"/ˈleɪoʊvər/"},{word:"Nomadic",type:"adjective",meaning:"Living the life of a nomad; wandering from place to place",phonetic:"/noʊˈmædɪk/"}],phrases:[{phrase:"Pack your bags",meaning:"To prepare luggage for a trip",phonetic:"/pæk jۆr bægz/"},{phrase:"Off the beaten path",meaning:"A place not commonly visited by tourists",phonetic:"/ɒf ðə ˈbiːtən pæθ/"},{phrase:"Live out of a suitcase",meaning:"To travel constantly, rarely staying in one place",phonetic:"/lɪv aʊt əv ə ˈsuːtkeɪs/"},{phrase:"Jet lag",meaning:"Extreme tiredness caused by traveling across time zones",phonetic:"/dʒet læg/"},{phrase:"Get away from it all",meaning:"To go on vacation to escape everyday problems and stress",phonetic:"/get əˈweɪ frəm ɪt ɔːl/"}],idioms:[{idiom:"Hit the road",meaning:"To begin a journey; to start traveling",phonetic:"/hɪt ðə roʊd/"},{idiom:"Go places",meaning:"To be likely to be very successful in life",phonetic:"/goʊ ˈpIeɪsɪz/"},{idiom:"Bite the bullet",meaning:"To endure a difficult situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"},{idiom:"All roads lead to Rome",meaning:"There are many different ways to achieve the same result",phonetic:"/ɔːl roʊdz liːd tə roʊm/"},{idiom:"Light at the end of the tunnel",meaning:"A sign that a difficult situation will end soon",phonetic:"/Iaɪt æt ðə end əv ðə ˈtʌnəl/"}]},
   ];
 
   // For remaining days 16-90, generate systematically
@@ -1139,17 +1183,17 @@ function generateExtraVocab() {
 function generateDayVocab(dayNum) {
   // Systematic unique vocabulary generation for days 16+
   const vocabBanks = {
-    16: {words:[{word:"Style",type:"noun",meaning:"A distinctive appearance or way of doing something",phonetic:"/staɪl/"},{word:"Trendy",type:"adjective",meaning:"Very fashionable; following current trends",phonetic:"/ˈtrendi/"},{word:"Accessory",type:"noun",meaning:"A thing that can be added to something else to make it more useful or attractive",phonetic:"/əkˈsesəri/"},{word:"Vintage",type:"adjective",meaning:"From an earlier period, typically one of high quality",phonetic:"/ˈvɪntɪdʒ/"},{word:"Wardrobe",type:"noun",meaning:"A person's entire collection of clothes",phonetic:"/ˈwɔːrdroʊb/"}],phrases:[{phrase:"Dressed to impress",meaning:"Wearing your best clothes to make a good impression",phonetic:"/drest tə ɪmˈpres/"},{phrase:"Off the rack",meaning:"Clothing that is made in standard sizes, not custom-made",phonetic:"/ɒf ðə ræk/"},{phrase:"Mix and match",meaning:"To combine different items of clothing in various ways",phonetic:"/mɪks ənd mætʃ/"},{phrase:"In vogue",meaning:"Currently fashionable or popular",phonetic:"/ɪn voʊɡ/"},{phrase:"Hand-me-downs",meaning:"Used clothes that have been passed from one person to another",phonetic:"/ˈhænd mi daʊnz/"}],idioms:[{idiom:"Dressed to the nines",meaning:"Wearing very elegant or formal clothing",phonetic:"/drest tə ðə naɪnz/"},{idiom:"Wear your heart on your sleeve",meaning:"To openly show your feelings and emotions",phonetic:"/wer jɔːr hɑːrt ɒn jɔːr sliːv/"},{idiom:"Emperor's new clothes",meaning:"A situation where people falsely claim to appreciate something",phonetic:"/ˈempərərz njuː kloʊðz/"},{idiom:"Dressed to kill",meaning:"Wearing very attractive or impressive clothes",phonetic:"/drest tə kɪl/"},{idiom:"Cut from the same cloth",meaning:"Having similar characters or being very alike",phonetic:"/kʌt frəm ðə seɪm klɒθ/"}]},
-    17: {words:[{word:"Innovation",type:"noun",meaning:"A new method, idea, product, or way of doing something",phonetic:"/ˌɪnəˈveɪʃən/"},{word:"Algorithm",type:"noun",meaning:"A set of rules or instructions followed by a computer",phonetic:"/ˈælɡərɪðəm/"},{word:"Download",type:"verb/noun",meaning:"To copy data from one computer system to another",phonetic:"/ˈdaʊnloʊd/"},{word:"Wireless",type:"adjective",meaning:"Using radio waves rather than wires to transmit signals",phonetic:"/ˈwaɪərles/"},{word:"Interface",type:"noun",meaning:"A means by which the user interacts with a computer system",phonetic:"/ˈɪntərfeɪs/"}],phrases:[{phrase:"Stay connected",meaning:"To maintain communication with others using technology",phonetic:"/steɪ kəˈnektɪd/"},{phrase:"Crash the system",meaning:"To cause a computer system to stop functioning",phonetic:"/kræʃ ðə ˈsɪstəm/"},{phrase:"Go viral",meaning:"To spread very quickly through the internet",phonetic:"/ɡoʊ ˈvaɪrəl/"},{phrase:"Tech-savvy",meaning:"Having knowledge and expertise in technology",phonetic:"/tek ˈsævi/"},{phrase:"Plug in",meaning:"To connect a device to an electrical outlet",phonetic:"/plʌɡ ɪn/"}],idioms:[{idiom:"On the same page",meaning:"Agreeing with or understanding the same thing",phonetic:"/ɒn ðə seɪm peɪdʒ/"},{idiom:"Pull the plug",meaning:"To bring something to an end by withdrawing support",phonetic:"/pʊl ðə plʌɡ/"},{idiom:"Recharge your batteries",meaning:"To rest and regain your strength and energy",phonetic:"/ˌriːtʃɑːrdʒ jɔːr ˈbætəriz/"},{idiom:"In the loop",meaning:"Being included in a group with access to all important information",phonetic:"/ɪn ðə luːp/"},{idiom:"Get wired",meaning:"To become very excited and energetic",phonetic:"/ɡet waɪərd/"}]},
+    16: {words:[{word:"Style",type:"noun",meaning:"A distinctive appearance or way of doing something",phonetic:"/staɪl/"},{word:"Trendy",type:"adjective",meaning:"Very fashionable; following current trends",phonetic:"/ˈtrendi/"},{word:"Accessory",type:"noun",meaning:"A thing that can be added to something else to make it more useful or attractive",phonetic:"/əkˈsesəri/"},{word:"Vintage",type:"adjective",meaning:"From an earlier period, typically one of high quality",phonetic:"/ˈvɪntɪdʒ/"},{word:"Wardrobe",type:"noun",meaning:"A person's entire collection of clothes",phonetic:"/ˈwۆrdroʊb/"}],phrases:[{phrase:"Dressed to impress",meaning:"Wearing your best clothes to make a good impression",phonetic:"/drest tə ɪmˈpres/"},{phrase:"Off the rack",meaning:"Clothing that is made in standard sizes, not custom-made",phonetic:"/ɒf ðə ræk/"},{phrase:"Mix and match",meaning:"To combine different items of clothing in various ways",phonetic:"/mɪks 牢nd mætʃ/"},{phrase:"In vogue",meaning:"Currently fashionable or popular",phonetic:"/ɪn voʊg/"},{phrase:"Hand-me-downs",meaning:"Used clothes that have been passed from one person to another",phonetic:"/Hand mi daʊnz/"}],idioms:[{idiom:"Dressed to the nines",meaning:"Wearing very elegant or formal clothing",phonetic:"/drest tə ðə naɪnz/"},{idiom:"Wear your heart on your sleeve",meaning:"To openly show your feelings and emotions",phonetic:"/wer jۆr hɑːrt ɒn jۆr sliːv/"},{idiom:"Emperor's new clothes",meaning:"A situation where people falsely claim to appreciate something",phonetic:"/ˈempərərz njuː kloʊðz/"},{idiom:"Dressed to kill",meaning:"Wearing very attractive or impressive clothes",phonetic:"/drest tə kɪl/"},{idiom:"Cut from the same cloth",meaning:"Having similar characters or being very alike",phonetic:"/kʌt frəm ðə seɪm klɒθ/"}]},
+    17: {words:[{word:"Innovation",type:"noun",meaning:"A new method, idea, product, or way of doing something",phonetic:"/ˌɪnəˈveɪʃən/"},{word:"Algorithm",type:"noun",meaning:"A set of rules or instructions followed by a computer",phonetic:"/ˈæIgərɪðəm/"},{word:"Download",type:"verb/noun",meaning:"To copy data from one computer system to another",phonetic:"/ˈdaʊnloʊd/"},{word:"Wireless",type:"adjective",meaning:"Using radio waves rather than wires to transmit signals",phonetic:"/ˈwaɪərIes/"},{word:"Interface",type:"noun",meaning:"A means by which the user interacts with a computer system",phonetic:"/ˈɪntərfeɪs/"}],phrases:[{phrase:"Stay connected",meaning:"To maintain communication with others using technology",phonetic:"/steɪ kəˈnektɪd/"},{phrase:"Crash the system",meaning:"To cause a computer system to stop functioning",phonetic:"/kræʃ ðə ˈsɪstəm/"},{phrase:"Go viral",meaning:"To spread very quickly through the internet",phonetic:"/goʊ ˈvaɪrəl/"},{phrase:"Tech-savvy",meaning:"Having knowledge and expertise in technology",phonetic:"/tek ˈsævi/"},{phrase:"Plug in",meaning:"To connect a device to an electrical outlet",phonetic:"/pIʌg ɪn/"}],idioms:[{idiom:"On the same page",meaning:"Agreeing with or understanding the same thing",phonetic:"/ɒn ðə seɪm peɪdʒ/"},{idiom:"Pull the plug",meaning:"To bring something to an end by withdrawing support",phonetic:"/pʊl ðə pIʌg/"},{idiom:"Recharge your batteries",meaning:"To rest and regain your strength and energy",phonetic:"/ˌriːtʃɑːrdʒ jۆr ˈbætəriz/"},{idiom:"In the loop",meaning:"Being included in a group with access to all important information",phonetic:"/ɪn ðə luːp/"},{idiom:"Get wired",meaning:"To become very excited and energetic",phonetic:"/get waɪərd/"}]},
   };
 
   // Default template for days without specific data
   const defaultTemplates = [
-    {words:[{word:"Perspective",type:"noun",meaning:"A particular attitude or point of view",phonetic:"/pərˈspektɪv/"},{word:"Achievement",type:"noun",meaning:"A thing done successfully with effort or skill",phonetic:"/əˈtʃiːvmənt/"},{word:"Collaborate",type:"verb",meaning:"To work jointly on an activity or project",phonetic:"/kəˈlæbəreɪt/"},{word:"Challenge",type:"noun",meaning:"A task or situation that tests someone's abilities",phonetic:"/ˈtʃælɪndʒ/"},{word:"Strategy",type:"noun",meaning:"A plan of action designed to achieve a goal",phonetic:"/ˈstrætɪdʒi/"}],phrases:[{phrase:"Keep an open mind",meaning:"To be willing to consider new ideas or information",phonetic:"/kiːp æn ˈoʊpən maɪnd/"},{phrase:"Face the music",meaning:"To confront the unpleasant consequences of your actions",phonetic:"/feɪs ðə ˈmjuːzɪk/"},{phrase:"Take it one step at a time",meaning:"To do things gradually and not rush",phonetic:"/teɪk ɪt wʌn step æt ə taɪm/"},{phrase:"Give it your best shot",meaning:"To try as hard as you can to do something",phonetic:"/ɡɪv ɪt jɔːr best ʃɒt/"},{phrase:"Bite the bullet",meaning:"To endure a painful situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"}],idioms:[{idiom:"Actions speak louder than words",meaning:"What you do is more important than what you say",phonetic:"/ˈækʃənz spiːk ˈlaʊdər ðæn wɜːrdz/"},{idiom:"The ball is in your court",meaning:"It is up to you to decide or take action next",phonetic:"/ðə bɔːl ɪz ɪn jɔːr kɔːrt/"},{idiom:"When in Rome",meaning:"To follow the customs of the place you are visiting",phonetic:"/wen ɪn roʊm/"},{idiom:"Bite more than you can chew",meaning:"To take on more responsibility than you can handle",phonetic:"/baɪt mɔːr ðæn juː kæn tʃuː/"},{idiom:"At the drop of a hat",meaning:"Without hesitation; immediately",phonetic:"/æt ðə drɒp əv ə hæt/"}]},
-    {words:[{word:"Determine",type:"verb",meaning:"To discover or establish something by investigation",phonetic:"/dɪˈtɜːrmɪn/"},{word:"Influence",type:"noun/verb",meaning:"The capacity to have an effect on the character of someone",phonetic:"/ˈɪnfluəns/"},{word:"Establish",type:"verb",meaning:"To set up or create something on a firm or permanent basis",phonetic:"/ɪˈstæblɪʃ/"},{word:"Remarkable",type:"adjective",meaning:"Worthy of attention; striking or extraordinary",phonetic:"/rɪˈmɑːrkəbəl/"},{word:"Ambition",type:"noun",meaning:"A strong desire to do or achieve something",phonetic:"/æmˈbɪʃən/"}],phrases:[{phrase:"Make a difference",meaning:"To have a significant positive effect on something",phonetic:"/meɪk ə ˈdɪfərəns/"},{phrase:"Stay the course",meaning:"To continue doing something difficult until it is finished",phonetic:"/steɪ ðə kɔːrs/"},{phrase:"Rise to the occasion",meaning:"To show that you can deal with a difficult situation",phonetic:"/raɪz tə ðə əˈkeɪʒən/"},{phrase:"Under pressure",meaning:"Experiencing stress from demands or expectations",phonetic:"/ˈʌndər ˈpreʃər/"},{phrase:"Reach for the stars",meaning:"To try to achieve something very difficult or ambitious",phonetic:"/riːtʃ fɔːr ðə stɑːrz/"}],idioms:[{idiom:"Move mountains",meaning:"To do something that seems impossible to achieve",phonetic:"/muːv ˈmaʊntɪnz/"},{idiom:"Have what it takes",meaning:"To have the necessary qualities to succeed",phonetic:"/hæv wɒt ɪt teɪks/"},{idiom:"Put your foot down",meaning:"To use your authority to stop something",phonetic:"/pʊt jɔːr fʊt daʊn/"},{idiom:"See the light",meaning:"To understand or realize something after confusion",phonetic:"/siː ðə laɪt/"},{idiom:"Weather the storm",meaning:"To survive a difficult period or situation",phonetic:"/ˈweðər ðə stɔːrm/"}]},
-    {words:[{word:"Comprehend",type:"verb",meaning:"To understand something fully",phonetic:"/ˌkɒmprɪˈhend/"},{word:"Eloquent",type:"adjective",meaning:"Fluent and persuasive in speaking or writing",phonetic:"/ˈeləkwənt/"},{word:"Nuance",type:"noun",meaning:"A subtle difference in meaning or expression",phonetic:"/ˈnjuːɑːns/"},{word:"Articulate",type:"verb/adjective",meaning:"To express an idea clearly and effectively",phonetic:"/ɑːrˈtɪkjʊleɪt/"},{word:"Fluent",type:"adjective",meaning:"Able to express yourself easily in a language",phonetic:"/ˈfluːənt/"}],phrases:[{phrase:"Get your point across",meaning:"To successfully communicate your idea to others",phonetic:"/ɡet jɔːr pɔɪnt əˈkrɒs/"},{phrase:"Lose the thread",meaning:"To lose track of what you were saying",phonetic:"/luːz ðə θred/"},{phrase:"Speak volumes",meaning:"To convey a lot of meaning without words",phonetic:"/spiːk ˈvɒljuːmz/"},{phrase:"Talk someone's ear off",meaning:"To talk to someone for a very long time",phonetic:"/tɔːk ˈsʌmwʌnz ɪər ɒf/"},{phrase:"Read between the lines",meaning:"To find the hidden meaning in what someone says",phonetic:"/riːd bɪˌtwiːn ðə laɪnz/"}],idioms:[{idiom:"Cut to the chase",meaning:"To get directly to the most important point",phonetic:"/kʌt tə ðə tʃeɪs/"},{idiom:"Bite your tongue",meaning:"To stop yourself from saying something you want to say",phonetic:"/baɪt jɔːr tʌŋ/"},{idiom:"Speak your mind",meaning:"To say exactly what you think openly and honestly",phonetic:"/spiːk jɔːr maɪnd/"},{idiom:"Talk the talk",meaning:"To speak confidently about something without proof",phonetic:"/tɔːk ðə tɔːk/"},{idiom:"A picture is worth a thousand words",meaning:"A visual is often more effective than a description",phonetic:"/ə ˈpɪktʃər ɪz wɜːrθ ə ˈθaʊzənd wɜːrdz/"}]},
-    {words:[{word:"Genuine",type:"adjective",meaning:"Truly what something is said to be; authentic",phonetic:"/ˈdʒenjuɪn/"},{word:"Adapt",type:"verb",meaning:"To become adjusted to new conditions",phonetic:"/əˈdæpt/"},{word:"Empathy",type:"noun",meaning:"The ability to understand and share the feelings of another",phonetic:"/ˈempəθi/"},{word:"Tolerance",type:"noun",meaning:"The ability to accept things you dislike or disagree with",phonetic:"/ˈtɒlərəns/"},{word:"Resilient",type:"adjective",meaning:"Able to withstand or recover quickly from difficult conditions",phonetic:"/rɪˈzɪliənt/"}],phrases:[{phrase:"Walk in someone's shoes",meaning:"To try to understand another person's perspective and experience",phonetic:"/wɔːk ɪn ˈsʌmwʌnz ʃuːz/"},{phrase:"Lend a helping hand",meaning:"To offer assistance to someone in need",phonetic:"/lend ə ˈhelpɪŋ hænd/"},{phrase:"Common ground",meaning:"A shared basis for mutual understanding",phonetic:"/ˈkɒmən ɡraʊnd/"},{phrase:"Rise above",meaning:"To not allow something negative to affect you",phonetic:"/raɪz əˈbʌv/"},{phrase:"Be in someone's corner",meaning:"To support someone fully",phonetic:"/biː ɪn ˈsʌmwʌnz ˈkɔːrnər/"}],idioms:[{idiom:"Heart of gold",meaning:"A very kind and generous nature",phonetic:"/hɑːrt əv ɡoʊld/"},{idiom:"Have a thick skin",meaning:"Not to be easily upset by criticism",phonetic:"/hæv ə θɪk skɪn/"},{idiom:"Turn the other cheek",meaning:"To choose not to respond to insult or injury",phonetic:"/tɜːrn ðə ˈʌðər tʃiːk/"},{idiom:"Judge a book by its cover",meaning:"To judge something by its appearance only",phonetic:"/dʒʌdʒ ə bʊk baɪ ɪts ˈkʌvər/"},{idiom:"Go the extra mile",meaning:"To make more effort than is expected",phonetic:"/ɡoʊ ðə ˈekstrə maɪl/"}]},
-    {words:[{word:"Negotiate",type:"verb",meaning:"To try to reach an agreement through discussion",phonetic:"/nɪˈɡoʊʃieɪt/"},{word:"Compromise",type:"noun/verb",meaning:"An agreement where both sides give up something",phonetic:"/ˈkɒmprəmaɪz/"},{word:"Persuade",type:"verb",meaning:"To cause someone to believe or do something through reasoning",phonetic:"/pərˈsweɪd/"},{word:"Assert",type:"verb",meaning:"To state a fact or belief confidently and forcefully",phonetic:"/əˈsɜːrt/"},{word:"Consensus",type:"noun",meaning:"A general agreement among a group of people",phonetic:"/kənˈsensəs/"}],phrases:[{phrase:"Meet in the middle",meaning:"To reach a compromise that is acceptable to both sides",phonetic:"/miːt ɪn ðə ˈmɪdəl/"},{phrase:"Win-win situation",meaning:"A situation that is beneficial for everyone involved",phonetic:"/wɪn wɪn ˌsɪtʃuˈeɪʃən/"},{phrase:"Drive a hard bargain",meaning:"To argue strongly to get the best deal",phonetic:"/draɪv ə hɑːrd ˈbɑːrɡɪn/"},{phrase:"Come to terms",meaning:"To reach an agreement; to accept a difficult situation",phonetic:"/kʌm tə tɜːrmz/"},{phrase:"Lay your cards on the table",meaning:"To be completely honest about your position",phonetic:"/leɪ jɔːr kɑːrdz ɒn ðə ˈteɪbəl/"}],idioms:[{idiom:"Give and take",meaning:"Mutual compromise and cooperation",phonetic:"/ɡɪv ənd teɪk/"},{idiom:"Stand your ground",meaning:"To maintain your position firmly under pressure",phonetic:"/stænd jɔːr ɡraʊnd/"},{idiom:"Pick your battles",meaning:"To choose carefully which arguments are worth having",phonetic:"/pɪk jɔːr ˈbætəlz/"},{idiom:"Keep cards close to chest",meaning:"To keep your plans and intentions secret",phonetic:"/kiːp kɑːrdz kloʊs tə tʃest/"},{idiom:"An offer you can't refuse",meaning:"A proposal that is so attractive that it is very hard to reject",phonetic:"/æn ˈɒfər juː kænt rɪˈfjuːz/"}]},
+    {words:[{word:"Perspective",type:"noun",meaning:"A particular attitude or point of view",phonetic:"/pərˈspektɪv/"},{word:"Achievement",type:"noun",meaning:"A thing done successfully with effort or skill",phonetic:"/əˈtʃiːvmənt/"},{word:"Collaborate",type:"verb",meaning:"To work jointly on an activity or project",phonetic:"/kəˈlæbəreɪt/"},{word:"Challenge",type:"noun",meaning:"A task or situation that tests someone's abilities",phonetic:"/ˈtSLAMndʒ/"},{word:"Strategy",type:"noun",meaning:"A plan of action designed to achieve a goal",phonetic:"/ˈstrætɪdʒi/"}],phrases:[{phrase:"Keep an open mind",meaning:"To be willing to consider new ideas or information",phonetic:"/kiːp 牢n ˈoʊpən maɪnd/"},{phrase:"Face the music",meaning:"To confront the unpleasant consequences of your actions",phonetic:"/feɪs ðə ˈmjuːzɪk/"},{phrase:"Take it one step at a time",meaning:"To do things gradually and not rush",phonetic:"/teɪk ɪt wʌn step 牢t ə taɪm/"},{phrase:"Give it your best shot",meaning:"To try as hard as you can to do something",phonetic:"/gıv ıt jۆr best ʃɒt/"},{phrase:"Bite the bullet",meaning:"To endure a painful situation with courage",phonetic:"/baɪt ðə ˈbʊlɪt/"}],idioms:[{idiom:"Actions speak louder than words",meaning:"What you do is more important than what you say",phonetic:"/ˈ牢kʃənz spiːk ˈIaʊdər ð牢n wɜːrdz/"},{idiom:"The ball is in your court",meaning:"It is up to you to decide or take action next",phonetic:"/ðə bۆl ɪz ɪn jۆr kۆrt/"},{idiom:"When in Rome",meaning:"To follow the customs of the place you are visiting",phonetic:"/wen ɪn roʊm/"},{idiom:"Bite more than you can chew",meaning:"To take on more responsibility than you can handle",phonetic:"/baɪt mۆr ðæn juː kæn tʃuː/"},{idiom:"At the drop of a hat",meaning:"Without hesitation; immediately",phonetic:"/牢t ðə drɒp əv ə h牢t/"}]},
+    {words:[{word:"Determine",type:"verb",meaning:"To discover or establish something by investigation",phonetic:"/dɪˈtɜːrmɪn/"},{word:"Influence",type:"noun/verb",meaning:"The capacity to have an effect on the character of someone",phonetic:"/ˈɪnfluəns/"},{word:"Establish",type:"verb",meaning:"To set up or create something on a firm or permanent basis",phonetic:"/ɪˈst牢bIɪʃ/"},{word:"Remarkable",type:"adjective",meaning:"Worthy of attention; striking or extraordinary",phonetic:"/rɪˈmɑːrkəbəl/"},{word:"Ambition",type:"noun",meaning:"A strong desire to do or achieve something",phonetic:"/牢mˈbɪʃən/"}],phrases:[{phrase:"Make a difference",meaning:"To have a significant positive effect on something",phonetic:"/meɪk ə ˈdɪfərəns/"},{phrase:"Stay the course",meaning:"To continue doing something difficult until it is finished",phonetic:"/steɪ ðə kۆrs/"},{phrase:"Rise to the occasion",meaning:"To show that you can deal with a difficult situation",phonetic:"/raɪz tə ðə əˈkeɪʒən/"},{phrase:"Under pressure",meaning:"Experiencing stress from demands or expectations",phonetic:"/ˈʌndər ˈpreʃər/"},{phrase:"Reach for the stars",meaning:"To try to achieve something very difficult or ambitious",phonetic:"/riːtʃ fۆr ðə stɑːrz/"}],idioms:[{idiom:"Move mountains",meaning:"To do something that seems impossible to achieve",phonetic:"/muːv ˈmaʊntɪnz/"},{idiom:"Have what it takes",meaning:"To have the necessary qualities to succeed",phonetic:"/hæv wɒt ɪt teɪks/"},{idiom:"Put your foot down",meaning:"To use your authority to stop something",phonetic:"/pʊt jۆr fʊt daʊn/"},{idiom:"See the light",meaning:"To understand or realize something after confusion",phonetic:"/siː ðə Iaɪt/"},{idiom:"Weather the storm",meaning:"To survive a difficult period or situation",phonetic:"/ˈweðər ðə stۆrm/"}]},
+    {words:[{word:"Comprehend",type:"verb",meaning:"To understand something fully",phonetic:"/ˌkɒmprɪˈhend/"},{word:"Eloquent",type:"adjective",meaning:"Fluent and persuasive in speaking or writing",phonetic:"/ˈeIəkwənt/"},{word:"Nuance",type:"noun",meaning:"A subtle difference in meaning or expression",phonetic:"/ˈnjuːɑːns/"},{word:"Articulate",type:"verb/adjective",meaning:"To express an idea clearly and effectively",phonetic:"/ɑːrˈtɪkjʊIeɪt/"},{word:"Fluent",type:"adjective",meaning:"Able to express yourself easily in a language",phonetic:"/ˈfIuːənt/"}],phrases:[{phrase:"Get your point across",meaning:"To successfully communicate your idea to others",phonetic:"/get jۆr pۆɪnt 牢ˈkrɒs/"},{phrase:"Lose the thread",meaning:"To lose track of what you were saying",phonetic:"/Iuːz ðə θred/"},{phrase:"Speak volumes",meaning:"To convey a lot of meaning without words",phonetic:"/spiːk ˈvɒIjuːmz/"},{phrase:"Talk someone's ear off",meaning:"To talk to someone for a very long time",phonetic:"/tۆk ˈsʌmwʌnz ɪər ɒf/"},{phrase:"Read between the lines",meaning:"To find the hidden meaning in what someone says",phonetic:"/riːd bɪˌtwiːn ðə Iaɪnz/"}],idioms:[{idiom:"Cut to the chase",meaning:"To get directly to the most important point",phonetic:"/kʌt tə ðə tʃeɪs/"},{idiom:"Bite your tongue",meaning:"To stop yourself from saying something you want to say",phonetic:"/baɪt jۆr tʌŋ/"},{idiom:"Speak your mind",meaning:"To say exactly what you think openly and honestly",phonetic:"/speɪk jۆr maɪnd/"},{idiom:"Talk the talk",meaning:"To speak confidently about something without proof",phonetic:"/tۆk ðə tۆk/"},{idiom:"A picture is worth a thousand words",meaning:"A visual is often more effective than a description",phonetic:"/ə ˈpɪktʃər ɪz wɜːrθ ə ˈθaʊzənd wɜːrdz/"}]},
+    {words:[{word:"Genuine",type:"adjective",meaning:"Truly what something is said to be; authentic",phonetic:"/ˈdʒenjuɪn/"},{word:"Adapt",type:"verb",meaning:"To become adjusted to new conditions",phonetic:"/牢ˈdæpt/"},{word:"Empathy",type:"noun",meaning:"The ability to understand and share the feelings of another",phonetic:"/ˈempəθi/"},{word:"Tolerance",type:"noun",meaning:"The ability to accept things you dislike or disagree with",phonetic:"/ˈtɒIərəns/"},{word:"Resilient",type:"adjective",meaning:"Able to withstand or recover quickly from difficult conditions",phonetic:"/rɪˈzɪIiənt/"}],phrases:[{phrase:"Walk in someone's shoes",meaning:"To try to understand another person's perspective and experience",phonetic:"/wۆk ɪn ˈsʌmwʌnz ʃuːz/"},{phrase:"Lend a helping hand",meaning:"To offer assistance to someone in need",phonetic:"/Iend ə ˈheIpɪŋ hænd/"},{phrase:"Common ground",meaning:"A shared basis for mutual understanding",phonetic:"/ˈkɒmən graʊnd/"},{phrase:"Rise above",meaning:"To not allow something negative to affect you",phonetic:"/raɪz əˈbʌv/"},{phrase:"Be in someone's corner",meaning:"To support someone fully",phonetic:"/biː ɪn ˈsʌmwʌnz ˈcɔːrnər/"}],idioms:[{idiom:"Heart of gold",meaning:"A very kind and generous nature",phonetic:"/hɑːrt əv goʊld/"},{idiom:"Have a thick skin",meaning:"Not to be easily upscale by criticism",phonetic:"/hæv ə θɪk skɪn/"},{idiom:"Turn the other cheek",meaning:"To choose not to respond to insult or injury",phonetic:"/tɜːrn ðə ˈʌðər tʃiːk/"},{idiom:"Judge a book by its cover",meaning:"To judge something by its appearance only",phonetic:"/dʒʌdʒ ə bʊk baɪ ɪts ˈkʌvər/"},{idiom:"Go the extra mile",meaning:"To make more effort than is expected",phonetic:"/goʊ ðə ˈekstrə maɪl/"}]},
+    {words:[{word:"Negotiate",type:"verb",meaning:"To try to reach an agreement through discussion",phonetic:"/nɪˈgoʊʃieɪt/"},{word:"Compromise",type:"noun/verb",meaning:"An agreement where both sides give up something",phonetic:"/ˈkɒmprəmaɪz/"},{word:"Persuade",type:"verb",meaning:"To cause someone to believe or do something through reasoning",phonetic:"/pərˈsweɪd/"},{word:"Assert",type:"verb",meaning:"To state a fact or belief confidently and forcefully",phonetic:"/牢ˈsɜːrt/"},{word:"Consensus",type:"noun",meaning:"A general agreement among a group of people",phonetic:"/kənˈsensəs/"}],phrases:[{phrase:"Meet in the middle",meaning:"To reach a compromise that is acceptable to both sides",phonetic:"/miːt ɪn ðə ˈmɪdəl/"},{phrase:"Win-win situation",meaning:"A situation that is beneficial for everyone involved",phonetic:"/wɪn wɪn ˌsɪtʃuˈeɪʃən/"},{phrase:"Drive a hard bargain",meaning:"To argue strongly to get the best deal",phonetic:"/draɪv ə hɑːrd ˈbɑːrgɪn/"},{phrase:"Come to terms",meaning:"To reach an agreement; to accept a difficult situation",phonetic:"/kʌm tə tɜːrmz/"},{phrase:"Lay your cards on the table",meaning:"To be completely honest about your position",phonetic:"/Ieɪ jۆr kɑːrdz ɒn ðə ˈteɪbəl/"}],idioms:[{idiom:"Give and take",meaning:"Mutual compromise and cooperation",phonetic:"/gɪv 牢nd teɪk/"},{idiom:"Stand your ground",meaning:"To maintain your position firmly under pressure",phonetic:"/stænd jۆr graʊnd/"},{idiom:"Pick your battles",meaning:"To choose carefully which arguments are worth having",phonetic:"/pɪk jۆr ˈbætəlz/"},{idiom:"Keep cards close to chest",meaning:"To keep your plans and intentions secret",phonetic:"/kiːp kɑːrdz kIoʊs tə tʃest/"},{idiom:"An offer you can't refuse",meaning:"A proposal that is so attractive that it is very hard to reject",phonetic:"/牢n ˈɒfər juː kænt rɪˈfjuːz/"}]},
   ];
 
   const idx = (dayNum - 16) % defaultTemplates.length;
@@ -1206,44 +1250,58 @@ const RESOURCES_DB = {
 // Quiz questions database
 function generateQuizForDay(dayNum, vocab) {
   const q = [];
-  const w = vocab.words;
-  const p = vocab.phrases;
-  const id = vocab.idioms;
+  
+  // تجميع كل عناصر السيكشن 3 وتطبيق خوارزمية الخلط العشوائي لضمان التنوع الكامل
+  const allWords = [...vocab.words];
+  const allPhrases = [...vocab.phrases];
+  const allIdioms = [...vocab.idioms];
+
+  const shuffleArray = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  shuffleArray(allWords);
+  shuffleArray(allPhrases);
+  shuffleArray(allIdioms);
 
   // MCQ 1 - Vocabulary meaning
   q.push({
     type: "mcq",
-    q: `Which of the following is the correct meaning of the word "${w[0].word}"?`,
-    options: [w[0].meaning, "To travel to a new country quickly", "A formal written agreement", "A person who teaches others"],
+    q: `Which of the following is the correct meaning of the word "${allWords[0].word}"?`,
+    options: [allWords[0].meaning, "To travel to a new country quickly", "A formal written agreement", "A person who teaches others"],
     correct: 0,
-    explanation: `"${w[0].word}" means: ${w[0].meaning}`
+    explanation: `"${allWords[0].word}" means: ${allWords[0].meaning}`
   });
 
   // MCQ 2 - Idiom meaning
   q.push({
     type: "mcq",
-    q: `What does the idiom "${id[0].idiom}" mean?`,
-    options: [id[0].meaning, "To sleep for a very long time", "To argue with someone loudly", "To make a wrong decision"],
+    q: `What does the idiom "${allIdioms[0].idiom}" mean?`,
+    options: [allIdioms[0].meaning, "To sleep for a very long time", "To argue with someone loudly", "To make a wrong decision"],
     correct: 0,
-    explanation: `"${id[0].idiom}" means: ${id[0].meaning}`
+    explanation: `"${allIdioms[0].idiom}" means: ${allIdioms[0].meaning}`
   });
 
   // MCQ 3 - Phrase usage
   q.push({
     type: "mcq",
-    q: `When would you use the phrase "${p[0].phrase}"?`,
-    options: [p[0].meaning, "When you are very angry at someone", "When asking for directions", "When ordering food at a restaurant"],
+    q: `When would you use the phrase "${allPhrases[0].phrase}"?`,
+    options: [allPhrases[0].meaning, "When you are very angry at someone", "When asking for directions", "When ordering food at a restaurant"],
     correct: 0,
-    explanation: `You use "${p[0].phrase}" when: ${p[0].meaning}`
+    explanation: `You use "${allPhrases[0].phrase}" when: ${allPhrases[0].meaning}`
   });
 
   // MCQ 4 - Word type
   q.push({
     type: "mcq",
-    q: `What type of word is "${w[1].word}"?`,
-    options: [w[1].type, w[1].type === "verb" ? "noun" : "verb", "preposition", "conjunction"],
+    q: `What type of word is "${allWords[1].word}"?`,
+    options: [allWords[1].type, allWords[1].type === "verb" ? "noun" : "verb", "preposition", "conjunction"],
     correct: 0,
-    explanation: `"${w[1].word}" is a ${w[1].type}. It means: ${w[1].meaning}`
+    explanation: `"${allWords[1].word}" is a ${allWords[1].type}. It means: ${allWords[1].meaning}`
   });
 
   // MCQ 5 - Fill in blank
@@ -1259,8 +1317,8 @@ function generateQuizForDay(dayNum, vocab) {
   q.push({
     type: "listening",
     q: `Listen to this sentence and type exactly what you hear:`,
-    sentence: `${w[0].word}: ${w[0].meaning}`,
-    answer: w[0].word.toLowerCase(),
+    sentence: `${allWords[2].word}: ${allWords[2].meaning}`,
+    answer: allWords[2].word.toLowerCase(),
     hint: `You will hear the vocabulary word being used.`
   });
 
@@ -1268,8 +1326,8 @@ function generateQuizForDay(dayNum, vocab) {
   q.push({
     type: "listening",
     q: `Listen and write the idiom you hear:`,
-    sentence: id[0].idiom,
-    answer: id[0].idiom.toLowerCase(),
+    sentence: allIdioms[1].idiom,
+    answer: allIdioms[1].idiom.toLowerCase(),
     hint: `Focus on the complete expression.`
   });
 
@@ -1277,27 +1335,27 @@ function generateQuizForDay(dayNum, vocab) {
   q.push({
     type: "pronunciation",
     q: `Read this sentence aloud and record yourself:`,
-    sentence: `"${p[0].phrase}" — ${p[0].meaning}`,
-    target: p[0].phrase,
-    phonetic: p[0].phonetic
+    sentence: `"${allPhrases[1].phrase}" — ${allPhrases[1].meaning}`,
+    target: allPhrases[1].phrase,
+    phonetic: allPhrases[1].phonetic
   });
 
   // Pronunciation 2
   q.push({
     type: "pronunciation",
     q: `Pronounce this idiom clearly with American accent:`,
-    sentence: `"${id[0].idiom}"`,
-    target: id[0].idiom,
-    phonetic: id[0].phonetic
+    sentence: `"${allIdioms[2].idiom}"`,
+    target: allIdioms[2].idiom,
+    phonetic: allIdioms[2].phonetic
   });
 
   // Pronunciation 3
   q.push({
     type: "pronunciation",
     q: `Read this word and pay attention to stress:`,
-    sentence: `"${w[0].word}" — phonetic: ${w[0].phonetic}`,
-    target: w[0].word,
-    phonetic: w[0].phonetic
+    sentence: `"${allWords[3].word}" — phonetic: ${allWords[3].phonetic}`,
+    target: allWords[3].word,
+    phonetic: allWords[3].phonetic
   });
 
   return q;
@@ -1602,9 +1660,15 @@ function openDay(dayNum) {
   if (completedDays.includes(dayNum)) {
     btn.textContent = '✅ Day Already Completed!';
     btn.classList.add('already-done');
+    btn.disabled = false;
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
   } else {
     btn.textContent = '✅ Mark Day as Complete & Return Home';
     btn.classList.remove('already-done');
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+    btn.style.cursor = "not-allowed";
   }
 
   // Switch views
@@ -1713,15 +1777,12 @@ function renderQuiz() {
             </div>
           </div>
           <div class="record-controls">
-            <button class="rec-btn start" id="rec-start-${qi}" onclick="startRecording(${qi})">🎤 Record</button>
-            <button class="rec-btn stop" id="rec-stop-${qi}" onclick="stopRecording(${qi})" disabled>⏹ Stop</button>
-            <button class="rec-btn play" id="rec-play-${qi}" onclick="playRecording(${qi})" disabled>▶ Play Back</button>
+            <button class="rec-btn start" id="rec-start-${qi}" onclick="startRecognition(${qi}, '${q.target.replace(/'/g, "\\'")}')">🎤 ابدأ النطق والتقييم</button>
           </div>
           <div class="pronunciation-result" id="pron-result-${qi}">
-            <div style="font-weight:600;margin-bottom:.3rem">📊 Pronunciation Feedback:</div>
+            <div style="font-weight:600;margin-bottom:.3rem">📊 نتيجة تقييم النطق:</div>
             <div id="pron-feedback-${qi}"></div>
           </div>
-          <button class="submit-listen" onclick="submitPronunciation(${qi})">Submit & Continue</button>
           <div class="q-feedback" id="fb-${qi}"></div>
         </div>
       `;
@@ -1763,9 +1824,7 @@ function checkListening(qIdx, correctAnswer) {
   const userAnswer = input.value.toLowerCase().trim();
   const fb = document.getElementById(`fb-${qIdx}`);
   
-  const isCorrect = userAnswer === correctAnswer.toLowerCase() || 
-    correctAnswer.toLowerCase().includes(userAnswer) ||
-    userAnswer.includes(correctAnswer.toLowerCase().split(' ')[0]);
+  const isCorrect = userAnswer === correctAnswer.toLowerCase().trim();
 
   if (isCorrect) {
     fb.innerHTML = '✅ Correct! Your listening comprehension is great!';
@@ -1774,23 +1833,83 @@ function checkListening(qIdx, correctAnswer) {
     document.getElementById('quiz-score-val').textContent = quizState.score;
     playCorrectSound();
   } else {
-    fb.innerHTML = `❌ The correct answer was: "${correctAnswer}"`;
+    fb.innerHTML = `❌ Incorrect.<br><span style="display:block; margin-top:5px; font-size:0.88rem; color:#b00020; font-weight:600;">Notes: The correct answer is: "${correctAnswer}"</span>`;
     fb.className = 'q-feedback show bad';
     playWrongSound();
   }
   
   input.disabled = true;
   quizState.answers[qIdx] = isCorrect;
-  setTimeout(() => moveToNext(qIdx), 2000);
+  setTimeout(() => moveToNext(qIdx), 2500);
 }
 
-function submitPronunciation(qIdx) {
+// محرك فحص النطق المباشر المعتمد على الذكاء الاصطناعي للمتصفح باللغة العربية
+function startRecognition(qIdx, targetText) {
+  const startBtn = document.getElementById(`rec-start-${qIdx}`);
+  const resultDiv = document.getElementById(`pron-result-${qIdx}`);
+  const feedbackText = document.getElementById(`pron-feedback-${qIdx}`);
   const fb = document.getElementById(`fb-${qIdx}`);
-  fb.innerHTML = '✅ Pronunciation submitted! Keep practicing for a natural American accent.';
-  fb.className = 'q-feedback show ok';
-  quizState.answers[qIdx] = true;
-  quizState.score += 0.5;
-  setTimeout(() => moveToNext(qIdx), 1500);
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert("ميزة التعرف على الصوت غير مدعومة في متصفحك الحالي. يرجى استخدام متصفح Google Chrome أو Safari.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  startBtn.textContent = "🎧 استمع إليك الآن... تحدث";
+  startBtn.style.backgroundColor = "#f39c12";
+
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const userSpeech = event.results[0][0].transcript.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+    const cleanTarget = targetText.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+    
+    resultDiv.classList.add('show');
+    
+    if (userSpeech === cleanTarget || cleanTarget.includes(userSpeech) && userSpeech.length > 2) {
+      feedbackText.innerHTML = `
+        <div style="color:var(--success); font-weight:700;">🟢 نطق ممتاز وقريب جداً من الريكورد!</div>
+        <div style="margin-top:.3rem">النص الأصلي: <b>${targetText}</b></div>
+        <div>ما نطقته أنت: <span style="color:var(--success)">"${event.results[0][0].transcript}"</span></div>
+      `;
+      fb.innerHTML = '✅ إجابة صحيحة! نطقك سليم وواضح.';
+      fb.className = 'q-feedback show ok';
+      quizState.score++;
+      document.getElementById('quiz-score-val').textContent = quizState.score;
+      playCorrectSound();
+      quizState.answers[qIdx] = true;
+    } else {
+      feedbackText.innerHTML = `
+        <div style="color:#e74c3c; font-weight:700;">🔴 النطق غير قريب كفاية من الريكورد الأصلي!</div>
+        <div style="margin-top:.3rem">النص المستهدف المُراد قراءته: <b>${targetText}</b></div>
+        <div>ما التقطه النظام من صوتك: <span style="color:#e74c3c">"${event.results[0][0].transcript || 'غير واضح'}"</span></div>
+        <div style="margin-top:.4rem; font-size:.78rem; color:var(--muted)">💡 نصيحة: اضغط على زر المكبر 🔊 واستمع بتركيز للكنة الأمريكية ثم حاول محاكاتها بدقة في المرات القادمة.</div>
+      `;
+      fb.innerHTML = '❌ إجابة خاطئة. حاول تحسين مخارج الحروف ومطابقتها للريكورد.';
+      fb.className = 'q-feedback show bad';
+      playWrongSound();
+      quizState.answers[qIdx] = false;
+    }
+  };
+
+  recognition.onerror = function(event) {
+    startBtn.textContent = "🎤 ابدأ النطق والتقييم";
+    startBtn.style.backgroundColor = "#e74c3c";
+    fb.innerHTML = '❌ لم نتمكن من التقاط الصوت. يرجى التحقق من صلاحيات المايكروفون وإعادة المحاولة.';
+    fb.className = 'q-feedback show bad';
+  };
+
+  recognition.onend = function() {
+    startBtn.textContent = "🎤 إعادة تقييم النطق";
+    startBtn.style.backgroundColor = "var(--primary)";
+    setTimeout(() => moveToNext(qIdx), 3500);
+  };
 }
 
 function moveToNext(qIdx) {
@@ -1823,6 +1942,14 @@ function moveToNext(qIdx) {
         ${finalScore >= 7 ? `<div style="background:#e8f8ef;border-radius:10px;padding:.7rem;margin-top:.8rem;color:#27ae60;font-weight:600">+50 XP Earned! 🌟</div>` : ''}
       </div>
     `;
+
+    if (finalScore >= 7) {
+      const completeBtn = document.getElementById('complete-day-btn');
+      completeBtn.disabled = false;
+      completeBtn.style.opacity = "1";
+      completeBtn.style.cursor = "pointer";
+    }
+
     if (finalScore >= 7) {
       totalXP += 50;
       saveState();
@@ -1842,7 +1969,6 @@ function speakWord(text) {
     utterance.rate = 0.9;
     utterance.pitch = 0.9;
     
-    // Try to get a male voice
     const voices = window.speechSynthesis.getVoices();
     const maleVoice = voices.find(v => 
       v.lang.startsWith('en') && 
@@ -1895,69 +2021,6 @@ function playWrongSound() {
 }
 
 // ============================================================
-// RECORDING
-// ============================================================
-async function startRecording(qIdx) {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    audioChunks = [];
-    mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-    mediaRecorder.onstop = () => {
-      recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
-      document.getElementById(`rec-play-${qIdx}`).disabled = false;
-      showPronunciationFeedback(qIdx);
-      stream.getTracks().forEach(t => t.stop());
-    };
-    mediaRecorder.start();
-    document.getElementById(`rec-start-${qIdx}`).disabled = true;
-    document.getElementById(`rec-stop-${qIdx}`).disabled = false;
-  } catch (e) {
-    alert('Microphone access is required for pronunciation practice. Please allow microphone access.');
-  }
-}
-
-function stopRecording(qIdx) {
-  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-    mediaRecorder.stop();
-    document.getElementById(`rec-stop-${qIdx}`).disabled = true;
-  }
-}
-
-function playRecording(qIdx) {
-  if (recordedBlob) {
-    const url = URL.createObjectURL(recordedBlob);
-    const audio = new Audio(url);
-    audio.play();
-  }
-}
-
-function showPronunciationFeedback(qIdx) {
-  const result = document.getElementById(`pron-result-${qIdx}`);
-  const feedback = document.getElementById(`pron-feedback-${qIdx}`);
-  
-  const q = quizState.questions[qIdx];
-  const tips = [
-    `✅ Recording captured! Listen to yourself and compare with the reference.`,
-    `🎯 Focus on: American /r/ sound — tongue curls back slightly`,
-    `💡 Tip: The word "${q.target}" has ${q.phonetic} — note the stress pattern`,
-    `🔊 Click the speaker icon to hear the target pronunciation again, then re-record.`,
-  ];
-  
-  feedback.innerHTML = tips.map(t => `<div style="margin:.2rem 0;font-size:.8rem">${t}</div>`).join('');
-  
-  // Add speak feedback for correct pronunciation
-  const correctBtn = document.createElement('button');
-  correctBtn.className = 'rec-btn play';
-  correctBtn.style.marginTop = '.5rem';
-  correctBtn.textContent = '🔊 Hear correct pronunciation again';
-  correctBtn.onclick = () => speakWord(q.target);
-  feedback.appendChild(correctBtn);
-  
-  result.classList.add('show');
-}
-
-// ============================================================
 // ACCORDION
 // ============================================================
 function toggleAccordion(header) {
@@ -1965,7 +2028,6 @@ function toggleAccordion(header) {
   const arrow = header.querySelector('.acc-arrow');
   const isOpen = body.classList.contains('open');
   
-  // Close all
   document.querySelectorAll('.accordion-body.open').forEach(b => {
     b.classList.remove('open');
     b.previousElementSibling.querySelector('.acc-arrow').classList.remove('open');
@@ -1976,7 +2038,6 @@ function toggleAccordion(header) {
     body.classList.add('open');
     arrow.classList.add('open');
     header.classList.add('open');
-    // Load voices for TTS
     if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
   }
 }
